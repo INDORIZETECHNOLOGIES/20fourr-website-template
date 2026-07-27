@@ -1,0 +1,1050 @@
+<title>SecureConnect — Verified security, dispatched on demand</title>
+
+<style>
+/* ============================================================
+   SecureConnect — marketing home
+   Palette : seal green (credential) + signal amber (live state)
+   Type    : Iowan/Palatino serif display · system grotesque body · mono data
+   ============================================================ */
+
+:root {
+  /* light: "document" ground — grey with a faint green bias, never cream */
+  --paper:        #F1F3F0;
+  --surface:      #FFFFFF;
+  --surface-2:    #E7EBE6;
+  --line:         #D3DAD3;
+  --line-soft:    #E2E7E1;
+  --text:         #0B140F;
+  --text-2:       #4C5C53;
+  --text-3:       #74857A;
+  --seal:         #0F4D35;
+  --seal-on:      #F1F3F0;
+  --seal-ink:     #0B3927;
+  --verified:     #1F7D58;
+  --signal:       #A8641A;
+  --signal-bg:    #FBF0DE;
+  --alarm:        #A32F26;
+  --field:        #0B140F;   /* permanently-dark band ground */
+  --field-2:      #12211A;
+  --field-line:   #23372C;
+  --field-text:   #E8EEE9;
+  --field-text-2: #93A89B;
+  --field-seal:   #3EBB8B;
+  --field-signal: #E8A33D;
+  --shadow:       0 1px 2px rgba(11,20,15,.06), 0 12px 32px -12px rgba(11,20,15,.14);
+  --shadow-lift:  0 2px 4px rgba(11,20,15,.07), 0 24px 48px -16px rgba(11,20,15,.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #080D0A;
+    --surface:    #101a14;
+    --surface-2:  #16241C;
+    --line:       #22352A;
+    --line-soft:  #1a2a21;
+    --text:       #E8EEE9;
+    --text-2:     #9FB3A6;
+    --text-3:     #74897C;
+    --seal:       #3EBB8B;
+    --seal-on:    #05100B;
+    --seal-ink:   #2FA37A;
+    --verified:   #3EBB8B;
+    --signal:     #E8A33D;
+    --signal-bg:  #2A1F0D;
+    --alarm:      #E2685C;
+    --field:      #050A07;
+    --field-2:    #0D160F;
+    --field-line: #1D2E24;
+    --shadow:     0 1px 2px rgba(0,0,0,.5), 0 12px 32px -12px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 24px 48px -16px rgba(0,0,0,.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #080D0A;
+  --surface:    #101a14;
+  --surface-2:  #16241C;
+  --line:       #22352A;
+  --line-soft:  #1a2a21;
+  --text:       #E8EEE9;
+  --text-2:     #9FB3A6;
+  --text-3:     #74897C;
+  --seal:       #3EBB8B;
+  --seal-on:    #05100B;
+  --seal-ink:   #2FA37A;
+  --verified:   #3EBB8B;
+  --signal:     #E8A33D;
+  --signal-bg:  #2A1F0D;
+  --alarm:      #E2685C;
+  --field:      #050A07;
+  --field-2:    #0D160F;
+  --field-line: #1D2E24;
+  --shadow:     0 1px 2px rgba(0,0,0,.5), 0 12px 32px -12px rgba(0,0,0,.7);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 24px 48px -16px rgba(0,0,0,.8);
+}
+
+:root[data-theme="light"] {
+  --paper:        #F1F3F0;
+  --surface:      #FFFFFF;
+  --surface-2:    #E7EBE6;
+  --line:         #D3DAD3;
+  --line-soft:    #E2E7E1;
+  --text:         #0B140F;
+  --text-2:       #4C5C53;
+  --text-3:       #74857A;
+  --seal:         #0F4D35;
+  --seal-on:      #F1F3F0;
+  --seal-ink:     #0B3927;
+  --verified:     #1F7D58;
+  --signal:       #A8641A;
+  --signal-bg:    #FBF0DE;
+  --alarm:        #A32F26;
+  --field:        #0B140F;
+  --field-2:      #12211A;
+  --field-line:   #23372C;
+  --shadow:       0 1px 2px rgba(11,20,15,.06), 0 12px 32px -12px rgba(11,20,15,.14);
+  --shadow-lift:  0 2px 4px rgba(11,20,15,.07), 0 24px 48px -16px rgba(11,20,15,.22);
+}
+
+/* ---------- type system ---------- */
+:root {
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --measure: 1140px;
+  --gut: clamp(20px, 5vw, 48px);
+  --band-y: clamp(64px, 9vw, 116px);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(2.5rem, 6.2vw, 4.15rem); letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.9rem, 3.9vw, 2.85rem); letter-spacing: -0.018em; }
+h3 { font-size: clamp(1.12rem, 1.7vw, 1.32rem); line-height: 1.25; }
+p  { margin: 0; }
+a  { color: inherit; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .69rem;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+.lede {
+  font-size: clamp(1.06rem, 1.45vw, 1.2rem);
+  color: var(--text-2);
+  max-width: 60ch;
+  line-height: 1.62;
+}
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- layout primitives ---------- */
+.wrap { width: 100%; max-width: var(--measure); margin-inline: auto; padding-inline: var(--gut); }
+.band { padding-block: var(--band-y); }
+.band--field { background: var(--field); color: var(--field-text); }
+.band--field .eyebrow { color: var(--field-signal); }
+.band--field h2, .band--field h3 { color: var(--field-text); }
+.band--field .lede { color: var(--field-text-2); }
+.band--paper { background: var(--surface); }
+.stack { display: flex; flex-direction: column; }
+.g-8  { gap: 8px; }  .g-12 { gap: 12px; } .g-16 { gap: 16px; }
+.g-20 { gap: 20px; } .g-28 { gap: 28px; } .g-40 { gap: 40px; }
+.g-56 { gap: 56px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: var(--body); font-size: .95rem; font-weight: 560; line-height: 1;
+  padding: 15px 24px; border-radius: 3px; border: 1px solid transparent;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--field-signal); outline-offset: 3px; }
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--field-signal); color: #1B1204; }
+.btn--primary:hover { background: #F2B457; }
+.btn--ghost-field { border-color: rgba(232,238,233,.28); color: var(--field-text); }
+.btn--ghost-field:hover { border-color: rgba(232,238,233,.6); background: rgba(232,238,233,.05); }
+.btn--seal { background: var(--seal); color: var(--seal-on); }
+.btn--seal:hover { filter: brightness(1.08); }
+.btn--outline { border-color: var(--line); color: var(--text); }
+.btn--outline:hover { border-color: var(--text-2); }
+.btn--sm { padding: 11px 17px; font-size: .875rem; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 60;
+  background: color-mix(in srgb, var(--field) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid var(--field-line);
+  color: var(--field-text);
+}
+.nav__in { display: flex; align-items: center; gap: 32px; height: 66px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--field-text); flex-shrink: 0; }
+.brand__mark { width: 22px; height: 26px; flex-shrink: 0; }
+.brand__name { font-family: var(--display); font-size: 1.18rem; font-weight: 600; letter-spacing: -.015em; }
+.nav__links { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+.nav__links a {
+  font-size: .89rem; color: var(--field-text-2); text-decoration: none;
+  transition: color .15s ease;
+}
+.nav__links a:hover { color: var(--field-text); }
+.nav__cta { display: flex; align-items: center; gap: 10px; }
+@media (max-width: 900px) { .nav__links { display: none; } .nav__in { gap: 16px; } }
+@media (max-width: 520px) { .nav__cta .btn--ghost-field { display: none; } }
+
+/* ---------- hero ---------- */
+.hero {
+  background: var(--field); color: var(--field-text);
+  position: relative; overflow: hidden;
+  padding-block: clamp(56px, 8vw, 96px) clamp(64px, 9vw, 104px);
+}
+.hero__glow {
+  position: absolute; inset: -30% -10% auto -10%; height: 90%;
+  background:
+    radial-gradient(52% 62% at 22% 34%, rgba(62,187,139,.13), transparent 68%),
+    radial-gradient(44% 54% at 82% 18%, rgba(232,163,61,.10), transparent 70%);
+  pointer-events: none;
+}
+.hero__in { position: relative; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px); gap: clamp(40px, 5vw, 72px); align-items: center; }
+@media (max-width: 980px) { .hero__in { grid-template-columns: 1fr; } }
+
+.hero h1 { color: var(--field-text); }
+.hero h1 em { font-style: normal; color: var(--field-seal); }
+.hero__sub { color: var(--field-text-2); font-size: clamp(1.06rem, 1.5vw, 1.22rem); max-width: 46ch; line-height: 1.58; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__fine { font-family: var(--mono); font-size: .74rem; color: var(--field-text-2); letter-spacing: .03em; }
+
+/* ---------- OTP handshake device ---------- */
+.otp {
+  border: 1px solid var(--field-line); background: var(--field-2);
+  border-radius: 4px; padding: 22px; display: flex; flex-direction: column; gap: 18px;
+  box-shadow: 0 40px 80px -40px rgba(0,0,0,.9);
+}
+.otp__hdr { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.otp__title { font-family: var(--mono); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--field-text-2); }
+.otp__replay {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  background: none; border: 1px solid var(--field-line); color: var(--field-text-2);
+  padding: 5px 10px; border-radius: 2px; cursor: pointer; transition: color .15s, border-color .15s;
+}
+.otp__replay:hover { color: var(--field-text); border-color: var(--field-text-2); }
+.otp__replay:focus-visible { outline: 2px solid var(--field-signal); outline-offset: 2px; }
+
+.otp__pair { display: grid; grid-template-columns: 1fr 22px 1fr; gap: 10px; align-items: center; }
+.pane { border: 1px solid var(--field-line); border-radius: 3px; padding: 13px 12px 15px; background: rgba(255,255,255,.015); }
+.pane__label { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--field-text-2); display: block; margin-bottom: 10px; }
+.digits { display: flex; gap: 5px; }
+.digit {
+  flex: 1; aspect-ratio: 3/4; min-width: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--field-line); border-radius: 2px;
+  font-family: var(--mono); font-size: clamp(.82rem, 1.6vw, 1.02rem); font-weight: 600;
+  color: var(--field-signal); background: rgba(232,163,61,.05);
+}
+.digit span { opacity: 0; transform: translateY(4px); }
+.pane--guard .digit { color: var(--field-seal); background: rgba(62,187,139,.05); }
+
+.link { display: grid; place-items: center; }
+.link__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--field-signal); opacity: 0; }
+
+.otp__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--field-line); padding-top: 14px; }
+.stamp {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--field-seal); border: 1px solid rgba(62,187,139,.4); border-radius: 2px; padding: 5px 9px;
+  opacity: 0;
+}
+.stamp svg { width: 11px; height: 11px; }
+.payout {
+  font-family: var(--mono); font-size: .72rem; color: var(--field-signal);
+  font-variant-numeric: tabular-nums; opacity: 0;
+}
+
+/* handshake animation */
+.otp.play .digit:nth-child(1) span { animation: pop .28s ease forwards .35s; }
+.otp.play .digit:nth-child(2) span { animation: pop .28s ease forwards .45s; }
+.otp.play .digit:nth-child(3) span { animation: pop .28s ease forwards .55s; }
+.otp.play .digit:nth-child(4) span { animation: pop .28s ease forwards .65s; }
+.otp.play .digit:nth-child(5) span { animation: pop .28s ease forwards .75s; }
+.otp.play .digit:nth-child(6) span { animation: pop .28s ease forwards .85s; }
+.otp.play .link__dot { animation: travel 1s ease-in-out forwards 1.05s; }
+.otp.play .pane--guard .digit:nth-child(1) span { animation: pop .26s ease forwards 1.5s; }
+.otp.play .pane--guard .digit:nth-child(2) span { animation: pop .26s ease forwards 1.62s; }
+.otp.play .pane--guard .digit:nth-child(3) span { animation: pop .26s ease forwards 1.74s; }
+.otp.play .pane--guard .digit:nth-child(4) span { animation: pop .26s ease forwards 1.86s; }
+.otp.play .pane--guard .digit:nth-child(5) span { animation: pop .26s ease forwards 1.98s; }
+.otp.play .pane--guard .digit:nth-child(6) span { animation: pop .26s ease forwards 2.10s; }
+.otp.play .stamp  { animation: stampIn .4s cubic-bezier(.2,.9,.3,1.3) forwards 2.34s; }
+.otp.play .payout { animation: riseIn .45s ease forwards 2.62s; }
+
+@keyframes pop    { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes travel { 0% { opacity: 0; transform: translateY(-26px); } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; transform: translateY(26px); } }
+@keyframes stampIn{ from { opacity: 0; transform: scale(1.22) rotate(-3deg); } to { opacity: 1; transform: none; } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .otp .digit span, .otp .stamp, .otp .payout { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .otp .link__dot { opacity: .5 !important; animation: none !important; }
+  .otp__replay { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* ---------- credential strip ---------- */
+.creds { background: var(--field-2); border-top: 1px solid var(--field-line); color: var(--field-text); }
+.creds__in { display: grid; grid-template-columns: repeat(4, 1fr); }
+.cred { padding: 26px 26px 28px; border-right: 1px solid var(--field-line); display: flex; flex-direction: column; gap: 6px; }
+.cred:last-child { border-right: 0; }
+.cred__k { font-family: var(--mono); font-size: .66rem; letter-spacing: .13em; text-transform: uppercase; color: var(--field-signal); }
+.cred__v { font-size: .93rem; color: var(--field-text-2); line-height: 1.45; }
+.cred__v strong { color: var(--field-text); font-weight: 560; }
+@media (max-width: 860px) { .creds__in { grid-template-columns: repeat(2, 1fr); }
+  .cred:nth-child(2n) { border-right: 0; } .cred:nth-child(-n+2) { border-bottom: 1px solid var(--field-line); } }
+@media (max-width: 460px) { .creds__in { grid-template-columns: 1fr; }
+  .cred { border-right: 0; border-bottom: 1px solid var(--field-line); } .cred:last-child { border-bottom: 0; } }
+
+/* ---------- section head ---------- */
+.head { display: flex; flex-direction: column; gap: 16px; max-width: 62ch; margin-bottom: clamp(36px, 4.5vw, 56px); }
+
+/* ---------- services ---------- */
+.svcs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.svc {
+  background: var(--surface); padding: 26px 24px 28px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: background-color .18s ease;
+}
+.svc:hover { background: var(--surface-2); }
+.svc__code { font-family: var(--mono); font-size: .66rem; letter-spacing: .16em; color: var(--seal); }
+.svc__body { font-size: .92rem; color: var(--text-2); line-height: 1.55; flex: 1; }
+.svc__req {
+  font-family: var(--mono); font-size: .68rem; color: var(--text-3);
+  border-top: 1px dashed var(--line); padding-top: 12px; line-height: 1.5;
+}
+@media (max-width: 1000px) { .svcs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .svcs { grid-template-columns: 1fr; } }
+
+/* ---------- lifecycle (a real sequence — numbering earns its place) ---------- */
+.flow { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 72px); align-items: start; }
+@media (max-width: 940px) { .flow { grid-template-columns: 1fr; } }
+.steps { display: flex; flex-direction: column; }
+.step { display: grid; grid-template-columns: 34px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--field-line); }
+.step:last-child { border-bottom: 0; }
+.step__n {
+  font-family: var(--mono); font-size: .74rem; color: var(--field-signal);
+  padding-top: 3px; font-variant-numeric: tabular-nums;
+}
+.step__t { font-size: .99rem; font-weight: 560; color: var(--field-text); }
+.step__d { font-size: .9rem; color: var(--field-text-2); line-height: 1.55; margin-top: 4px; }
+.step__d code { font-family: var(--mono); font-size: .84em; color: var(--field-seal); }
+
+.ledger { border: 1px solid var(--field-line); background: var(--field-2); border-radius: 4px; overflow: hidden; }
+.ledger__hd { padding: 15px 20px; border-bottom: 1px solid var(--field-line); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ledger__hd span { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--field-text-2); }
+.tranche { padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; border-bottom: 1px solid var(--field-line); }
+.tranche:last-child { border-bottom: 0; }
+.tranche__bar { width: 3px; align-self: stretch; border-radius: 2px; background: var(--field-seal); flex-shrink: 0; }
+.tranche--late .tranche__bar { background: var(--field-line); }
+.tranche__pct { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--field-text); line-height: 1; font-variant-numeric: tabular-nums; }
+.tranche__when { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--field-signal); margin-top: 7px; }
+.tranche__d { font-size: .88rem; color: var(--field-text-2); line-height: 1.5; margin-top: 6px; }
+
+/* ---------- trust grid ---------- */
+.trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 940px) { .trust { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .trust { grid-template-columns: 1fr; } }
+.tcard { background: var(--surface); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 11px; }
+.tcard__k { font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--seal); }
+.tcard__b { font-size: .92rem; color: var(--text-2); line-height: 1.58; }
+.tcard__b b { color: var(--text); font-weight: 560; }
+
+/* ---------- no-show tiers ---------- */
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+@media (max-width: 760px) { .tiers { grid-template-columns: 1fr; } }
+.tier { border: 1px solid var(--line); border-top: 3px solid var(--line); background: var(--surface); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.tier--l2 { border-top-color: var(--signal); }
+.tier--l3 { border-top-color: var(--alarm); }
+.tier__l { font-family: var(--mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
+.tier__h { font-size: .97rem; font-weight: 560; }
+.tier__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- invoice ---------- */
+.inv-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(28px, 3.5vw, 44px); align-items: start; }
+@media (max-width: 900px) { .inv-grid { grid-template-columns: 1fr; } }
+.invoice { border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+.invoice__hd { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.invoice__ttl { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
+.invoice__ref { font-family: var(--mono); font-size: .72rem; color: var(--text-3); }
+.rows { padding: 8px 22px 18px; }
+.row { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; font-size: .91rem; border-bottom: 1px dashed var(--line-soft); }
+.row:last-child { border-bottom: 0; }
+.row__k { color: var(--text-2); }
+.row__k small { display: block; font-family: var(--mono); font-size: .68rem; color: var(--text-3); margin-top: 2px; letter-spacing: .02em; }
+.row__v { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row--total { border-top: 1px solid var(--text); border-bottom: 0; margin-top: 6px; padding-top: 14px; font-size: 1rem; }
+.row--total .row__k { color: var(--text); font-weight: 560; }
+.row--total .row__v { font-size: 1.28rem; font-weight: 600; }
+.invoice__ft { padding: 14px 22px 18px; border-top: 1px solid var(--line); background: var(--surface-2); }
+.invoice__ft p { font-size: .82rem; color: var(--text-2); line-height: 1.5; }
+
+.split { display: flex; flex-direction: column; gap: 20px; }
+.split__note { font-size: .92rem; color: var(--text-2); line-height: 1.62; }
+.split__note b { color: var(--text); font-weight: 560; }
+.wallet { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .wallet { grid-template-columns: 1fr; } }
+.coin { border: 1px solid var(--line); padding: 16px 16px 18px; background: var(--surface); display: flex; flex-direction: column; gap: 7px; }
+.coin__n { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--seal); }
+.coin__d { font-size: .85rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- business ---------- */
+.biz { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: clamp(32px,4.5vw,64px); align-items: center; }
+@media (max-width: 900px) { .biz { grid-template-columns: 1fr; } }
+.checks { display: flex; flex-direction: column; gap: 13px; }
+.check { display: grid; grid-template-columns: 16px 1fr; gap: 12px; align-items: start; font-size: .95rem; color: var(--field-text-2); line-height: 1.5; }
+.check svg { width: 15px; height: 15px; margin-top: 4px; color: var(--field-seal); }
+.check b { color: var(--field-text); font-weight: 560; }
+
+/* ---------- provider recruitment ---------- */
+.join { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px,4.5vw,64px); align-items: center; }
+@media (max-width: 900px) { .join { grid-template-columns: 1fr; } }
+.perks { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 560px) { .perks { grid-template-columns: 1fr; } }
+.perk { background: var(--surface); padding: 20px 18px 22px; display: flex; flex-direction: column; gap: 6px; }
+.perk__n { font-family: var(--mono); font-size: 1.28rem; font-weight: 600; color: var(--seal); font-variant-numeric: tabular-nums; }
+.perk__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- faq ---------- */
+.faq { border-top: 1px solid var(--line); }
+.qa { border-bottom: 1px solid var(--line); }
+.qa summary {
+  list-style: none; cursor: pointer; padding: 20px 0; display: flex; gap: 18px;
+  align-items: baseline; justify-content: space-between; font-size: 1.02rem; font-weight: 560;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+.qa summary::after { content: "+"; font-family: var(--mono); color: var(--text-3); font-size: 1.1rem; }
+.qa[open] summary::after { content: "\2212"; }
+.qa__a { padding: 0 0 22px; font-size: .94rem; color: var(--text-2); line-height: 1.65; max-width: 68ch; }
+
+/* ---------- final cta ---------- */
+.final { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+.final .lede { margin-inline: auto; }
+.final__ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* ---------- footer ---------- */
+.foot { background: var(--field); color: var(--field-text-2); border-top: 1px solid var(--field-line); padding-block: 56px 40px; }
+.foot__cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; }
+@media (max-width: 900px) { .foot__cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .foot__cols { grid-template-columns: 1fr; } }
+.foot h4 { font-family: var(--mono); font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; color: var(--field-text-2); margin: 0 0 14px; font-weight: 400; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.foot a { font-size: .88rem; color: var(--field-text-2); text-decoration: none; transition: color .15s ease; }
+.foot a:hover { color: var(--field-text); }
+.foot__brand p { font-size: .87rem; line-height: 1.6; margin-top: 12px; max-width: 34ch; }
+.foot__legal {
+  margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--field-line);
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: .72rem; color: var(--field-text-2);
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+</style>
+
+<nav class="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top">
+      <svg class="brand__mark" viewBox="0 0 22 26" fill="none" aria-hidden="true">
+        <path d="M11 1 20.5 4.4v8.3c0 5.6-3.8 10.2-9.5 12.3C5.8 22.9 2 18.3 2 12.7V4.4L11 1Z" stroke="#3EBB8B" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M7 13.2 9.9 16 15.4 10" stroke="#E8A33D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__name">SecureConnect</span>
+    </a>
+    <div class="nav__links">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#trust">Trust &amp; compliance</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#business">For business</a>
+    </div>
+    <div class="nav__cta">
+      <a class="btn btn--sm btn--ghost-field" href="#join">Work as a guard</a>
+      <a class="btn btn--sm btn--primary" href="#book">Book security</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero__glow"></div>
+  <div class="wrap hero__in">
+
+    <div class="stack g-28">
+      <p class="eyebrow">PSARA-licensed &middot; KYC-verified &middot; GST-compliant</p>
+      <h1>Security you can <em>prove</em> showed up.</h1>
+      <p class="hero__sub">
+        Book a licensed guard, bouncer, armed gunman or personal security officer from your phone.
+        Every duty starts and ends with a code only you can issue &mdash; so attendance is evidence,
+        not a phone call you have to make.
+      </p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#book">Book security</a>
+        <a class="btn btn--ghost-field" href="#business">Talk to our business team</a>
+      </div>
+      <p class="hero__fine">No cash at the gate &middot; Itemised tax invoice on every booking</p>
+    </div>
+
+    <div class="otp play" id="otp">
+      <div class="otp__hdr">
+        <span class="otp__title">Start-of-duty verification</span>
+        <button class="otp__replay" id="replay" type="button">Replay</button>
+      </div>
+
+      <div class="otp__pair">
+        <div class="pane pane--client">
+          <span class="pane__label">Your phone</span>
+          <div class="digits">
+            <div class="digit"><span>4</span></div>
+            <div class="digit"><span>9</span></div>
+            <div class="digit"><span>2</span></div>
+            <div class="digit"><span>7</span></div>
+            <div class="digit"><span>1</span></div>
+            <div class="digit"><span>6</span></div>
+          </div>
+        </div>
+
+        <div class="link"><div class="link__dot"></div></div>
+
+        <div class="pane pane--guard">
+          <span class="pane__label">Guard's phone</span>
+          <div class="digits">
+            <div class="digit"><span>4</span></div>
+            <div class="digit"><span>9</span></div>
+            <div class="digit"><span>2</span></div>
+            <div class="digit"><span>7</span></div>
+            <div class="digit"><span>1</span></div>
+            <div class="digit"><span>6</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="otp__foot">
+        <span class="stamp">
+          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Duty started
+        </span>
+        <span class="payout">&#8377;987.60 advance released to guard</span>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<section class="creds">
+  <div class="wrap creds__in">
+    <div class="cred">
+      <span class="cred__k">Licence</span>
+      <p class="cred__v">Every provider carries a <strong>PSARA licence</strong> we hold on file and check before each booking.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__k">Identity</span>
+      <p class="cred__v">Aadhaar, PAN and a <strong>live selfie</strong> reviewed by a human before anyone can accept work.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__k">Money</span>
+      <p class="cred__v">Payment is held and released <strong>against verified duty</strong>, never handed over at the gate.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__k">Tax</span>
+      <p class="cred__v">A proper <strong>GST tax invoice</strong> with every line itemised, generated the moment you pay.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--paper" id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">What you can book</p>
+      <h2>Four categories. Each with its own bar to clear.</h2>
+      <p class="lede">A gate guard and an armed PSO are not the same hire, so we don't verify them the same way. The heavier the responsibility, the more paperwork a provider has to satisfy before they appear in your search results.</p>
+    </div>
+
+    <div class="svcs reveal">
+      <article class="svc">
+        <span class="svc__code">GRD</span>
+        <h3>Security guard</h3>
+        <p class="svc__body">Static post and gate duty for buildings, sites, warehouses and offices. Available as a single shift or a standing weekly deployment.</p>
+        <p class="svc__req">PSARA licence &middot; Govt ID &middot; Live selfie</p>
+      </article>
+      <article class="svc">
+        <span class="svc__code">BNC</span>
+        <h3>Bouncer</h3>
+        <p class="svc__body">Crowd control and door management for clubs, concerts, weddings and large private functions.</p>
+        <p class="svc__req">PSARA licence &middot; Govt ID &middot; Live selfie</p>
+      </article>
+      <article class="svc">
+        <span class="svc__code">GUN</span>
+        <h3>Armed gunman</h3>
+        <p class="svc__body">Licensed armed protection for cash movement, industrial sites and elevated-risk premises.</p>
+        <p class="svc__req">Firearm licence verified per booking &middot; PSARA</p>
+      </article>
+      <article class="svc">
+        <span class="svc__code">PSO</span>
+        <h3>Personal security officer</h3>
+        <p class="svc__body">Dedicated close protection and travel escort for individuals facing a named or credible threat.</p>
+        <p class="svc__req">Highest tier &middot; PSARA re-checked per booking</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band band--field" id="how">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">How a booking runs</p>
+      <h2>From request to release of payment.</h2>
+      <p class="lede">Nine states, one direction. Nothing skips a step &mdash; and money only moves when the step before it is proven.</p>
+    </div>
+
+    <div class="flow">
+      <ol class="steps reveal" style="list-style:none;margin:0;padding:0;">
+        <li class="step">
+          <span class="step__n">01</span>
+          <div>
+            <div class="step__t">You send a request</div>
+            <p class="step__d">Pick a category, dates, times and the address. Tell us the purpose &mdash; wedding, industrial site, travel, a specific threat &mdash; so we route it to someone who has done it before.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__n">02</span>
+          <div>
+            <div class="step__t">The provider accepts</div>
+            <p class="step__d">They see the job and either take it or decline with a reason. No silent expiry, no waiting to find out.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__n">03</span>
+          <div>
+            <div class="step__t">You pay &mdash; and details unlock</div>
+            <p class="step__d">Only now do you get the guard's phone number and address, and only now do they see your threat brief. Before payment, both sides stay private.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__n">04</span>
+          <div>
+            <div class="step__t">You issue the start code</div>
+            <p class="step__d">A six-digit code appears on your phone. You read it out when they arrive. They enter it. That is the arrival record &mdash; and it releases the first <code>30%</code>.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__n">05</span>
+          <div>
+            <div class="step__t">You issue the end code</div>
+            <p class="step__d">Same again at the end of the shift. The duty closes, you both rate each other, and the remaining <code>70%</code> is scheduled.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="ledger reveal">
+        <div class="ledger__hd">
+          <span>Payment release schedule</span>
+          <span class="num">Two tranches</span>
+        </div>
+        <div class="tranche">
+          <div class="tranche__bar"></div>
+          <div>
+            <div class="tranche__pct">30%</div>
+            <div class="tranche__when">On start code verified</div>
+            <p class="tranche__d">The guard is paid the moment they are confirmed on site. It costs them nothing to show up on time.</p>
+          </div>
+        </div>
+        <div class="tranche tranche--late">
+          <div class="tranche__bar"></div>
+          <div>
+            <div class="tranche__pct">70%</div>
+            <div class="tranche__when">Two days after end code</div>
+            <p class="tranche__d">The balance settles on T+2, which leaves a window for you to raise a dispute before the money is gone.</p>
+          </div>
+        </div>
+        <div class="tranche">
+          <div class="tranche__bar" style="background:var(--field-signal)"></div>
+          <div>
+            <div class="tranche__pct">0%</div>
+            <div class="tranche__when">If nobody arrives</div>
+            <p class="tranche__d">No start code means no duty, no payout, and an automatic penalty on the provider's record.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--paper" id="trust">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Trust &amp; compliance</p>
+      <h2>The rules are in the software, not in a policy document.</h2>
+      <p class="lede">A promise you have to enforce by hand is not a protection. These are constraints the platform applies on every single booking, whether or not anyone is watching.</p>
+    </div>
+
+    <div class="trust reveal">
+      <article class="tcard">
+        <span class="tcard__k">Contact privacy</span>
+        <h3>Numbers stay hidden until you pay</h3>
+        <p class="tcard__b">A provider cannot see your address and you cannot see their number until the booking is paid. It keeps deals on the platform &mdash; which is what keeps the licence checks, the insurance trail and the dispute route intact.</p>
+      </article>
+      <article class="tcard">
+        <span class="tcard__k">Threat brief</span>
+        <h3>They arrive knowing what they're walking into</h3>
+        <p class="tcard__b">If you've been threatened or attacked before, you record it once in your profile. It's released to the assigned provider <b>after payment only</b> &mdash; late enough to protect you, early enough for them to prepare.</p>
+      </article>
+      <article class="tcard">
+        <span class="tcard__k">Verification</span>
+        <h3>KYC reviewed by a person</h3>
+        <p class="tcard__b">Documents are uploaded, then approved or rejected with a written reason by our compliance team. <b>Unverified providers cannot accept a single booking.</b> Gunmen need a current firearm licence on top.</p>
+      </article>
+      <article class="tcard">
+        <span class="tcard__k">Cancellation</span>
+        <h3>Refunds on a published clock</h3>
+        <p class="tcard__b">Cancel more than 24 hours out and <b>90%</b> comes back to your wallet. Between 12 and 24 hours, <b>50%</b>. Inside 12 hours, nothing &mdash; because by then the guard has already turned down other work.</p>
+      </article>
+      <article class="tcard">
+        <span class="tcard__k">Disputes</span>
+        <h3>A ticket, an owner, an outcome</h3>
+        <p class="tcard__b">Raise a dispute and it becomes a tracked ticket with an assigned reviewer, a full chat record, and a resolution type &mdash; refund, credit, replacement or penalty. Not an inbox.</p>
+      </article>
+      <article class="tcard">
+        <span class="tcard__k">Ratings</span>
+        <h3>Both directions</h3>
+        <p class="tcard__b">You rate the guard on professionalism, punctuality, communication and compliance. They rate you too. Ratings follow the account, so repeat behaviour is visible before anyone accepts.</p>
+      </article>
+    </div>
+
+    <div class="reveal" style="margin-top:clamp(48px,6vw,72px)">
+      <p class="eyebrow" style="margin-bottom:14px">If a guard doesn't turn up</p>
+      <h3 style="font-size:clamp(1.35rem,2.4vw,1.75rem);max-width:24ch">Consequences are automatic and scaled to how much notice you were given.</h3>
+      <div class="tiers">
+        <div class="tier">
+          <span class="tier__l">Level 1 &middot; Late arrival</span>
+          <div class="tier__h">20% deducted, minimum &#8377;300</div>
+          <p class="tier__d">A formal warning on the provider's record. No suspension.</p>
+        </div>
+        <div class="tier tier--l2">
+          <span class="tier__l">Level 2 &middot; No-show, over 2 hours' notice</span>
+          <div class="tier__h">50% deducted</div>
+          <p class="tier__d">Account suspended for three days while the case is reviewed.</p>
+        </div>
+        <div class="tier tier--l3">
+          <span class="tier__l">Level 3 &middot; No-show inside 2 hours</span>
+          <div class="tier__h">100% deducted</div>
+          <p class="tier__d">Fifteen-day suspension, PSARA privileges blocked, and a support case opened for you automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pricing">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Pricing</p>
+      <h2>Every rupee on the invoice, named.</h2>
+      <p class="lede">The guard sets their own day rate. We add a platform fee and the tax we are legally required to collect &mdash; and we show you all of it before you pay, not after.</p>
+    </div>
+
+    <div class="inv-grid">
+      <div class="invoice reveal">
+        <div class="invoice__hd">
+          <span class="invoice__ttl">Sample tax invoice</span>
+          <span class="invoice__ref">Guard &middot; 2 days &middot; &#8377;2,000/day</span>
+        </div>
+        <div class="rows">
+          <div class="row"><span class="row__k">Service charge<small>Paid to the provider</small></span><span class="row__v">&#8377;4,000.00</span></div>
+          <div class="row"><span class="row__k">Platform commission<small>15%</small></span><span class="row__v">&#8377;600.00</span></div>
+          <div class="row"><span class="row__k">Convenience fee<small>Waived on membership</small></span><span class="row__v">&#8377;50.00</span></div>
+          <div class="row"><span class="row__k">GST on platform fee<small>18%</small></span><span class="row__v">&#8377;117.00</span></div>
+          <div class="row"><span class="row__k">GST on service<small>18%</small></span><span class="row__v">&#8377;720.00</span></div>
+          <div class="row row--total"><span class="row__k">Total payable</span><span class="row__v">&#8377;5,487.00</span></div>
+        </div>
+        <div class="invoice__ft">
+          <p>Night shift or under four hours' notice adds a 20% surcharge each. Registered businesses get a GSTIN-addressed invoice they can claim against.</p>
+        </div>
+      </div>
+
+      <div class="split reveal">
+        <div>
+          <p class="eyebrow" style="margin-bottom:12px">The other side of the same invoice</p>
+          <p class="split__note">On that booking the guard receives <b>&#8377;3,292</b> &mdash; <b>&#8377;987.60</b> the moment their start code is verified, and <b>&#8377;2,304.40</b> two days after the shift ends. We publish this because a guard who knows exactly what they're taking home is a guard who turns up.</p>
+        </div>
+
+        <div>
+          <p class="eyebrow" style="margin-bottom:12px">Two kinds of credit, deliberately kept apart</p>
+          <div class="wallet">
+            <div class="coin">
+              <span class="coin__n">SecureCoins</span>
+              <p class="coin__d">What a cancellation refund comes back as. &#8377;1 each, no cap, applied to your total like cash.</p>
+            </div>
+            <div class="coin">
+              <span class="coin__n">SecurePoints</span>
+              <p class="coin__d">Earned from referrals and loyalty. Applied before tax, so they cut your GST too &mdash; up to 20% of a booking.</p>
+            </div>
+          </div>
+          <p class="split__note" style="margin-top:14px">They are not interchangeable, and that is on purpose: one is a discount in the eyes of the tax law, the other is a way to pay. Merging them would quietly misstate what you owe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--field" id="business">
+  <div class="wrap biz">
+    <div class="stack g-28 reveal">
+      <p class="eyebrow">For business</p>
+      <h2>Standing deployments, one invoice trail.</h2>
+      <p class="lede">Malls, warehouses, hospitals, construction sites and event companies run security as a schedule, not a one-off. Set it once and let the compliance take care of itself.</p>
+      <div class="checks">
+        <div class="check">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b>GSTIN-addressed invoices</b> on every booking, with reverse charge applied correctly when it applies to you.</span>
+        </div>
+        <div class="check">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b>Recurring rosters</b> &mdash; daily, weekdays, weekly or a custom pattern, with the same guard each time.</span>
+        </div>
+        <div class="check">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b>An attendance record you can audit</b> &mdash; every arrival and departure timestamped against a code your site manager issued.</span>
+        </div>
+        <div class="check">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><b>Preferred and blocked lists</b>, so the people who know your site keep coming back and the ones who didn't work out don't.</span>
+        </div>
+      </div>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#book">Talk to our business team</a>
+      </div>
+    </div>
+
+    <div class="ledger reveal">
+      <div class="ledger__hd"><span>Compliance handled for you</span></div>
+      <div class="tranche">
+        <div class="tranche__bar"></div>
+        <div>
+          <div class="step__t">Tax collected at source</div>
+          <p class="tranche__d">Withheld from registered-firm providers at 1% and filed with the department in GSTR-8 by the 10th of the following month. You never touch it.</p>
+        </div>
+      </div>
+      <div class="tranche">
+        <div class="tranche__bar"></div>
+        <div>
+          <div class="step__t">Reverse charge, applied correctly</div>
+          <p class="tranche__d">If you're a registered business hiring an unregistered provider, we don't collect service GST from you &mdash; the invoice says so plainly, so your accountant isn't guessing.</p>
+        </div>
+      </div>
+      <div class="tranche">
+        <div class="tranche__bar"></div>
+        <div>
+          <div class="step__t">Licences checked per booking</div>
+          <p class="tranche__d">PSARA status and, for armed duty, the firearm licence are re-verified at the point of assignment &mdash; not once at signup and then forgotten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--paper" id="join">
+  <div class="wrap join">
+    <div class="stack g-28 reveal">
+      <p class="eyebrow">For guards, bouncers and agencies</p>
+      <h2>Get paid in two days. Not in ninety.</h2>
+      <p class="lede">Set your own rate, pick your own days, and get paid on a schedule you can actually plan around. Joining is free &mdash; you clear KYC once and start taking work.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--seal" href="#book">Join as a provider</a>
+        <a class="btn btn--outline" href="#faq">How the payouts work</a>
+      </div>
+      <p class="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
+    </div>
+
+    <div class="perks reveal">
+      <div class="perk">
+        <span class="perk__n">30%</span>
+        <p class="perk__d">Paid to you the minute the client's start code is verified &mdash; before the shift is even over.</p>
+      </div>
+      <div class="perk">
+        <span class="perk__n">T+2</span>
+        <p class="perk__d">The remaining 70% lands two days after you close the duty. Every time, no chasing.</p>
+      </div>
+      <div class="perk">
+        <span class="perk__n">Your rate</span>
+        <p class="perk__d">You set the day rate, the hourly rate and what a vehicle costs. We don't set your price.</p>
+      </div>
+      <div class="perk">
+        <span class="perk__n">&#8377;200 / &#8377;500</span>
+        <p class="perk__d">Bonuses at 10 and 50 completed jobs, plus a Trusted and Elite badge clients can see.</p>
+      </div>
+      <div class="perk">
+        <span class="perk__n">Appeal</span>
+        <p class="perk__d">Every penalty can be contested with your side of the story. A human reads it.</p>
+      </div>
+      <div class="perk">
+        <span class="perk__n">&#8377;300</span>
+        <p class="perk__d">For each guard you bring on who completes their first job, with more at 3, 5 and 10.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Questions</p>
+      <h2>Before you book.</h2>
+    </div>
+    <div class="faq reveal">
+      <details class="qa">
+        <summary>What happens if the guard doesn't show up?</summary>
+        <p class="qa__a">Report it in the app and the penalty is calculated from how close to the start time it happened. Inside two hours, the provider forfeits the entire booking value, is suspended for fifteen days and has their PSARA privileges blocked. A support case is opened for you at the same time &mdash; you don't have to chase anyone.</p>
+      </details>
+      <details class="qa">
+        <summary>Can I meet or verify the guard before the shift?</summary>
+        <p class="qa__a">You can see their profile, ratings, experience, badges and verification status before booking. Their phone number and address unlock once payment is made, and you can message them in the app from that point until the booking closes.</p>
+      </details>
+      <details class="qa">
+        <summary>Is the armed guard's firearm licence actually checked?</summary>
+        <p class="qa__a">Yes, and not just once. The provider uploads it during KYC and it is verified by our compliance team, then re-confirmed at the point the booking is assigned. A gunman booking cannot proceed without a current verified licence on file.</p>
+      </details>
+      <details class="qa">
+        <summary>How do I get my money back if I cancel?</summary>
+        <p class="qa__a">Refunds go to your SecureCoins balance, usually within 24 hours: 90% if you cancel more than 24 hours before the start, 50% between 12 and 24 hours, nothing inside 12 hours. Coins are worth &#8377;1 each and can be spent on any future booking with no cap.</p>
+      </details>
+      <details class="qa">
+        <summary>Do you give a GST invoice I can claim?</summary>
+        <p class="qa__a">Every booking generates an itemised tax invoice the moment payment is captured. If your account is registered as a business with a GSTIN, the invoice is addressed to it and states the applicable regime &mdash; forward charge or reverse charge &mdash; explicitly.</p>
+      </details>
+      <details class="qa">
+        <summary>I run a security agency. Can I put my whole team on this?</summary>
+        <p class="qa__a">Yes. Register as a firm, complete the agency KYC once, then assign staff per booking with their credentials attached. Registered firms have TCS withheld at 1% and appear in our monthly GSTR-8 filing, so your tax position is documented rather than reconstructed later.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="band band--field" id="book">
+  <div class="wrap final reveal">
+    <p class="eyebrow">Get started</p>
+    <h2 style="max-width:18ch">Put a verified guard on your gate this week.</h2>
+    <p class="lede" style="text-align:center">Download the app, tell us what you need, and we'll match you with licensed providers in your city.</p>
+    <div class="final__ctas">
+      <a class="btn btn--primary" href="#">Download for iPhone</a>
+      <a class="btn btn--ghost-field" href="#">Download for Android</a>
+    </div>
+    <p class="hero__fine">Are you a guard or an agency? <a href="#join" style="color:var(--field-seal)">Join as a provider</a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__cols">
+      <div class="foot__brand">
+        <a class="brand" href="#top">
+          <svg class="brand__mark" viewBox="0 0 22 26" fill="none" aria-hidden="true">
+            <path d="M11 1 20.5 4.4v8.3c0 5.6-3.8 10.2-9.5 12.3C5.8 22.9 2 18.3 2 12.7V4.4L11 1Z" stroke="#3EBB8B" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M7 13.2 9.9 16 15.4 10" stroke="#E8A33D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="brand__name" style="color:var(--field-text)">SecureConnect</span>
+        </a>
+        <p>Licensed private security, booked and verified from your phone.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Security guards</a></li>
+          <li><a href="#services">Bouncers</a></li>
+          <li><a href="#services">Armed gunmen</a></li>
+          <li><a href="#services">Personal security officers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#business">For business</a></li>
+          <li><a href="#join">Become a provider</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#faq">Help centre</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Compliance</h4>
+        <ul>
+          <li><a href="#trust">PSARA &amp; licensing</a></li>
+          <li><a href="#trust">Verification standards</a></li>
+          <li><a href="#pricing">GST &amp; invoicing</a></li>
+          <li><a href="#trust">Cancellation policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Refund policy</a></li>
+          <li><a href="#">Grievance officer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>&copy; 2026 SecureConnect</span>
+      <span>Made in India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var otp = document.getElementById('otp');
+  var replay = document.getElementById('replay');
+  if (replay && otp) {
+    replay.addEventListener('click', function () {
+      otp.classList.remove('play');
+      void otp.offsetWidth;
+      otp.classList.add('play');
+    });
+  }
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>

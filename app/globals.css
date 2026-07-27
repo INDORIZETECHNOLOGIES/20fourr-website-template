@@ -1,0 +1,916 @@
+/* ============================================================
+   SecureConnect — design system
+   Palette : ink (ground) + paper (document bands) + amber (the one accent)
+   Type    : Big Shoulders display · IBM Plex Sans body · IBM Plex Mono data
+   ------------------------------------------------------------
+   One fixed scheme, not a light/dark pair. The page ground is ink
+   everywhere; rhythm comes from paper bands cut into it, so there is
+   nothing to flip and no prefers-color-scheme branch.
+
+   Two layers:
+     1. the palette below — raw values, the source of truth
+     2. a semantic layer (--bg / --text / --line / --accent …) that is
+        redeclared inside .band--paper. Components read the semantic
+        layer only, so the same card CSS works on either ground.
+   ============================================================ */
+
+:root {
+  /* ---------- palette ---------- */
+  --ink:          #12181B;  /* body, hero, nav, footer */
+  --ink-2:        #1B2429;  /* cards on dark — duty ticket, ledger, invoice */
+  --ink-3:        #232F35;  /* third dark tone, depth and hover states */
+
+  --paper:        #EDEFE7;  /* light band ground — cool sage-grey, not cream */
+  --paper-2:      #E3E6DB;  /* secondary paper tone */
+
+  --amber:        #E8A33D;  /* the only saturated colour, rationed */
+  --amber-dim:    #B87F2A;  /* amber as text on paper, contrast-safe */
+
+  --verified:     #3FA66B;  /* verified states only — ticket dots, the stamp */
+  --verified-dim: #2C7A4B;  /* the same, legible on paper */
+
+  --charcoal:     #1B2226;  /* body text on paper */
+  --steel:        #92A0A6;  /* muted secondary text on ink */
+  --steel-dim:    #5C6A70;  /* muted secondary text on paper */
+
+  --hair:         rgba(146, 160, 166, .18);  /* hairline on ink */
+  --hair-paper:   rgba(27, 34, 38, .12);     /* hairline on paper */
+
+  /* ---------- semantic layer · ink context (the page default) ---------- */
+  --bg:        var(--ink);
+  --bg-2:      var(--ink-2);
+  --bg-3:      var(--ink-3);
+  --text:      var(--paper);
+  --text-2:    var(--steel);
+  --text-3:    color-mix(in srgb, var(--steel) 74%, var(--ink));
+  --line:      var(--hair);
+  --line-soft: rgba(146, 160, 166, .10);
+  --accent:    var(--amber);
+  --ok:        var(--verified);
+
+  --shadow:      0 1px 2px rgba(0, 0, 0, .34), 0 18px 40px -18px rgba(0, 0, 0, .62);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, .4), 0 34px 64px -22px rgba(0, 0, 0, .78);
+
+  /* ---------- type ---------- */
+  --display: var(--font-display), "Arial Narrow", "Helvetica Neue", sans-serif;
+  --body: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: var(--font-mono), ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  /* The display face has no Devanagari — Hindi runs in Plex Devanagari so a
+     headline never silently falls back to a broken face. */
+  --deva: var(--font-deva), "Noto Sans Devanagari", "Nirmala UI", var(--body);
+
+  --measure: 1180px;
+  --gut: clamp(20px, 5vw, 48px);
+  /* Light capitals need air around them or they read as cramped rather than
+     composed — the whole scale sits smaller, so the space has to grow. */
+  --band-y: clamp(80px, 11vw, 160px);
+}
+
+/* ---------- semantic layer · paper context ----------
+   Everything inside a paper band re-resolves: text darkens, hairlines
+   flip polarity, and the accent steps down to the contrast-safe amber. */
+.band--paper,
+.on-paper {
+  /* cards sit on the same paper as the band and are cut out by a hairline,
+     not by a fill — --bg-2 only steps in for footers and hover */
+  --bg:        var(--paper);
+  --bg-2:      var(--paper);
+  --bg-3:      var(--paper-2);
+  --text:      var(--charcoal);
+  --text-2:    var(--steel-dim);
+  --text-3:    var(--steel-dim);
+  --line:      var(--hair-paper);
+  --line-soft: rgba(27, 34, 38, .07);
+  --accent:    var(--amber-dim);
+  --ok:        var(--verified-dim);
+
+  --shadow:      0 1px 2px rgba(27, 34, 38, .05), 0 14px 32px -14px rgba(27, 34, 38, .16);
+  --shadow-lift: 0 2px 4px rgba(27, 34, 38, .06), 0 26px 52px -18px rgba(27, 34, 38, .24);
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; color-scheme: dark; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ---------- headings ----------
+   The display face is set LIGHT and UPPERCASE, at a restrained size. That
+   combination is the whole character: light condensed capitals read as
+   engraved — a stamped plate, a licence, a document header. Set the same
+   face heavy and it turns into a poster, which is the opposite claim.
+
+   Uppercase is for h1 and h2 only. Card titles (h3) stay sentence case at a
+   normal weight, because a paragraph-length title in light capitals stops
+   being readable. `opsz` is set per level so the small sizes don't render
+   as shrunken billboards. */
+h1, h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  text-transform: uppercase;
+  line-height: 1.04;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 {
+  font-size: clamp(2.15rem, 4.3vw, 3.6rem);
+  letter-spacing: .012em;
+  font-variation-settings: "opsz" 60;
+}
+h2 {
+  font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+  letter-spacing: .022em;
+  font-variation-settings: "opsz" 40;
+}
+h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+  line-height: 1.16;
+  letter-spacing: .008em;
+  font-variation-settings: "opsz" 22;
+  text-wrap: balance;
+  margin: 0;
+}
+p  { margin: 0; }
+a  { color: inherit; }
+b, strong { font-weight: 500; }
+
+/* Hindi: swap the face and relax the leading Devanagari needs. Devanagari
+   has no case, so `text-transform` is dropped rather than left to no-op —
+   and weight 300 is far too fragile in this script, so it steps back up. */
+[lang="hi"] h1, [lang="hi"] h2, [lang="hi"] h3 {
+  font-family: var(--deva);
+  font-weight: 500;
+  text-transform: none;
+  line-height: 1.3;
+  letter-spacing: -.005em;
+  font-variation-settings: normal;
+}
+[lang="hi"] { font-family: var(--deva); line-height: 1.72; }
+[lang="hi"] h1 { font-size: clamp(1.9rem, 4.4vw, 2.9rem); }
+[lang="hi"] h2 { font-size: clamp(1.5rem, 2.9vw, 2.1rem); }
+[lang="hi"] h3 { font-size: clamp(1.05rem, 1.6vw, 1.2rem); }
+
+/* ---------- utility type ---------- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .69rem;
+  font-weight: 500;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+/* the rationed amber dot — the smallest place the accent is allowed.
+   Pinned to the first line so a wrapping eyebrow doesn't float it mid-block. */
+.eyebrow::before {
+  content: "";
+  width: 5px; height: 5px;
+  margin-top: .52em;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+[lang="hi"] .eyebrow { font-family: var(--deva); letter-spacing: .06em; text-transform: none; font-size: .84rem; }
+.lede {
+  font-size: clamp(1.06rem, 1.45vw, 1.2rem);
+  color: var(--text-2);
+  max-width: 60ch;
+  line-height: 1.62;
+}
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- layout primitives ---------- */
+.wrap { width: 100%; max-width: var(--measure); margin-inline: auto; padding-inline: var(--gut); }
+.band { padding-block: var(--band-y); background: var(--bg); color: var(--text); }
+/* the nav is sticky and 66px tall — anchor targets have to clear it */
+.band[id], [id].hero { scroll-margin-top: 78px; }
+.band--ink-2 { --bg: var(--ink-2); }
+.stack { display: flex; flex-direction: column; }
+.g-12 { gap: 12px; } .g-16 { gap: 16px; } .g-20 { gap: 20px; }
+.g-28 { gap: 28px; } .g-40 { gap: 40px; }
+
+/* ---------- buttons ----------
+   Amber CTAs keep full strength on both grounds — --amber-dim is for text,
+   never for a fill, or the primary action goes muddy on paper. */
+/* Mono, square, generously padded. A monospaced label reads as a *command*
+   rather than a marketing word, which is the same argument the OTP codes and
+   ledger rows make. Square corners because nothing else here is rounded. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--mono); font-size: .875rem; font-weight: 400; line-height: 1;
+  letter-spacing: .015em;
+  padding: 18px 26px; border-radius: 0; border: 1px solid transparent;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+}
+[lang="hi"] .btn { font-family: var(--deva); font-weight: 500; letter-spacing: 0; }
+.btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--amber); color: var(--ink); }
+.btn--primary:hover { background: #F2B457; }
+.btn--ghost { border-color: var(--line); color: var(--text); }
+.btn--ghost:hover { border-color: var(--text-2); background: color-mix(in srgb, var(--text) 6%, transparent); }
+.btn--outline { border-color: var(--line); color: var(--text); }
+.btn--outline:hover { border-color: var(--text-2); }
+/* WhatsApp keeps its glyph but not its green: brand green would break the
+   one-accent rule and collide with the reserved verified green. */
+.btn--whatsapp { background: var(--amber); color: var(--ink); }
+.btn--whatsapp:hover { background: #F2B457; }
+.btn--sm { padding: 12px 18px; font-size: .8rem; }
+.btn--lg { padding: 20px 32px; font-size: .95rem; }
+.btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 60;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid var(--hair);
+  color: var(--text);
+}
+.nav__in { display: flex; align-items: center; gap: 32px; height: 66px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); flex-shrink: 0; }
+.brand__mark { width: 22px; height: 26px; flex-shrink: 0; }
+/* The wordmark holds one step more weight than the headings — at 22px a
+   300 would disappear against the nav's own hairline. */
+.brand__name {
+  font-family: var(--display); font-size: 1.38rem; font-weight: 500;
+  letter-spacing: .045em; text-transform: uppercase;
+  font-variation-settings: "opsz" 22;
+}
+.nav__links { display: flex; align-items: center; gap: clamp(16px, 1.8vw, 26px); margin-left: auto; }
+/* Plex Sans is wider than a system grotesque — without this the link row
+   wraps to two lines and breaks the 66px bar. */
+.nav__links a { font-size: .89rem; color: var(--text-2); text-decoration: none; white-space: nowrap; transition: color .15s ease; }
+.nav__links a:hover { color: var(--text); }
+.nav__cta { display: flex; align-items: center; gap: 10px; }
+@media (max-width: 900px) { .nav__links { display: none; } .nav__in { gap: 16px; } }
+/* Mono labels run wider than the sans ones did — both nav CTAs no longer fit
+   alongside the wordmark until ~720px, so the secondary drops earlier. */
+@media (max-width: 720px) { .nav__cta .btn--ghost { display: none; } }
+
+/* ---------- hero ---------- */
+.hero {
+  background: var(--ink); color: var(--text);
+  position: relative; overflow: hidden;
+  padding-block: clamp(72px, 10vw, 140px) clamp(80px, 11vw, 152px);
+}
+.hero__glow {
+  position: absolute; inset: -30% -10% auto -10%; height: 90%;
+  background:
+    radial-gradient(50% 60% at 24% 32%, rgba(232, 163, 61, .11), transparent 68%),
+    radial-gradient(44% 54% at 84% 16%, rgba(146, 160, 166, .07), transparent 70%);
+  pointer-events: none;
+}
+.hero__in { position: relative; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,440px); gap: clamp(40px, 5vw, 72px); align-items: center; }
+@media (max-width: 980px) { .hero__in { grid-template-columns: 1fr; } }
+/* Capped short so the headline stacks into three dense lines rather than
+   running the full column — the block is the shape, not the words. */
+.hero h1 { color: var(--text); max-width: 19ch; }
+.hero h1 em { font-style: normal; color: var(--amber); }
+.hero__sub { color: var(--text-2); font-size: clamp(1.06rem, 1.5vw, 1.22rem); max-width: 46ch; line-height: 1.58; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__fine { font-family: var(--mono); font-size: .74rem; color: var(--text-2); letter-spacing: .03em; }
+[lang="hi"] .hero__fine { font-family: var(--deva); letter-spacing: 0; font-size: .82rem; }
+
+/* ---------- duty ticket ----------
+   The hero's evidence object. Every row is a state that has been *proven*,
+   so every dot is green — this is the one component where the reserved
+   colour does all the work. Rows light up in sequence on load: the single
+   orchestrated moment on the site, and the only motion beyond a scroll fade. */
+.ticket {
+  border: 1px solid var(--hair); background: var(--ink-2);
+  padding: 26px 26px 28px; display: flex; flex-direction: column;
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .9);
+}
+.ticket__hd {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--steel);
+  padding-bottom: 18px; border-bottom: 1px solid var(--hair);
+}
+[lang="hi"] .ticket__hd { font-family: var(--deva); letter-spacing: .04em; text-transform: none; font-size: .84rem; }
+.ticket__rows { display: flex; flex-direction: column; }
+.trow {
+  display: grid; grid-template-columns: 9px minmax(0, 1fr);
+  gap: 14px; align-items: baseline;
+  padding-block: 17px;
+  border-bottom: 1px solid var(--hair);
+  opacity: 0; transform: translateY(5px);
+}
+.trow:last-child { border-bottom: 0; }
+.trow__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--verified); align-self: center;
+  box-shadow: 0 0 0 3px rgba(63, 166, 107, .12);
+}
+.trow__t { font-size: .93rem; color: var(--text); line-height: 1.4; }
+.trow__t code {
+  font-family: var(--mono); font-size: .9em; color: var(--amber);
+  letter-spacing: .08em;
+}
+.ticket__ft {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--hair);
+  font-family: var(--mono); font-size: .72rem; color: var(--amber);
+  font-variant-numeric: tabular-nums; letter-spacing: .02em;
+  opacity: 0;
+}
+[lang="hi"] .ticket__ft { font-family: var(--deva); letter-spacing: 0; font-size: .84rem; }
+
+.ticket.play .trow { animation: logIn .5s cubic-bezier(.2,.7,.3,1) forwards; }
+.ticket.play .trow:nth-child(1) { animation-delay: .30s; }
+.ticket.play .trow:nth-child(2) { animation-delay: .48s; }
+.ticket.play .trow:nth-child(3) { animation-delay: .66s; }
+.ticket.play .trow:nth-child(4) { animation-delay: .84s; }
+.ticket.play .trow:nth-child(5) { animation-delay: 1.02s; }
+.ticket.play .ticket__ft { animation: logIn .5s ease forwards 1.28s; }
+
+@keyframes logIn { to { opacity: 1; transform: none; } }
+
+/* ---------- credential ticker ----------
+   Four bordered cells of prose replaced by one quiet band of mono microtext.
+   The claims are load-bearing but they are not the argument — the hero above
+   and the duty log below are. A ticker states them and gets out of the way. */
+.creds {
+  background: var(--ink-2);
+  border-block: 1px solid var(--hair);
+  color: var(--steel);
+}
+.creds__in {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 14px clamp(20px, 3.4vw, 44px);
+  padding-block: 22px;
+}
+.cred {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .028em;
+  white-space: nowrap;
+}
+/* a square, not the eyebrow's dot — same accent, different register */
+.cred::before {
+  content: "";
+  width: 6px; height: 6px;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+[lang="hi"] .cred { font-family: var(--deva); letter-spacing: 0; font-size: .88rem; white-space: normal; }
+@media (max-width: 560px) {
+  .creds__in { justify-content: flex-start; gap: 12px 22px; }
+  .cred { font-size: .72rem; white-space: normal; }
+}
+
+/* ---------- section head ---------- */
+.head { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; margin-bottom: clamp(48px, 6vw, 84px); }
+.head .lede { margin-top: 4px; }
+
+/* ---------- services ---------- */
+.svcs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.svc { background: var(--bg); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 12px; transition: background-color .18s ease; }
+.svc:hover { background: var(--bg-3); }
+.svc__code { font-family: var(--mono); font-size: .68rem; font-weight: 500; letter-spacing: .16em; color: var(--accent); }
+.svc__body { font-size: .92rem; color: var(--text-2); line-height: 1.55; flex: 1; }
+.svc__req { font-family: var(--mono); font-size: .68rem; color: var(--text-3); border-top: 1px dashed var(--line); padding-top: 12px; line-height: 1.5; }
+@media (max-width: 1000px) { .svcs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .svcs { grid-template-columns: 1fr; } }
+
+/* ---------- the log ----------
+   One row pattern for every ordered sequence on the site: duty states,
+   payment tranches, compliance guarantees. Full-bleed hairlines and a hard
+   left-aligned key column make it read as a *record* rather than a feature
+   list — which is the entire claim the product makes. */
+.log { border-top: 1px solid var(--line); list-style: none; margin: 0; padding: 0; }
+.log__row {
+  display: grid;
+  grid-template-columns: 56px minmax(150px, 210px) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 40px);
+  padding-block: clamp(22px, 2.6vw, 34px);
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+.log__n {
+  font-family: var(--mono); font-size: .78rem; font-weight: 400;
+  color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: .04em;
+}
+/* the state name carries the display face at its lightest — a stamped label */
+.log__state {
+  font-family: var(--display); font-weight: 300; text-transform: uppercase;
+  font-size: 1.32rem; line-height: 1.1; letter-spacing: .05em;
+  font-variation-settings: "opsz" 20;
+  color: var(--text);
+}
+[lang="hi"] .log__state {
+  font-family: var(--deva); font-weight: 500; text-transform: none;
+  letter-spacing: 0; font-size: 1.02rem; font-variation-settings: normal;
+}
+.log__d { font-size: .93rem; color: var(--text-2); line-height: 1.6; max-width: 62ch; }
+.log__d code { font-family: var(--mono); font-size: .86em; color: var(--accent); }
+
+/* money rows: the figure replaces the ordinal and gets the display face */
+.log--money .log__n {
+  font-family: var(--display); font-weight: 300; font-size: 2rem;
+  line-height: .9; color: var(--text); letter-spacing: .01em;
+  font-variation-settings: "opsz" 32;
+}
+.log--money .log__row { grid-template-columns: 96px minmax(150px, 230px) minmax(0, 1fr); }
+.log--money .log__state { color: var(--accent); font-size: 1.05rem; letter-spacing: .09em; }
+/* the tranche that is released *on verification* — the one green moment here */
+.log__row--verified .log__state { color: var(--ok); }
+
+/* narrow variant for a sidebar column: everything stacks, no key column */
+.log--narrow .log__row { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+
+.subhead {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-block: clamp(64px, 8vw, 110px) clamp(28px, 3.4vw, 44px);
+  max-width: 62ch;
+}
+/* a section head one rung down — still a heading, so it keeps the caps */
+.subhead h3 {
+  font-weight: 300; text-transform: uppercase;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  letter-spacing: .03em; line-height: 1.1;
+  font-variation-settings: "opsz" 28;
+}
+[lang="hi"] .subhead h3 { text-transform: none; font-weight: 500; letter-spacing: 0; }
+
+@media (max-width: 780px) {
+  .log__row,
+  .log--money .log__row { grid-template-columns: 46px minmax(0, 1fr); row-gap: 10px; }
+  .log__d { grid-column: 2 / -1; }
+  .log--money .log__n { font-size: 1.5rem; }
+}
+
+/* ---------- trust ---------- */
+.trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 940px) { .trust { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .trust { grid-template-columns: 1fr; } }
+.tcard { background: var(--bg); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 11px; }
+.tcard__k { font-family: var(--mono); font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.tcard__b { font-size: .92rem; color: var(--text-2); line-height: 1.58; }
+.tcard__b b { color: var(--text); font-weight: 500; }
+
+/* escalation reads through weight of tone, not through a second hue */
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+@media (max-width: 760px) { .tiers { grid-template-columns: 1fr; } }
+.tier { border: 1px solid var(--line); border-top: 3px solid color-mix(in srgb, var(--charcoal) 24%, var(--paper)); background: var(--bg); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.tier--l2 { border-top-color: var(--amber); }
+.tier--l3 { border-top-color: var(--charcoal); }
+.tier__l { font-family: var(--mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
+.tier__h { font-size: .97rem; font-weight: 600; }
+.tier__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- invoice ---------- */
+.inv-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(28px, 3.5vw, 44px); align-items: start; }
+@media (max-width: 900px) { .inv-grid { grid-template-columns: 1fr; } }
+.invoice { border: 1px solid var(--line); background: var(--bg-2); box-shadow: var(--shadow); }
+.invoice__hd { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.invoice__ttl { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
+.invoice__ref { font-family: var(--mono); font-size: .72rem; color: var(--text-3); }
+.rows { padding: 8px 22px 18px; }
+.row { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; font-size: .91rem; border-bottom: 1px dashed var(--line-soft); }
+.row:last-child { border-bottom: 0; }
+.row__k { color: var(--text-2); }
+.row__k small { display: block; font-family: var(--mono); font-size: .68rem; color: var(--text-3); margin-top: 2px; letter-spacing: .02em; }
+.row__v { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* the one place a divider gets the accent — the line you actually pay under */
+.row--total { border-top: 1px solid var(--accent); border-bottom: 0; margin-top: 6px; padding-top: 14px; font-size: 1rem; }
+.row--total .row__k { color: var(--text); font-weight: 600; }
+.row--total .row__v { font-size: 1.28rem; font-weight: 500; color: var(--accent); }
+.invoice__ft { padding: 14px 22px 18px; border-top: 1px solid var(--line); background: var(--bg-3); }
+.invoice__ft p { font-size: .82rem; color: var(--text-2); line-height: 1.5; }
+
+.split { display: flex; flex-direction: column; gap: 20px; }
+.split__note { font-size: .92rem; color: var(--text-2); line-height: 1.62; }
+.split__note b { color: var(--text); font-weight: 500; }
+.wallet { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .wallet { grid-template-columns: 1fr; } }
+.coin { border: 1px solid var(--line); padding: 16px 16px 18px; background: var(--bg-2); display: flex; flex-direction: column; gap: 7px; }
+.coin__n { font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.coin__d { font-size: .85rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- business ---------- */
+.biz { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: clamp(32px,4.5vw,64px); align-items: center; }
+@media (max-width: 900px) { .biz { grid-template-columns: 1fr; } }
+.checks { display: flex; flex-direction: column; gap: 13px; }
+.check { display: grid; grid-template-columns: 16px 1fr; gap: 12px; align-items: start; font-size: .95rem; color: var(--text-2); line-height: 1.5; }
+.check svg { width: 15px; height: 15px; margin-top: 4px; color: var(--ok); }
+.check b { color: var(--text); font-weight: 500; }
+
+/* ---------- join teaser (home) ---------- */
+.join { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px,4.5vw,64px); align-items: center; }
+@media (max-width: 900px) { .join { grid-template-columns: 1fr; } }
+.perks { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 560px) { .perks { grid-template-columns: 1fr; } }
+.perk { background: var(--bg); padding: 20px 18px 22px; display: flex; flex-direction: column; gap: 6px; }
+.perk__n { font-family: var(--mono); font-size: 1.24rem; font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; }
+.perk__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- faq ---------- */
+.faq { border-top: 1px solid var(--line); }
+.qa { border-bottom: 1px solid var(--line); }
+.qa summary {
+  list-style: none; cursor: pointer; padding: 20px 0; display: flex; gap: 18px;
+  align-items: baseline; justify-content: space-between; font-size: 1.02rem; font-weight: 600;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.qa summary::after { content: "+"; font-family: var(--mono); color: var(--accent); font-size: 1.1rem; }
+.qa[open] summary::after { content: "\2212"; }
+.qa__a { padding: 0 0 22px; font-size: .94rem; color: var(--text-2); line-height: 1.65; max-width: 68ch; }
+
+/* ---------- final cta ---------- */
+/* The copy column has to stay wide enough for both download buttons on one
+   line — at 460px + 88px gap they overflowed it by a dozen pixels and wrapped. */
+.final { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: clamp(36px, 4.5vw, 64px); align-items: center; }
+/* /join carries one phone, not two, and its CTAs are `btn--lg` — the media
+   column gives width back so both buttons stay on one line. */
+.final--chat { grid-template-columns: minmax(0, 1fr) minmax(0, 330px); }
+@media (max-width: 940px) { .final, .final--chat { grid-template-columns: 1fr; } }
+.final__copy { display: flex; flex-direction: column; gap: 26px; }
+.final__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---------- app preview ----------
+   The screens are drawn, not screenshotted: a PNG of the app goes stale the
+   moment the product ships a change, and this inherits the same tokens the
+   real UI does. Everything inside scales off the phone's own width via
+   container query units, so one `--phone-w` drives the whole mock. */
+.phones {
+  --phone-w: clamp(168px, 19vw, 226px);
+  display: flex; justify-content: center; align-items: flex-end;
+  padding-inline: 12px;
+}
+.phone {
+  width: var(--phone-w);
+  aspect-ratio: 9 / 19.3;
+  border-radius: calc(var(--phone-w) * .13);
+  padding: calc(var(--phone-w) * .026);
+  background: #0A0E10;
+  box-shadow:
+    inset 0 0 0 1px rgba(146, 160, 166, .22),
+    0 40px 70px -30px rgba(0, 0, 0, .95);
+  flex-shrink: 0;
+}
+/* The two overlap so the pair reads as one object rather than two cards —
+   but only far enough to touch. Any more and the front screen eats the back
+   one's CTA, which is the row the back screen exists to show. */
+.phone--back  { transform: rotate(-5deg) scale(.9) translateY(-10px); margin-right: calc(var(--phone-w) * -.05); z-index: 1; }
+.phone--front { transform: rotate(3deg) translateY(12px); z-index: 2; }
+@media (max-width: 420px) {
+  .phones { --phone-w: 44vw; }
+}
+
+.phone__screen {
+  container-type: inline-size;
+  height: 100%;
+  border-radius: calc(var(--phone-w) * .106);
+  background: var(--ink);
+  overflow: hidden;
+  position: relative;
+}
+/* the pill cutout */
+.phone__screen::before {
+  content: "";
+  position: absolute; top: 3.5cqw; left: 50%; transform: translateX(-50%);
+  width: 28cqw; height: 7cqw; border-radius: 4cqw;
+  background: #0A0E10; z-index: 3;
+}
+
+.scr {
+  height: 100%;
+  padding: 4.5cqw 6cqw 6cqw;
+  display: flex; flex-direction: column;
+  font-family: var(--body);
+  color: var(--paper);
+}
+.scr__bar {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 4.4cqw; color: var(--steel);
+  margin-bottom: 9cqw;
+}
+.scr__sig { width: 11cqw; height: 3.2cqw; border-radius: 1cqw; background: var(--steel); opacity: .5; }
+.scr__eyebrow {
+  font-family: var(--mono); font-size: 4.1cqw; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--steel); margin-bottom: 3cqw;
+}
+.scr__eyebrow--amber { color: var(--amber); }
+.scr__title {
+  font-family: var(--display); font-weight: 300; text-transform: uppercase;
+  font-size: 11cqw; line-height: 1.02; letter-spacing: .02em;
+  font-variation-settings: "opsz" 24;
+  margin-bottom: 3.5cqw;
+}
+.scr__meta { font-size: 4.6cqw; line-height: 1.5; color: var(--steel); }
+.scr__lede { font-size: 4.9cqw; line-height: 1.42; color: var(--steel); margin-bottom: 9cqw; }
+
+.scr__card {
+  margin-top: 7cqw; padding: 5cqw;
+  border: 1px solid var(--hair); background: var(--ink-2);
+  display: flex; flex-direction: column; gap: 2.6cqw;
+}
+.scr__who { display: flex; align-items: center; gap: 3cqw; font-size: 5cqw; }
+.scr__av { width: 8cqw; height: 8cqw; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+.scr__ok {
+  font-family: var(--mono); font-size: 3.9cqw; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--verified);
+}
+.scr__rate { font-family: var(--mono); font-size: 4.6cqw; color: var(--steel); }
+/* the itemised breakdown — the claim the pricing section spends a whole band
+   making, restated in the place the visitor would actually meet it */
+.scr__rows { margin-top: 7cqw; display: flex; flex-direction: column; gap: 3.4cqw; }
+.scr__row {
+  display: flex; justify-content: space-between; gap: 3cqw;
+  font-size: 4.3cqw; color: var(--steel);
+}
+.scr__row span:last-child { font-family: var(--mono); }
+.scr__row--total {
+  padding-top: 3.6cqw; border-top: 1px solid var(--hair);
+  color: var(--paper);
+}
+.scr__cta {
+  margin-top: auto; padding: 4.6cqw 0; text-align: center;
+  background: var(--amber); color: var(--ink);
+  font-family: var(--mono); font-size: 4.4cqw; letter-spacing: .02em;
+}
+
+/* the start-code screen — the one gesture the whole product turns on */
+.scr__digits { display: flex; gap: 2cqw; margin-bottom: 9cqw; }
+.scr__digit {
+  flex: 1; aspect-ratio: 3 / 4; min-width: 0;
+  display: grid; place-items: center;
+  border: 1px solid rgba(232, 163, 61, .35);
+  background: rgba(232, 163, 61, .07);
+  font-family: var(--mono); font-size: 7.4cqw; color: var(--amber);
+}
+/* pinned to the foot of the screen so the code sits in the upper third,
+   where it does on the real handset */
+.scr__stamp {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 2.8cqw;
+  font-family: var(--mono); font-size: 4.1cqw; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--verified);
+  padding-top: 5cqw; border-top: 1px solid var(--hair);
+}
+.scr__dot { width: 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--verified); flex-shrink: 0; }
+.scr__payout { font-family: var(--mono); font-size: 4.2cqw; color: var(--amber); margin-top: 3cqw; }
+
+/* ---------- onboarding chat ----------
+   Drawn in this palette, not as a WhatsApp replica: a second brand's green
+   would break the one-accent rule, and a convincing fake of someone else's
+   UI implies an endorsement that does not exist. The glyph in the header is
+   enough to say which app this is. */
+.phones--one { --phone-w: clamp(190px, 21vw, 244px); }
+.phones--one .phone { transform: rotate(-2.5deg); margin: 0; }
+
+.scr--chat { padding-inline: 0; padding-bottom: 0; }
+.scr--chat .scr__bar { padding-inline: 6cqw; margin-bottom: 4cqw; }
+.chat__hd {
+  display: flex; align-items: center; gap: 3.4cqw;
+  padding: 0 6cqw 4.4cqw;
+  border-bottom: 1px solid var(--hair);
+}
+.chat__mark {
+  width: 9.6cqw; height: 9.6cqw; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%; background: var(--ink-3); color: var(--steel);
+}
+.chat__mark svg { width: 5.6cqw; height: 5.6cqw; }
+.chat__who {
+  display: flex; flex-direction: column; gap: .6cqw;
+  font-size: 4.8cqw; color: var(--paper); line-height: 1.2;
+}
+.chat__status {
+  font-family: var(--mono); font-size: 3.5cqw;
+  letter-spacing: .06em; color: var(--verified);
+}
+[lang="hi"] .chat__status { font-family: var(--deva); letter-spacing: 0; font-size: 3.9cqw; }
+
+/* anchored to the foot of the screen, the way a real thread sits */
+.chat__thread {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 3cqw;
+  padding: 5cqw 6cqw 7cqw;
+  overflow: hidden;
+}
+.bub {
+  max-width: 82%;
+  padding: 3.4cqw 4cqw;
+  font-size: 4.3cqw; line-height: 1.42;
+  border-radius: 3cqw;
+}
+.bub--in  { align-self: flex-start; background: var(--ink-3); color: var(--paper); border-bottom-left-radius: .8cqw; }
+.bub--out { align-self: flex-end; background: var(--amber); color: var(--ink); border-bottom-right-radius: .8cqw; }
+/* the reply that closes the loop — the only verified moment in the thread */
+.bub--ok  { border: 1px solid rgba(63, 166, 107, .45); color: var(--paper); }
+.bub--doc {
+  display: inline-flex; align-items: center; gap: 2.6cqw;
+  font-family: var(--mono); font-size: 3.9cqw; letter-spacing: .01em;
+}
+.bub--doc svg { width: 3.8cqw; height: 4.4cqw; flex-shrink: 0; }
+
+/* ---------- footer ---------- */
+.foot { background: var(--ink); color: var(--steel); border-top: 1px solid var(--hair); padding-block: 56px 40px; }
+.foot__cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; }
+@media (max-width: 900px) { .foot__cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .foot__cols { grid-template-columns: 1fr; } }
+.foot h4 { font-family: var(--mono); font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; color: var(--steel); margin: 0 0 14px; font-weight: 400; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.foot a { font-size: .88rem; color: var(--steel); text-decoration: none; transition: color .15s ease; }
+.foot a:hover { color: var(--paper); }
+.foot__brand p { font-size: .87rem; line-height: 1.6; margin-top: 12px; max-width: 34ch; }
+.foot__legal {
+  margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--hair);
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: .72rem; color: var(--steel);
+}
+
+/* ============================================================
+   /join — supply side.
+   Different register: money first, low friction, thumb-reachable.
+   Same tokens, plainer composition. No editorial flourish.
+   ============================================================ */
+.jhero { background: var(--ink); color: var(--text); position: relative; overflow: hidden; padding-block: clamp(44px, 7vw, 88px) clamp(52px, 8vw, 96px); }
+.jhero__grid {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 516px);
+  gap: clamp(36px, 5vw, 64px); align-items: center;
+}
+@media (max-width: 900px) { .jhero__grid { grid-template-columns: 1fr; } }
+.jhero__in { position: relative; display: flex; flex-direction: column; gap: 26px; max-width: 42ch; }
+
+/* ---------- role frames ----------
+   Ships with no photography: each frame is a plate — service code, role,
+   and the credential that role clears. Set `src` on a role and the photo
+   drops in behind a scrim with the plate untouched. */
+.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: start; }
+/* staggered so the trio reads as a contact sheet rather than a row of tiles,
+   and so it occupies the hero's full column height instead of floating in it */
+.role:nth-child(2) { transform: translateY(30px); }
+.role:nth-child(3) { transform: translateY(-16px); }
+@media (max-width: 900px) { .role:nth-child(n) { transform: none; } }
+.role {
+  position: relative; margin: 0; overflow: hidden;
+  /* taller than a 3:4 portrait — these are standing figures once the real
+     photography lands, and the plate needs room at the foot either way */
+  aspect-ratio: 3 / 4.5;
+  border: 1px solid var(--hair);
+  background:
+    linear-gradient(163deg, rgba(232, 163, 61, .07), transparent 46%),
+    var(--ink-2);
+  display: flex; align-items: flex-end;
+}
+.role__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.35) contrast(1.04);
+}
+/* the scrim only exists once there is a photo to sit the plate on top of */
+.role--photo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(18, 24, 27, .94) 4%, rgba(18, 24, 27, .35) 52%, rgba(18, 24, 27, .1));
+}
+.role__plate {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 16px 14px 18px; width: 100%;
+}
+.role__code {
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--amber);
+}
+.role__name {
+  font-family: var(--display); font-weight: 300; text-transform: uppercase;
+  font-size: 1.18rem; line-height: 1.05; letter-spacing: .04em;
+  font-variation-settings: "opsz" 20;
+  color: var(--paper);
+}
+.role__req { font-family: var(--mono); font-size: .61rem; color: var(--steel); line-height: 1.45; }
+[lang="hi"] .role__name {
+  font-family: var(--deva); font-weight: 500; text-transform: none;
+  letter-spacing: 0; font-size: 1.02rem; font-variation-settings: normal;
+}
+[lang="hi"] .role__req { font-family: var(--deva); font-size: .72rem; }
+@media (max-width: 900px) { .roles { max-width: 540px; } }
+/* Once stacked, each frame is ~150px wide — the plate has to come down with
+   it or the role name wraps across the subject's face. */
+@media (max-width: 760px) {
+  .role__name { font-size: .98rem; letter-spacing: .03em; }
+  .role__code { font-size: .58rem; letter-spacing: .14em; }
+  .role__req { font-size: .56rem; }
+  .role__plate { padding: 12px 10px 13px; gap: 3px; }
+}
+.jhero h1 { color: var(--text); font-size: clamp(2.1rem, 6vw, 3.3rem); }
+[lang="hi"] .jhero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); }
+.jhero__sub { color: var(--text-2); font-size: clamp(1.05rem, 3.4vw, 1.2rem); line-height: 1.6; }
+.jhero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.langbar { background: var(--ink-2); border-bottom: 1px solid var(--hair); }
+.langbar__in { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 10px; }
+.langbar__note { font-size: .82rem; color: var(--steel); }
+.langtoggle { display: inline-flex; border: 1px solid var(--hair); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.langtoggle button {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; padding: 9px 16px;
+  background: none; border: 0; color: var(--steel); cursor: pointer; transition: background-color .15s, color .15s;
+}
+.langtoggle button[lang="hi"] { font-family: var(--deva); letter-spacing: 0; font-size: .86rem; }
+.langtoggle button:hover { color: var(--paper); }
+/* active state — amber, same as every other "this one is live" on the site */
+.langtoggle button[aria-pressed="true"] { background: var(--amber); color: var(--ink); }
+.langtoggle button:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+
+/* the money numbers — the single loudest thing on this page. Same display
+   face as the payment log on the client page, so a figure reads the same
+   way on both sides of the marketplace. */
+.money { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
+@media (max-width: 700px) { .money { grid-template-columns: 1fr; } }
+.money__cell { background: var(--ink-2); padding: 30px 26px 32px; display: flex; flex-direction: column; gap: 11px; }
+.money__n {
+  font-family: var(--display); font-weight: 300; text-transform: uppercase;
+  font-size: clamp(2.2rem, 5.4vw, 3rem); color: var(--amber);
+  line-height: .92; letter-spacing: .01em; font-variation-settings: "opsz" 44;
+}
+/* Not every cell here is a number — the display face has no Devanagari, so a
+   Hindi label ("आपका रेट") would fall back with wrecked spacing. */
+[lang="hi"] .money__n {
+  font-family: var(--deva); font-weight: 500; text-transform: none;
+  letter-spacing: 0; line-height: 1.25; font-size: clamp(1.5rem, 4vw, 1.9rem);
+  font-variation-settings: normal;
+}
+.money__k { font-size: .95rem; font-weight: 600; color: var(--paper); }
+.money__d { font-size: .88rem; color: var(--steel); line-height: 1.55; }
+
+/* earnings worked example */
+.earn { border: 1px solid var(--line); background: var(--bg-2); box-shadow: var(--shadow); max-width: 520px; }
+.earn__hd { padding: 16px 20px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
+[lang="hi"] .earn__hd { font-family: var(--deva); letter-spacing: .02em; text-transform: none; font-size: .8rem; }
+.earn__rows { padding: 8px 20px 16px; }
+.earn__ft { padding: 16px 20px 18px; border-top: 1px solid var(--accent); background: var(--bg-3); display: flex; flex-direction: column; gap: 10px; }
+.earn__ft .row { border: 0; padding: 0; }
+.earn__ft .row__v { color: var(--accent); font-weight: 500; }
+
+/* join steps — the same log as the client page's duty states. Onboarding is
+   a sequence with proof at each step too; it should not look like a card grid. */
+
+/* documents checklist */
+.docs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 640px) { .docs { grid-template-columns: 1fr; } }
+.doc { display: grid; grid-template-columns: 18px 1fr; gap: 12px; align-items: start; border: 1px solid var(--line); background: var(--bg); padding: 15px 16px; }
+.doc svg { width: 17px; height: 17px; color: var(--ok); margin-top: 2px; }
+.doc__t { font-size: .94rem; font-weight: 600; }
+.doc__d { font-size: .85rem; color: var(--text-2); line-height: 1.5; margin-top: 3px; }
+
+/* fairness cards */
+.fair { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hair); border: 1px solid var(--hair); }
+@media (max-width: 860px) { .fair { grid-template-columns: 1fr; } }
+.fair__c { background: var(--ink-2); padding: 24px 22px 26px; display: flex; flex-direction: column; gap: 10px; }
+.fair__k { font-family: var(--mono); font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+[lang="hi"] .fair__k { font-family: var(--deva); letter-spacing: .02em; text-transform: none; font-size: .8rem; }
+.fair__b { font-size: .91rem; color: var(--steel); line-height: 1.6; }
+.fair__b b { color: var(--paper); font-weight: 500; }
+
+/* sticky mobile action bar — thumb reach on the page that needs it most */
+.jbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--hair);
+  padding: 10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+  display: none; gap: 10px;
+}
+.jbar .btn { flex: 1; padding-inline: 12px; }
+.jbar-spacer { display: none; height: 76px; }
+@media (max-width: 760px) {
+  .jbar { display: flex; }
+  .jbar-spacer { display: block; }
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticket .trow, .ticket__ft { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+}
