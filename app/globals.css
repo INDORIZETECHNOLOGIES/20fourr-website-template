@@ -480,7 +480,10 @@ b, strong { font-weight: 500; }
 .tier__h { font-size: .97rem; font-weight: 600; }
 .tier__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
 
-/* ---------- invoice ---------- */
+/* ---------- invoice ----------
+   Shared by the provider rate panel (/security-providers/[id]) and the earnings panel
+   on /join — the same boxed header/rows/total/footer, so the two documents
+   read as the same kind of document. */
 .inv-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(28px, 3.5vw, 44px); align-items: start; }
 @media (max-width: 900px) { .inv-grid { grid-template-columns: 1fr; } }
 .invoice { border: 1px solid var(--line); background: var(--bg-2); box-shadow: var(--shadow); }
@@ -500,14 +503,110 @@ b, strong { font-weight: 500; }
 .invoice__ft { padding: 14px 22px 18px; border-top: 1px solid var(--line); background: var(--bg-3); }
 .invoice__ft p { font-size: .82rem; color: var(--text-2); line-height: 1.5; }
 
-.split { display: flex; flex-direction: column; gap: 20px; }
 .split__note { font-size: .92rem; color: var(--text-2); line-height: 1.62; }
 .split__note b { color: var(--text); font-weight: 500; }
-.wallet { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 560px) { .wallet { grid-template-columns: 1fr; } }
-.coin { border: 1px solid var(--line); padding: 16px 16px 18px; background: var(--bg-2); display: flex; flex-direction: column; gap: 7px; }
-.coin__n { font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.coin__d { font-size: .85rem; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- providers ----------
+   The directory at /security-providers and a single profile at /security-providers/[id].
+   Everything here reads the semantic layer, so the same rules hold on ink
+   or paper. Square corners throughout — a rounded pill would be the only
+   one on the site — and amber stays rationed to the day rate and focus. */
+
+/* the listing head is a hero without the second column */
+.hero--list { padding-block: clamp(56px, 7vw, 96px) clamp(40px, 5vw, 64px); }
+.hero--list .wrap { position: relative; }
+.hero--list h1 { max-width: 24ch; }
+
+.filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.8vw, 22px); margin-top: clamp(32px, 4vw, 46px); min-height: 78px; }
+@media (max-width: 720px) { .filters { grid-template-columns: 1fr; } }
+.filters__f { display: flex; flex-direction: column; gap: 9px; }
+/* the eyebrow treatment minus the amber dot — these label a control, and the
+   dot is reserved for the thing that opens a section */
+.filters label { font-family: var(--mono); font-size: .69rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
+.filters select {
+  width: 100%;
+  appearance: none;
+  background: var(--bg-2);
+  /* the chevron is drawn rather than imported so it inherits the ink palette
+     and never arrives as a second asset */
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%), linear-gradient(135deg, var(--text-2) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: .95rem;
+  padding: 14px 44px 14px 16px;
+  cursor: pointer;
+  transition: border-color .15s ease;
+}
+.filters select:hover { border-color: var(--text-3); }
+.filters select:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.filters[aria-busy="true"] { opacity: .62; }
+
+.count { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); margin: 0 0 22px; }
+
+/* the hairline-seam grid — cards share borders rather than each drawing their own */
+.pgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 720px) { .pgrid { grid-template-columns: 1fr; } }
+.pcard {
+  background: var(--bg);
+  padding: 26px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color .18s ease;
+}
+.pcard:hover { background: var(--bg-3); }
+.pcard:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+.pcard h3 { font-size: 1.15rem; color: var(--text); transition: color .18s ease; }
+.pcard:hover h3 { color: var(--accent); }
+.pcard__sub { font-size: .92rem; color: var(--text-2); }
+.pcard__roles { font-size: .85rem; color: var(--text-3); line-height: 1.5; }
+.pcard__tag { font-family: var(--mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); border: 1px solid var(--line); padding: 4px 9px; }
+/* pushed to the bottom so the rate sits on one line across a row of cards
+   whatever the copy above it does */
+.pcard__rate { margin-top: auto; padding-top: 12px; font-size: 1.28rem; font-weight: 500; color: var(--accent); }
+.pcard__rate span { font-family: var(--body); font-size: .82rem; font-weight: 400; color: var(--text-3); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+.chip { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-2); border: 1px solid var(--line); padding: 5px 9px; white-space: nowrap; }
+
+.pager { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-top: clamp(32px, 4vw, 48px); }
+.pager a, .pager span { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--line); padding: 12px 20px; color: var(--text-2); text-decoration: none; transition: color .15s ease, border-color .15s ease; }
+.pager a:hover { border-color: var(--accent); color: var(--accent); }
+.pager a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.pager .disabled { color: var(--text-3); opacity: .55; }
+.pager__pos { border-color: transparent !important; color: var(--text-3) !important; }
+
+.empty-state { font-size: .95rem; color: var(--text-2); line-height: 1.65; max-width: 72ch; }
+.empty-state b { color: var(--text); font-weight: 500; }
+.coverage-note { margin-top: clamp(32px, 4vw, 48px); font-size: .87rem; color: var(--text-3); line-height: 1.65; max-width: 78ch; }
+.coverage-note b { color: var(--text-2); font-weight: 500; }
+
+/* the closing band reuses the hero's amber-em treatment on an h2 */
+.cta-city { max-width: 58ch; }
+.cta-city h2 em { font-style: normal; color: var(--accent); }
+
+/* provider profile */
+/* The invoice rows were built for money — a short, nowrap figure on the right.
+   These rows carry prose ("Armed Gunman · Security Guard"), which squeezes the
+   key until its hint wraps to three lines. Let the value wrap and split the row
+   evenly instead; the total row keeps the money treatment. */
+.invoice--profile .row { gap: 20px; align-items: baseline; }
+.invoice--profile .row__k { flex: 1 1 44%; }
+.invoice--profile .row__v { flex: 1 1 56%; white-space: normal; text-align: right; }
+.invoice--profile .row--total .row__k { flex: 0 0 auto; }
+.invoice--profile .row--total .row__v { flex: 0 0 auto; white-space: nowrap; }
+.crumb { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+.crumb:hover { color: var(--text); }
+.pdetail__meta { font-size: .95rem; color: var(--text-2); }
+.pdetail__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* ---------- business ---------- */
 .biz { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: clamp(32px,4.5vw,64px); align-items: center; }
@@ -867,6 +966,7 @@ b, strong { font-weight: 500; }
 .earn__rows { padding: 8px 20px 16px; }
 .earn__ft { padding: 16px 20px 18px; border-top: 1px solid var(--accent); background: var(--bg-3); display: flex; flex-direction: column; gap: 10px; }
 .earn__ft .row { border: 0; padding: 0; }
+.earn__note { font-size: .85rem; color: var(--text-2); line-height: 1.5; }
 .earn__ft .row__v { color: var(--accent); font-weight: 500; }
 
 /* join steps — the same log as the client page's duty states. Onboarding is

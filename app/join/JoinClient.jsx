@@ -129,7 +129,7 @@ export default function JoinClient() {
                     {t.earnTotalV}
                   </span>
                 </div>
-                <p className="coin__d">{t.earnFoot}</p>
+                <p className="earn__note">{t.earnFoot}</p>
               </div>
             </Reveal>
 

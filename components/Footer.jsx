@@ -6,10 +6,10 @@ const COLUMNS = [
   {
     title: 'Services',
     links: [
-      ['Security guards', '/#services'],
-      ['Bouncers', '/#services'],
-      ['Armed gunmen', '/#services'],
-      ['Personal security officers', '/#services'],
+      ['Security guards', '/security-providers?category=guard'],
+      ['Bouncers', '/security-providers?category=bouncer'],
+      ['Armed gunmen', '/security-providers?category=gunman'],
+      ['Personal security officers', '/security-providers?category=pso'],
     ],
   },
   {
@@ -26,7 +26,7 @@ const COLUMNS = [
     links: [
       ['PSARA & licensing', '/#trust'],
       ['Verification standards', '/#trust'],
-      ['GST & invoicing', '/#pricing'],
+      ['Browse providers', '/security-providers'],
       ['Cancellation policy', '/#trust'],
     ],
   },

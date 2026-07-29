@@ -14,7 +14,7 @@ export default function Nav() {
           <Link href="/#services">Services</Link>
           <Link href="/#how">How it works</Link>
           <Link href="/#trust">Trust &amp; compliance</Link>
-          <Link href="/#pricing">Pricing</Link>
+          <Link href="/security-providers">Security</Link>
           <Link href="/#business">For business</Link>
         </div>
 

@@ -136,14 +136,6 @@ const TRUST = [
   },
 ];
 
-const INVOICE_ROWS = [
-  ['Service charge', 'Paid to the provider', '₹4,000.00'],
-  ['Platform commission', '15%', '₹600.00'],
-  ['Convenience fee', 'Waived on membership', '₹50.00'],
-  ['GST on platform fee', '18%', '₹117.00'],
-  ['GST on service', '18%', '₹720.00'],
-];
-
 const BUSINESS_CHECKS = [
   <><b>GSTIN-addressed invoices</b> on every booking, with reverse charge applied correctly when it applies to you.</>,
   <><b>Recurring rosters</b> &mdash; daily, weekdays, weekly or a custom pattern, with the same guard each time.</>,
@@ -348,87 +340,6 @@ export default function HomePage() {
               </div>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- pricing ---------- */}
-      <section className="band band--ink-2" id="pricing">
-        <div className="wrap">
-          <Reveal className="head">
-            <p className="eyebrow">Pricing</p>
-            <h2>Every rupee on the invoice, named.</h2>
-            <p className="lede">
-              The guard sets their own day rate. We add a platform fee and the tax we are legally
-              required to collect &mdash; and we show you all of it before you pay, not after.
-            </p>
-          </Reveal>
-
-          <div className="inv-grid">
-            <Reveal className="invoice">
-              <div className="invoice__hd">
-                <span className="invoice__ttl">Sample tax invoice</span>
-                <span className="invoice__ref">Guard &middot; 2 days &middot; &#8377;2,000/day</span>
-              </div>
-              <div className="rows">
-                {INVOICE_ROWS.map(([k, sub, v]) => (
-                  <div className="row" key={k}>
-                    <span className="row__k">
-                      {k}
-                      <small>{sub}</small>
-                    </span>
-                    <span className="row__v">{v}</span>
-                  </div>
-                ))}
-                <div className="row row--total">
-                  <span className="row__k">Total payable</span>
-                  <span className="row__v">&#8377;5,487.00</span>
-                </div>
-              </div>
-              <div className="invoice__ft">
-                <p>
-                  Night shift or under four hours&rsquo; notice adds a 20% surcharge each. Registered
-                  businesses get a GSTIN-addressed invoice they can claim against.
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal className="split">
-              <div>
-                <p className="eyebrow" style={{ marginBottom: 12 }}>The other side of the same invoice</p>
-                <p className="split__note">
-                  On that booking the guard receives <b>&#8377;3,292</b> &mdash; <b>&#8377;987.60</b>{' '}
-                  the moment their start code is verified, and <b>&#8377;2,304.40</b> two days after
-                  the shift ends. We publish this because a guard who knows exactly what they&rsquo;re
-                  taking home is a guard who turns up.
-                </p>
-              </div>
-
-              <div>
-                <p className="eyebrow" style={{ marginBottom: 12 }}>Two kinds of credit, deliberately kept apart</p>
-                <div className="wallet">
-                  <div className="coin">
-                    <span className="coin__n">SecureCoins</span>
-                    <p className="coin__d">
-                      What a cancellation refund comes back as. &#8377;1 each, no cap, applied to your
-                      total like cash.
-                    </p>
-                  </div>
-                  <div className="coin">
-                    <span className="coin__n">SecurePoints</span>
-                    <p className="coin__d">
-                      Earned from referrals and loyalty. Applied before tax, so they cut your GST too
-                      &mdash; up to 20% of a booking.
-                    </p>
-                  </div>
-                </div>
-                <p className="split__note" style={{ marginTop: 14 }}>
-                  They are not interchangeable, and that is on purpose: one is a discount in the eyes
-                  of the tax law, the other is a way to pay. Merging them would quietly misstate what
-                  you owe.
-                </p>
-              </div>
-            </Reveal>
-          </div>
         </div>
       </section>
 
