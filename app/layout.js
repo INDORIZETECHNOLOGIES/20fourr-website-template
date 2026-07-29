@@ -47,18 +47,18 @@ const deva = IBM_Plex_Sans_Devanagari({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://secureconnect.in'),
+  metadataBase: new URL('https://20fourr.com'),
   title: {
-    default: 'SecureConnect — Verified security, dispatched on demand',
-    template: '%s | SecureConnect',
+    default: '20fourr — Verified security, dispatched on demand',
+    template: '%s | 20fourr',
   },
   description:
     'Book a PSARA-licensed security guard, bouncer, armed gunman or personal security officer from your phone. Every duty is verified with a code, and every booking comes with an itemised GST invoice.',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    siteName: 'SecureConnect',
-    title: 'SecureConnect — Verified security, dispatched on demand',
+    siteName: '20fourr',
+    title: '20fourr — Verified security, dispatched on demand',
     description:
       'Licensed guards, bouncers, armed protection and PSOs. Duty proven with a code. Payment released against verified attendance.',
   },
