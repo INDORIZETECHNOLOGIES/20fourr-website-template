@@ -338,13 +338,19 @@ b, strong { font-weight: 500; }
 }
 [lang="hi"] .ticket__ft { font-family: var(--deva); letter-spacing: 0; font-size: .84rem; }
 
-.ticket.play .trow { animation: logIn .5s cubic-bezier(.2,.7,.3,1) forwards; }
-.ticket.play .trow:nth-child(1) { animation-delay: .30s; }
-.ticket.play .trow:nth-child(2) { animation-delay: .48s; }
-.ticket.play .trow:nth-child(3) { animation-delay: .66s; }
-.ticket.play .trow:nth-child(4) { animation-delay: .84s; }
-.ticket.play .trow:nth-child(5) { animation-delay: 1.02s; }
-.ticket.play .ticket__ft { animation: logIn .5s ease forwards 1.28s; }
+/* The stagger is computed from each row's index (--i, set in DutyTicket.jsx)
+   rather than listed per nth-child. A hardcoded list silently breaks when a
+   row is added: the extra row matches no rule, inherits delay 0, and fades in
+   *first* — reversing the sequence the component exists to show. The footer
+   follows the row count (--rows) for the same reason. */
+.ticket.play .trow {
+  animation: logIn .5s cubic-bezier(.2,.7,.3,1) forwards;
+  animation-delay: calc(.30s + var(--i, 0) * .18s);
+}
+.ticket.play .ticket__ft {
+  animation: logIn .5s ease forwards;
+  animation-delay: calc(.38s + var(--rows, 5) * .18s);
+}
 
 @keyframes logIn { to { opacity: 1; transform: none; } }
 

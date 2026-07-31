@@ -5,6 +5,9 @@ const ROWS = [
   <>
     Duty started &middot; OTP <code>4-8-2-1</code>
   </>,
+  <>
+    Duty ended &middot; OTP <code>4-8-2-1</code>
+  </>,
   <>Duty ended &middot; payout released</>,
 ];
 
@@ -20,19 +23,21 @@ const ROWS = [
  */
 export default function DutyTicket() {
   return (
-    <div className="ticket play">
+    <div className="ticket play" style={{ '--rows': ROWS.length }}>
       <div className="ticket__hd">Duty ticket</div>
 
       <div className="ticket__rows">
         {ROWS.map((r, i) => (
-          <div className="trow" key={i}>
+          /* --i drives the reveal delay, so adding or removing a row
+             re-times the sequence on its own — see .ticket.play in globals.css */
+          <div className="trow" key={i} style={{ '--i': i }}>
             <span className="trow__dot" aria-hidden="true" />
             <span className="trow__t">{r}</span>
           </div>
         ))}
       </div>
 
-      <div className="ticket__ft">&#8377;987.60 advance released to guard</div>
+      {/* <div className="ticket__ft">&#8377;987.60 advance released to guard</div> */}
     </div>
   );
 }
