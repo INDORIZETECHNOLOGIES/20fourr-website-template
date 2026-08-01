@@ -463,7 +463,14 @@ b, strong { font-weight: 500; }
 @media (max-width: 780px) {
   .log__row,
   .log--money .log__row { grid-template-columns: 46px minmax(0, 1fr); row-gap: 10px; }
-  .log__d { grid-column: 2 / -1; }
+  /* The description drops to its own line and indents past the ordinal column.
+     That only makes sense where an ordinal column exists: .log--narrow keeps its
+     single track at every width, so line 2 there is an *implicit* one the
+     description escapes into, sized to its own content — which starves the 1fr
+     track holding the label down to a few characters and lays one on top of the
+     other. Scoping the rule away from narrow rows leaves them stacked, which is
+     what the variant is for. */
+  .log:not(.log--narrow) .log__d { grid-column: 2 / -1; }
   .log--money .log__n { font-size: 1.5rem; }
 }
 
