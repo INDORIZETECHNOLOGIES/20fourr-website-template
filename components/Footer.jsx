@@ -16,7 +16,6 @@ const COLUMNS = [
   {
     title: 'Company',
     links: [
-      ['For business', '/#business'],
       ['Become a provider', '/join'],
       ['How it works', '/#how'],
       ['Help centre', '/#faq'],

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import DutyTicket from '@/components/DutyTicket';
 import AppPreview from '@/components/AppPreview';
+import ProviderReel from '@/components/ProviderReel';
 
 const CREDENTIALS = [
   'PSARA-licensed providers only',
@@ -67,42 +68,57 @@ const LIFECYCLE = [
   },
 ];
 
-// Same row pattern, money in the key column.
-const TRANCHES = [
+/* The complete badge vocabulary — these seven are exactly BADGE_LABEL in
+   security-providers/data.js, so a visitor who clicks through to the directory
+   meets the same words on the provider chips. The eighth card is the absent
+   badge: a list of things we check reads as a list of things every provider has
+   unless the page says otherwise, and it does not.
+   `m` is the provenance line — who did the checking and when, which is the part
+   that makes a badge a claim about a document rather than about a person. */
+const BADGES = [
   {
-    n: '30%',
-    when: 'On start code verified',
-    verified: true,
-    d: <>The guard is paid the moment they are confirmed on site. It costs them nothing to show up on time.</>,
+    k: 'Verified identity',
+    b: <>Government photo ID checked against the person or entity applying, and approved by our compliance team.</>,
+    m: <>Checked by <b>compliance team</b> &middot; at onboarding</>,
   },
   {
-    n: '70%',
-    when: 'Two days after end code',
-    d: <>The balance settles on T+2, which leaves a window to raise a dispute before the money is gone.</>,
+    k: 'Background verified',
+    b: <>Police verification on file and read by an admin before the provider is allowed to appear in search results.</>,
+    m: <>Checked by <b>admin review</b> &middot; before listing</>,
   },
   {
-    n: '0%',
-    when: 'If nobody arrives',
-    d: <>No start code means no duty, no payout, and an automatic penalty on the provider&rsquo;s record.</>,
+    k: 'PSARA verified',
+    b: <>Holds a current licence under the Private Security Agencies (Regulation) Act, 2005, with expiry tracked on a rolling basis.</>,
+    m: <>Checked by <b>compliance team</b> &middot; re-checked on expiry</>,
+  },
+  {
+    k: 'Firearms authorised',
+    b: <>Holds a valid individual weapon licence, verified separately from the agency licence. Required for any armed booking.</>,
+    m: <>Checked <b>independently</b> &middot; per officer</>,
+  },
+  {
+    k: 'Ex-serviceman',
+    b: <>Discharge or retirement certificate from the armed forces or police on file and verified.</>,
+    m: <>Checked by <b>compliance team</b> &middot; document-backed</>,
+  },
+  {
+    k: 'Top rated',
+    b: <>Averages 4.5 or higher across at least five completed bookings. It cannot be bought, and it is removed automatically if the average drops.</>,
+    m: <>Computed from <b>client ratings</b> &middot; live</>,
+  },
+  {
+    k: 'Elite protection',
+    b: <>Our highest verification tier, reserved for close-protection specialists who clear every check above plus an assignment history review.</>,
+    m: <>Highest tier &middot; <b>manual approval</b></>,
+  },
+  {
+    k: 'No badge shown',
+    b: <>If a badge is absent, that check has not been cleared. We show what has been verified rather than implying everything has.</>,
+    m: <>Absence is <b>information</b>, not an oversight</>,
   },
 ];
 
 // The compliance guarantees, run through the same log.
-const COMPLIANCE = [
-  {
-    state: 'Tax collected at source',
-    d: <>Withheld from registered-firm providers at 1% and filed with the department in GSTR-8 by the 10th of the following month. You never touch it.</>,
-  },
-  {
-    state: 'Reverse charge',
-    d: <>If you&rsquo;re a registered business hiring an unregistered provider, we don&rsquo;t collect service GST from you &mdash; the invoice says so plainly, so your accountant isn&rsquo;t guessing.</>,
-  },
-  {
-    state: 'Licences per booking',
-    d: <>PSARA status and, for armed duty, the firearm licence are re-verified at the point of assignment &mdash; not once at signup and then forgotten.</>,
-  },
-];
-
 const TRUST = [
   {
     k: 'Contact privacy',
@@ -136,20 +152,28 @@ const TRUST = [
   },
 ];
 
-const BUSINESS_CHECKS = [
-  <><b>GSTIN-addressed invoices</b> on every booking, with reverse charge applied correctly when it applies to you.</>,
-  <><b>Recurring rosters</b> &mdash; daily, weekdays, weekly or a custom pattern, with the same guard each time.</>,
-  <><b>An attendance record you can audit</b> &mdash; every arrival and departure timestamped against a code your site manager issued.</>,
-  <><b>Preferred and blocked lists</b>, so the people who know your site keep coming back and the ones who didn&rsquo;t work out don&rsquo;t.</>,
-];
-
-const PERKS = [
-  ['30%', 'Paid to you the minute the client’s start code is verified — before the shift is even over.'],
-  ['T+2', 'The remaining 70% lands two days after you close the duty. Every time, no chasing.'],
-  ['Your rate', 'You set the day rate, the hourly rate and what a vehicle costs. We don’t set your price.'],
-  ['₹200 / ₹500', 'Bonuses at 10 and 50 completed jobs, plus a Trusted and Elite badge clients can see.'],
-  ['Appeal', 'Every penalty can be contested with your side of the story. A human reads it.'],
-  ['₹300', 'For each guard you bring on who completes their first job, with more at 3, 5 and 10.'],
+/* Escalation and statute, in the same card grid the provider perks use. The key
+   is a mono tag rather than a figure here — these are named consequences, not
+   amounts, and the column is short either way. */
+const ACCOUNTABILITY = [
+  ['Falsified', 'Falsified documents result in immediate and permanent removal from the platform.'],
+  ['Delisting', 'Repeated no-shows or persistently poor ratings lead to delisting.'],
+  [
+    'Evidence',
+    'Check-in and check-out are recorded against the shift you paid for, so attendance is evidence rather than opinion.',
+  ],
+  [
+    'PSARA 2005',
+    'The Private Security Agencies (Regulation) Act, 2005 governs who may lawfully supply private security personnel in India.',
+  ],
+  [
+    'Pre-listing',
+    '20fourr verifies each provider’s PSARA licence before listing them, and re-checks expiry on a rolling basis.',
+  ],
+  [
+    'On lapse',
+    'When a licence lapses, the provider is blocked from search and from accepting new bookings automatically — not at an admin’s discretion — until the renewed licence is verified.',
+  ],
 ];
 
 const FAQ = [
@@ -179,14 +203,6 @@ const FAQ = [
   },
 ];
 
-function Tick() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3 8.4 6.4 12 13 4.4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 /* Title and description are inherited from the root layout; this exists so the
    home page states its own canonical like every other route does. Without it a
    crawler that arrives on a tracking-parameter variant has nothing telling it
@@ -205,12 +221,10 @@ export default function HomePage() {
           <div className="stack g-28">
             <p className="eyebrow">For clients &middot; PSARA-licensed providers</p>
             <h1>
-              Book a guard you can <em>verify</em>, not just hope shows up.
+              One platform to hire <em>verify</em>, security guards, bouncers and armed personnel anywhere in India.
             </h1>
             <p className="hero__sub">
-              Every provider is PSARA-licensed and KYC-checked before you ever see their profile.
-              Your address and threat details stay sealed until payment is secured &mdash; so only a
-              committed provider ever sees them.
+              Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every PSARA-verified agency and officer in one place, so you see the price upfront and book in minutes.
             </p>
             <div className="hero__ctas">
               <Link className="btn btn--primary" href="#book">Book verified security</Link>
@@ -281,20 +295,22 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal className="subhead">
-            <p className="eyebrow">Payment release</p>
-            <h3>Money moves only when the state before it is proven.</h3>
+            <p className="eyebrow">Trust badges</p>
+            <h3>Badges are earned, never self-declared.</h3>
+            <p className="lede">
+              Every badge below is computed from documents a 20fourr admin has reviewed and
+              approved. A provider cannot switch one on for themselves, and a badge disappears
+              automatically the moment the underlying document expires or is revoked.
+            </p>
           </Reveal>
 
-          <Reveal className="log log--money">
-            {TRANCHES.map((t) => (
-              <div
-                className={`log__row${t.verified ? ' log__row--verified' : ''}`}
-                key={t.when}
-              >
-                <span className="log__n">{t.n}</span>
-                <span className="log__state">{t.when}</span>
-                <p className="log__d">{t.d}</p>
-              </div>
+          <Reveal className="badges">
+            {BADGES.map((b) => (
+              <article className="bcard" key={b.k}>
+                <h3 className="bcard__k">{b.k}</h3>
+                <p className="bcard__b">{b.b}</p>
+                <p className="bcard__m">{b.m}</p>
+              </article>
             ))}
           </Reveal>
         </div>
@@ -323,27 +339,40 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal style={{ marginTop: 'clamp(48px,6vw,72px)' }}>
-            <p className="eyebrow" style={{ marginBottom: 14 }}>If a guard doesn&rsquo;t turn up</p>
+            <p className="eyebrow" style={{ marginBottom: 14 }}>Read this before you book</p>
             <h3 style={{ fontSize: 'clamp(1.35rem,2.4vw,1.75rem)', maxWidth: '24ch' }}>
-              Consequences are automatic and scaled to how much notice you were given.
+              What verification does not mean.
             </h3>
+            <p className="lede" style={{ marginTop: 12, maxWidth: '62ch' }}>
+              Being straight about the limits is part of being trustworthy. Verification is a check
+              on documents and history &mdash; it is not a guarantee of future conduct, and no
+              platform can honestly claim otherwise.
+            </p>
+            {/* Three limits, not three severities — see the note on .tier--note. */}
             <div className="tiers">
-              <div className="tier">
-                <span className="tier__l">Level 1 &middot; Late arrival</span>
-                <div className="tier__h">20% deducted, minimum &#8377;300</div>
-                <p className="tier__d">A formal warning on the provider&rsquo;s record. No suspension.</p>
-              </div>
-              <div className="tier tier--l2">
-                <span className="tier__l">Level 2 &middot; No-show, over 2 hours&rsquo; notice</span>
-                <div className="tier__h">50% deducted</div>
-                <p className="tier__d">Account suspended for three days while the case is reviewed.</p>
-              </div>
-              <div className="tier tier--l3">
-                <span className="tier__l">Level 3 &middot; No-show inside 2 hours</span>
-                <div className="tier__h">100% deducted</div>
+              <div className="tier tier--note">
+                <span className="tier__l">Who performs the duty</span>
+                <div className="tier__h">20fourr is a technology platform</div>
                 <p className="tier__d">
-                  Fifteen-day suspension, PSARA privileges blocked, and a support case opened for you
-                  automatically.
+                  The security services themselves are performed by independent, PSARA-licensed
+                  agencies and their personnel, and responsibility for their conduct on duty sits
+                  with them.
+                </p>
+              </div>
+              <div className="tier tier--note">
+                <span className="tier__l">Emergencies</span>
+                <div className="tier__h">We are not an emergency service</div>
+                <p className="tier__d">
+                  In an emergency, contact the police on 112 first, then raise an incident on your
+                  booking so the record, the agency and our compliance team stay aligned.
+                </p>
+              </div>
+              <div className="tier tier--note">
+                <span className="tier__l">What a badge proves</span>
+                <div className="tier__h">A document was checked on a date</div>
+                <p className="tier__d">
+                  A verified badge does not predict behaviour. Ratings, check-in records and the
+                  incident process exist precisely because paperwork alone is not enough.
                 </p>
               </div>
             </div>
@@ -351,39 +380,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- business ---------- */}
-      <section className="band" id="business">
-        <div className="wrap biz">
-          <Reveal className="stack g-28">
-            <p className="eyebrow">For business</p>
-            <h2>Standing deployments, one invoice trail.</h2>
+      {/* ---------- accountability ----------
+          Follows the verification limits deliberately: having just said what a
+          badge does not prove, this is the route when the gap shows up on a real
+          booking, and the statute the whole listing rests on. */}
+      <section className="band band--ink-2" id="report">
+        <div className="wrap">
+          <Reveal className="head">
+            <p className="eyebrow">Report a concern &middot; PSARA compliance</p>
+            <h2>If something is wrong, there is one route.</h2>
             <p className="lede">
-              Malls, warehouses, hospitals, construction sites and event companies run security as a
-              schedule, not a one-off. Set it once and let the compliance take care of itself.
+              An officer who did not report, conduct you are unhappy with, or a document you believe
+              is not genuine &mdash; raise it against the booking. It reaches our compliance team
+              and the agency at the same time, with the booking record attached.
             </p>
-            <div className="checks">
-              {BUSINESS_CHECKS.map((c, i) => (
-                <div className="check" key={i}>
-                  <Tick />
-                  <span>{c}</span>
-                </div>
-              ))}
-            </div>
-            <div className="hero__ctas">
-              <Link className="btn btn--primary" href="#book">Talk to our business team</Link>
-            </div>
           </Reveal>
 
-          <Reveal>
-            <p className="eyebrow" style={{ marginBottom: 20 }}>Compliance handled for you</p>
-            <div className="log log--narrow">
-              {COMPLIANCE.map((c) => (
-                <div className="log__row" key={c.state}>
-                  <span className="log__state">{c.state}</span>
-                  <p className="log__d">{c.d}</p>
-                </div>
-              ))}
-            </div>
+          <Reveal className="perks perks--wide">
+            {ACCOUNTABILITY.map(([n, d]) => (
+              <div className="perk" key={n}>
+                <span className="perk__n">{n}</span>
+                <p className="perk__d">{d}</p>
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
@@ -405,13 +424,8 @@ export default function HomePage() {
             <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
           </Reveal>
 
-          <Reveal className="perks">
-            {PERKS.map(([n, d]) => (
-              <div className="perk" key={n}>
-                <span className="perk__n">{n}</span>
-                <p className="perk__d">{d}</p>
-              </div>
-            ))}
+          <Reveal>
+            <ProviderReel />
           </Reveal>
         </div>
       </section>

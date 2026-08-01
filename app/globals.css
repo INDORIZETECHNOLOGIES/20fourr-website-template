@@ -291,6 +291,9 @@ b, strong { font-weight: 500; }
 .hero h1 { color: var(--text); max-width: 19ch; }
 .hero h1 em { font-style: normal; color: var(--amber); }
 .hero__sub { color: var(--text-2); font-size: clamp(1.06rem, 1.5vw, 1.22rem); max-width: 46ch; line-height: 1.58; }
+/* The subhead runs at the dimmer tone; a bolded word inside it steps up to the
+   full text colour rather than staying flat. Same pattern as .tcard__b b. */
+.hero__sub b { color: var(--text); font-weight: 500; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero__fine { font-family: var(--mono); font-size: .74rem; color: var(--text-2); letter-spacing: .03em; }
 [lang="hi"] .hero__fine { font-family: var(--deva); letter-spacing: 0; font-size: .82rem; }
@@ -432,16 +435,30 @@ b, strong { font-weight: 500; }
 .log__d { font-size: .93rem; color: var(--text-2); line-height: 1.6; max-width: 62ch; }
 .log__d code { font-family: var(--mono); font-size: .86em; color: var(--accent); }
 
-/* money rows: the figure replaces the ordinal and gets the display face */
-.log--money .log__n {
-  font-family: var(--display); font-weight: 300; font-size: 2rem;
-  line-height: .9; color: var(--text); letter-spacing: .01em;
-  font-variation-settings: "opsz" 32;
+/* ---------- badges ----------
+   Cut by hairlines like .svcs and .trust rather than floated as separate rounded
+   cards: this page has no rounded card anywhere, and the grid has to read as one
+   table of checks, not eight loose tiles.
+   Two columns, because eight cards divide into four clean rows — three would
+   leave a ragged last row, and four would squeeze the provenance line. */
+.badges {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--line); border: 1px solid var(--line);
 }
-.log--money .log__row { grid-template-columns: 96px minmax(150px, 230px) minmax(0, 1fr); }
-.log--money .log__state { color: var(--accent); font-size: 1.05rem; letter-spacing: .09em; }
-/* the tranche that is released *on verification* — the one green moment here */
-.log__row--verified .log__state { color: var(--ok); }
+@media (max-width: 720px) { .badges { grid-template-columns: 1fr; } }
+.bcard { background: var(--bg); padding: 26px 24px 24px; display: flex; flex-direction: column; gap: 10px; }
+/* The badge name carries the accent, not a separate eyebrow above it — the name
+   *is* the label here, and a second amber line would ration nothing. */
+.bcard__k { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--accent); }
+.bcard__b { font-size: .92rem; color: var(--text-2); line-height: 1.58; }
+/* Pinned to the foot so the provenance lines up across a row whatever the body
+   length — it reads as a column of its own, which is the point of stating it. */
+.bcard__m {
+  margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line-soft);
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.bcard__m b { color: var(--text-2); font-weight: 500; }
 
 /* narrow variant for a sidebar column: everything stacks, no key column */
 .log--narrow .log__row { grid-template-columns: minmax(0, 1fr); gap: 9px; }
@@ -461,8 +478,7 @@ b, strong { font-weight: 500; }
 [lang="hi"] .subhead h3 { text-transform: none; font-weight: 500; letter-spacing: 0; }
 
 @media (max-width: 780px) {
-  .log__row,
-  .log--money .log__row { grid-template-columns: 46px minmax(0, 1fr); row-gap: 10px; }
+  .log__row { grid-template-columns: 46px minmax(0, 1fr); row-gap: 10px; }
   /* The description drops to its own line and indents past the ordinal column.
      That only makes sense where an ordinal column exists: .log--narrow keeps its
      single track at every width, so line 2 there is an *implicit* one the
@@ -471,7 +487,6 @@ b, strong { font-weight: 500; }
      other. Scoping the rule away from narrow rows leaves them stacked, which is
      what the variant is for. */
   .log:not(.log--narrow) .log__d { grid-column: 2 / -1; }
-  .log--money .log__n { font-size: 1.5rem; }
 }
 
 /* ---------- trust ---------- */
@@ -489,6 +504,10 @@ b, strong { font-weight: 500; }
 .tier { border: 1px solid var(--line); border-top: 3px solid color-mix(in srgb, var(--charcoal) 24%, var(--paper)); background: var(--bg); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
 .tier--l2 { border-top-color: var(--amber); }
 .tier--l3 { border-top-color: var(--charcoal); }
+/* Limits and disclaimers rather than an escalating ladder. The l1/l2/l3 ramp
+   encodes "this one is worse than the last"; three parallel caveats have no such
+   order, so they all take the one advisory rule instead. */
+.tier--note { border-top-color: var(--amber); }
 .tier__l { font-family: var(--mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
 .tier__h { font-size: .97rem; font-weight: 600; }
 .tier__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
@@ -622,8 +641,6 @@ b, strong { font-weight: 500; }
 .pdetail__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* ---------- business ---------- */
-.biz { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: clamp(32px,4.5vw,64px); align-items: center; }
-@media (max-width: 900px) { .biz { grid-template-columns: 1fr; } }
 .checks { display: flex; flex-direction: column; gap: 13px; }
 .check { display: grid; grid-template-columns: 16px 1fr; gap: 12px; align-items: start; font-size: .95rem; color: var(--text-2); line-height: 1.5; }
 .check svg { width: 15px; height: 15px; margin-top: 4px; color: var(--ok); }
@@ -637,6 +654,13 @@ b, strong { font-weight: 500; }
 .perk { background: var(--bg); padding: 20px 18px 22px; display: flex; flex-direction: column; gap: 6px; }
 .perk__n { font-family: var(--mono); font-size: 1.24rem; font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; }
 .perk__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
+/* The perk grid was sized for the narrow column of the provider teaser. Given
+   the full measure it needs a third column, or .87rem text runs to ~85
+   characters a line — same breakpoints as .trust, which is the page's other
+   full-width card grid. */
+.perks--wide { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 940px) { .perks--wide { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .perks--wide { grid-template-columns: 1fr; } }
 
 /* ---------- faq ---------- */
 .faq { border-top: 1px solid var(--line); }
@@ -793,6 +817,56 @@ b, strong { font-weight: 500; }
    enough to say which app this is. */
 .phones--one { --phone-w: clamp(190px, 21vw, 244px); }
 .phones--one .phone { transform: rotate(-2.5deg); margin: 0; }
+
+/* ---------- provider reel ----------
+   The device sits square here, not tilted like the pair or the chat mock. A
+   handset that is cycling through screens is being *read*, and a tilt the eye
+   has to correct for fights that. */
+.phones--reel { --phone-w: clamp(196px, 21vw, 252px); padding-inline: 0; }
+.phones--reel .phone { transform: none; margin: 0; }
+
+.reel { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+/* The screens are stacked and cross-faded rather than swapped, so the device
+   never flashes its empty background between two of them. */
+.reel__scr { position: absolute; inset: 0; opacity: 0; transition: opacity 320ms ease; }
+.reel__scr.is-on { opacity: 1; }
+
+.reel__cap {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 18px; border-radius: 100px;
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--amber) 42%, transparent);
+  backdrop-filter: blur(14px);
+}
+.reel__pip {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--amber); box-shadow: 0 0 10px var(--amber);
+  animation: reelpulse 1.8s ease-in-out infinite;
+}
+@keyframes reelpulse { 0%, 100% { opacity: .5 } 50% { opacity: 1 } }
+.reel__label {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--paper);
+}
+.reel__dots { display: flex; gap: 6px; }
+/* Inactive dots read against whichever band the reel lands on — currentColor
+   picks up the band's text tone, so this works on paper and on ink without a
+   second rule. */
+.reel__dot {
+  width: 5px; height: 5px; border-radius: 5px;
+  background: currentColor; opacity: .26;
+  transition: width .4s ease, opacity .4s ease, background-color .4s ease;
+}
+/* --accent, not raw --amber: this dot sits on the band itself, and #E8A33D on
+   paper is ~1.8:1. The semantic token is --amber-dim there and full amber on
+   ink, which is the whole reason the pair exists. The pip in the caption keeps
+   raw amber — that one is on a dark pill. */
+.reel__dot.is-on { width: 22px; opacity: 1; background: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reel__pip { animation: none; }
+  .reel__scr, .reel__dot { transition: none; }
+}
 
 .scr--chat { padding-inline: 0; padding-bottom: 0; }
 .scr--chat .scr__bar { padding-inline: 6cqw; margin-bottom: 4cqw; }

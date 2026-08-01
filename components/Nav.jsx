@@ -15,7 +15,6 @@ export default function Nav() {
           <Link href="/#how">How it works</Link>
           <Link href="/#trust">Trust &amp; compliance</Link>
           <Link href="/security-providers">Security</Link>
-          <Link href="/#business">For business</Link>
         </div>
 
         <div className="nav__cta">
