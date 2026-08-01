@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
+import { providerJsonLd } from '../schema';
 import {
   badgeLabel,
   categoryList,
@@ -88,6 +90,8 @@ export default async function ProviderPage({ params }) {
 
   return (
     <>
+      <JsonLd data={providerJsonLd(provider)} />
+
       {/* ---------- head ---------- */}
       <header className="hero hero--list" id="top">
         <div className="hero__glow" />

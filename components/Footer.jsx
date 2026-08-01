@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import Image from 'next/image';
+import { LEGAL_NAME } from '@/app/site';
 
 const COLUMNS = [
   {
@@ -71,7 +72,11 @@ export default function Footer() {
         </div>
 
         <div className="foot__legal">
-          <span>&copy; {new Date().getFullYear()} SecureConnect</span>
+          {/* The copyright line names the company that owns the product, not the
+              product — 20fourr is a brand, Indorse Technologies is the entity. */}
+          <span>
+            &copy; {new Date().getFullYear()} {LEGAL_NAME}
+          </span>
           <span>Made in India</span>
         </div>
       </div>

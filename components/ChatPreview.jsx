@@ -16,7 +16,7 @@ function DocIcon() {
  * The onboarding conversation, in the same phone frame as the client-side app
  * preview. It replaces a sentence that asked the reader to imagine the thing.
  *
- * This is drawn in SecureConnect's own palette rather than as a WhatsApp
+ * This is drawn in 20fourr's own palette rather than as a WhatsApp
  * replica: outgoing bubbles are amber, incoming are the third ink tone. Two
  * reasons — copying another product's chrome would put a second brand's green
  * on a page that rations colour to one accent, and a mock that looks like a

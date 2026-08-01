@@ -187,6 +187,14 @@ function Tick() {
   );
 }
 
+/* Title and description are inherited from the root layout; this exists so the
+   home page states its own canonical like every other route does. Without it a
+   crawler that arrives on a tracking-parameter variant has nothing telling it
+   which URL is the real one. */
+export const metadata = {
+  alternates: { canonical: '/' },
+};
+
 export default function HomePage() {
   return (
     <>

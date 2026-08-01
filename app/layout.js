@@ -7,6 +7,8 @@ import {
 } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd';
+import { LEGAL_NAME, ORG_ID, SITE_URL } from './site';
 
 /* Self-hosted at build time by next/font — no third-party request at runtime,
    and no layout shift, which a <link> to fonts.googleapis.com cannot promise.
@@ -47,7 +49,7 @@ const deva = IBM_Plex_Sans_Devanagari({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://20fourr.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: '20fourr — Verified security, dispatched on demand',
     template: '%s | 20fourr',
@@ -73,6 +75,43 @@ export const viewport = {
   colorScheme: 'dark',
 };
 
+/* Organization is what lets Google attach the name, logo and site to one entity
+   instead of inferring three. Only claims that are true on the page are here —
+   no address, no phone, no ratings, because unverifiable markup is the kind that
+   gets a site a manual action rather than a rich result.
+
+   20fourr is the product; Indorse Technologies Pvt. Ltd. is the company that
+   builds it. Stating the parent explicitly is what keeps searches for either
+   name resolving to the same entity instead of two disconnected ones. */
+const ORGANIZATION_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: '20fourr',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo-mark.svg`,
+  description:
+    'On-demand booking for PSARA-licensed security guards, bouncers, armed gunmen and personal security officers across India.',
+  areaServed: { '@type': 'Country', name: 'India' },
+  parentOrganization: {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#parent-organization`,
+    name: LEGAL_NAME,
+    legalName: LEGAL_NAME,
+    address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+  },
+};
+
+const WEBSITE_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: '20fourr',
+  inLanguage: 'en-IN',
+  publisher: { '@id': ORG_ID },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -80,6 +119,7 @@ export default function RootLayout({ children }) {
       className={`${display.variable} ${body.variable} ${mono.variable} ${deva.variable}`}
     >
       <body>
+        <JsonLd data={[ORGANIZATION_LD, WEBSITE_LD]} />
         <Nav />
         <main>{children}</main>
         <Footer />

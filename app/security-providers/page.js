@@ -1,10 +1,18 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
+import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
 import Filters from './Filters';
 import Pager from './Pager';
 import ProviderCard from './ProviderCard';
-import { CATEGORY_LABEL, CATEGORY_PLURAL, parseSearchParams, queryProviders } from './data';
+import { listingJsonLd } from './schema';
+import {
+  CATEGORY_LABEL,
+  CATEGORY_PLURAL,
+  PAGE_SIZE,
+  parseSearchParams,
+  queryProviders,
+} from './data';
 
 /**
  * Canonical for a filtered view. `sortBy` is excluded on purpose: it re-orders an
@@ -54,6 +62,19 @@ export default async function ProvidersPage({ searchParams }) {
 
   return (
     <>
+      {/* Built from the same canonicalFor() the metadata uses, so the graph's @id
+          and the page's canonical can never drift apart. */}
+      <JsonLd
+        data={listingJsonLd({
+          providers,
+          category,
+          city,
+          page,
+          pageSize: PAGE_SIZE,
+          canonical: canonicalFor(view),
+        })}
+      />
+
       {/* ---------- head ---------- */}
       <header className="hero hero--list" id="top">
         <div className="hero__glow" />

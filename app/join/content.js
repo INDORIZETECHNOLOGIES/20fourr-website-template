@@ -8,7 +8,7 @@
  */
 
 export const WHATSAPP_URL =
-  'https://wa.me/910000000000?text=' + encodeURIComponent('I want to join SecureConnect as a provider');
+  'https://wa.me/910000000000?text=' + encodeURIComponent('I want to join 20fourr as a provider');
 
 /**
  * The roles shown in the hero.
@@ -121,7 +121,7 @@ const content = {
       { t: 'Live selfie', d: 'Taken inside the app and matched against your ID.' },
       { t: 'PSARA licence', d: 'Needed for verified status. Without it you cannot accept bookings.' },
       { t: 'Firearm licence', d: 'Gunman work only. Re-checked before every armed booking.' },
-      { t: 'Bank account details', d: 'For your payouts. Only you can change these — no SecureConnect staff member can edit them.' },
+      { t: 'Bank account details', d: 'For your payouts. Only you can change these — no 20fourr staff member can edit them.' },
     ],
 
     fairHead: 'Where you stand',
@@ -172,12 +172,12 @@ const content = {
     finalTitle: 'Start taking work this week.',
     finalSub: 'Message us on WhatsApp and we will walk you through the documents.',
     chat: {
-      who: 'SecureConnect',
+      who: '20fourr',
       status: 'Replies in minutes',
       rows: [
         // the message the WhatsApp CTA actually prefills — the thread starts
         // where the button leaves off
-        { from: 'out', t: 'I want to join SecureConnect as a provider' },
+        { from: 'out', t: 'I want to join 20fourr as a provider' },
         { from: 'in', t: 'Namaste! Send a photo of your Aadhaar card and we will start your file.' },
         { from: 'out', doc: 'aadhaar.jpg' },
         { from: 'in', t: 'Got it. PAN card next, then your PSARA licence.' },
@@ -245,7 +245,7 @@ const content = {
       { t: 'लाइव सेल्फ़ी', d: 'ऐप में ही ली जाएगी और आपके ID से मिलान किया जाएगा।' },
       { t: 'PSARA लाइसेंस', d: 'वेरिफ़ाइड होने के लिए ज़रूरी। इसके बिना आप बुकिंग नहीं ले सकते।' },
       { t: 'हथियार लाइसेंस', d: 'सिर्फ़ गनमैन के काम के लिए। हर आर्म्ड बुकिंग से पहले दोबारा जाँचा जाता है।' },
-      { t: 'बैंक खाते की जानकारी', d: 'पेमेंट के लिए। इसे सिर्फ़ आप बदल सकते हैं — SecureConnect का कोई कर्मचारी नहीं बदल सकता।' },
+      { t: 'बैंक खाते की जानकारी', d: 'पेमेंट के लिए। इसे सिर्फ़ आप बदल सकते हैं — 20fourr का कोई कर्मचारी नहीं बदल सकता।' },
     ],
 
     fairHead: 'आपकी जगह कहाँ है',
@@ -296,7 +296,7 @@ const content = {
     finalTitle: 'इसी हफ़्ते काम लेना शुरू करें।',
     finalSub: 'व्हाट्सऐप पर हमें मैसेज करें, हम दस्तावेज़ों में आपकी मदद करेंगे।',
     chat: {
-      who: 'SecureConnect',
+      who: '20fourr',
       status: 'कुछ ही मिनटों में जवाब',
       rows: [
         { from: 'out', t: 'मुझे प्रोवाइडर के रूप में जुड़ना है' },
