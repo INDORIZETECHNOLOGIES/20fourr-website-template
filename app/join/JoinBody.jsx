@@ -1,12 +1,24 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import RoleFrames from '@/components/RoleFrames';
 import ChatPreview from '@/components/ChatPreview';
 import content, { WHATSAPP_URL } from './content';
 
-const STORAGE_KEY = 'sc-join-lang';
+/**
+ * Both language versions of the provider page.
+ *
+ * The language used to be client state with the choice kept in localStorage,
+ * which meant one URL rendering English on the server no matter what — so the
+ * Hindi copy was unreachable by search entirely, for the audience most likely
+ * to be searching in Hindi. It is now a route each (`/join`, `/join/hi`), the
+ * toggle is two links, and this renders on the server in whichever language it
+ * was asked for.
+ *
+ * Losing 'use client' also takes both languages of content.js out of the
+ * browser bundle, which matters on the mid-range Android this page is written
+ * for.
+ */
+const PATH = { en: '/join', hi: '/join/hi' };
 
 function WhatsAppIcon() {
   return (
@@ -24,36 +36,28 @@ function Tick() {
   );
 }
 
-export default function JoinClient() {
-  const [lang, setLang] = useState('en');
+export default function JoinBody({ lang = 'en' }) {
   const t = content[lang];
-
-  // Remember the visitor's choice — most people arriving here in Hindi are
-  // arriving more than once, often from a forwarded link.
-  useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === 'hi' || saved === 'en') setLang(saved);
-  }, []);
-
-  function choose(next) {
-    setLang(next);
-    window.localStorage.setItem(STORAGE_KEY, next);
-  }
 
   return (
     <div lang={lang === 'hi' ? 'hi' : undefined}>
       {/* ---------- language bar ---------- */}
       <div className="langbar">
         <div className="wrap langbar__in">
-          <span className="langbar__note">{t.langNote}</span>
-          <div className="langtoggle" role="group" aria-label="Language">
-            <button type="button" aria-pressed={lang === 'en'} onClick={() => choose('en')} lang="en">
+          {/* The note points at the other language, so it is also the link to
+              it — a visitor who wants Hindi should not have to find the toggle
+              to act on a line that just told them Hindi exists. */}
+          <Link className="langbar__note" href={PATH[lang === 'hi' ? 'en' : 'hi']}>
+            {t.langNote}
+          </Link>
+          <nav className="langtoggle" aria-label="Language">
+            <Link href={PATH.en} aria-current={lang === 'en' ? 'page' : undefined} lang="en">
               English
-            </button>
-            <button type="button" aria-pressed={lang === 'hi'} onClick={() => choose('hi')} lang="hi">
+            </Link>
+            <Link href={PATH.hi} aria-current={lang === 'hi' ? 'page' : undefined} lang="hi">
               हिंदी
-            </button>
-          </div>
+            </Link>
+          </nav>
         </div>
       </div>
 

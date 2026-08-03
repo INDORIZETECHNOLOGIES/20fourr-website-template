@@ -118,6 +118,15 @@ const BADGES = [
   },
 ];
 
+/* The badge section's three claims, set beside the lede. Deliberately blunt and
+   unqualified — every one of them is discharged by a card in the grid below, so
+   the column states the promise and the grid shows the receipts. */
+const CLAIMS = [
+  <><em>Verified</em> means verified.</>,
+  <>Checked before they&rsquo;re listed.</>,
+  <>We check the papers, not just the profile.</>,
+];
+
 // The compliance guarantees, run through the same log.
 const TRUST = [
   {
@@ -176,33 +185,6 @@ const ACCOUNTABILITY = [
   ],
 ];
 
-const FAQ = [
-  {
-    q: 'What happens if the guard doesn’t show up?',
-    a: 'Report it in the app and the penalty is calculated from how close to the start time it happened. Inside two hours, the provider forfeits the entire booking value, is suspended for fifteen days and has their PSARA privileges blocked. A support case is opened for you at the same time — you don’t have to chase anyone.',
-  },
-  {
-    q: 'Can I meet or verify the guard before the shift?',
-    a: 'You can see their profile, ratings, experience, badges and verification status before booking. Their phone number and address unlock once payment is made, and you can message them in the app from that point until the booking closes.',
-  },
-  {
-    q: 'Is the armed guard’s firearm licence actually checked?',
-    a: 'Yes, and not just once. The provider uploads it during KYC and it is verified by our compliance team, then re-confirmed at the point the booking is assigned. A gunman booking cannot proceed without a current verified licence on file.',
-  },
-  {
-    q: 'How do I get my money back if I cancel?',
-    a: 'Refunds go to your SecureCoins balance, usually within 24 hours: 90% if you cancel more than 24 hours before the start, 50% between 12 and 24 hours, nothing inside 12 hours. Coins are worth ₹1 each and can be spent on any future booking with no cap.',
-  },
-  {
-    q: 'Do you give a GST invoice I can claim?',
-    a: 'Every booking generates an itemised tax invoice the moment payment is captured. If your account is registered as a business with a GSTIN, the invoice is addressed to it and states the applicable regime — forward charge or reverse charge — explicitly.',
-  },
-  {
-    q: 'I run a security agency. Can I put my whole team on this?',
-    a: 'Yes. Register as a firm, complete the agency KYC once, then assign staff per booking with their credentials attached. Registered firms have TCS withheld at 1% and appear in our monthly GSTR-8 filing, so your tax position is documented rather than reconstructed later.',
-  },
-];
-
 /* Title and description are inherited from the root layout; this exists so the
    home page states its own canonical like every other route does. Without it a
    crawler that arrives on a tracking-parameter variant has nothing telling it
@@ -221,7 +203,7 @@ export default function HomePage() {
           <div className="stack g-28">
             <p className="eyebrow">For clients &middot; PSARA-licensed providers</p>
             <h1>
-              One platform to hire <em>verify</em>, security guards, bouncers and armed personnel anywhere in India.
+              One platform to hire <em>verified</em>, security guards, bouncers and armed personnel anywhere in India.
             </h1>
             <p className="hero__sub">
               Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every PSARA-verified agency and officer in one place, so you see the price upfront and book in minutes.
@@ -294,14 +276,26 @@ export default function HomePage() {
             ))}
           </Reveal>
 
-          <Reveal className="subhead">
-            <p className="eyebrow">Trust badges</p>
-            <h3>Badges are earned, never self-declared.</h3>
-            <p className="lede">
-              Every badge below is computed from documents a 20fourr admin has reviewed and
-              approved. A provider cannot switch one on for themselves, and a badge disappears
-              automatically the moment the underlying document expires or is revoked.
-            </p>
+          {/* The lede caps at 62ch, which left the right half of this row empty on
+              anything wider than a laptop. These three claims fill it — and they
+              are the paragraph's argument stated flat, so the column earns its
+              width rather than padding it. */}
+          <Reveal className="subhead subhead--split">
+            <div className="subhead__copy">
+              <p className="eyebrow">Trust badges</p>
+              <h3>Badges are earned, never self-declared.</h3>
+              <p className="lede">
+                Every badge below is computed from documents a 20fourr admin has reviewed and
+                approved. A provider cannot switch one on for themselves, and a badge disappears
+                automatically the moment the underlying document expires or is revoked.
+              </p>
+            </div>
+
+            <ul className="claims">
+              {CLAIMS.map((c, i) => (
+                <li className="claim" key={i}>{c}</li>
+              ))}
+            </ul>
           </Reveal>
 
           <Reveal className="badges">
@@ -312,6 +306,23 @@ export default function HomePage() {
                 <p className="bcard__m">{b.m}</p>
               </article>
             ))}
+          </Reveal>
+
+          {/* Closes the badge grid with the one thing the grid implies but never
+              says: the badges are on the listings, so go read them. Centred and
+              ruled off — the only centred block on the page, which is what makes
+              it read as a stop rather than another row. */}
+          <Reveal className="pricecta">
+            <h2>
+              Know the price. <em>Then decide.</em>
+            </h2>
+            <p className="lede">
+              Compare ratings. Pick your agency or individuals. Set your dates. See just the price
+              &mdash; in <b>seconds</b>.
+            </p>
+            <Link className="btn btn--primary btn--lg" href="/security-providers">
+              Compare security agencies
+            </Link>
           </Reveal>
         </div>
       </section>
@@ -419,31 +430,15 @@ export default function HomePage() {
             </p>
             <div className="hero__ctas">
               <Link className="btn btn--primary" href="/join">Join as a provider</Link>
-              <Link className="btn btn--outline" href="#faq">How the payouts work</Link>
+              {/* The FAQ moved to its own route; this lands on the agency group
+                  rather than the top of a seven-section page. */}
+              <Link className="btn btn--outline" href="/faqs#for-providers">Questions from agencies</Link>
             </div>
             <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
           </Reveal>
 
           <Reveal>
             <ProviderReel />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- faq ---------- */}
-      <section className="band band--ink-2" id="faq">
-        <div className="wrap">
-          <Reveal className="head">
-            <p className="eyebrow">Questions</p>
-            <h2>Before you book.</h2>
-          </Reveal>
-          <Reveal className="faq">
-            {FAQ.map((f) => (
-              <details className="qa" key={f.q}>
-                <summary>{f.q}</summary>
-                <p className="qa__a">{f.a}</p>
-              </details>
-            ))}
           </Reveal>
         </div>
       </section>

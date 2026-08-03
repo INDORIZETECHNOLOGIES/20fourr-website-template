@@ -53,6 +53,11 @@ export default function sitemap() {
   const entries = [
     { url: BASE, changeFrequency: 'monthly', priority: 1 },
     { url: `${BASE}/join`, changeFrequency: 'monthly', priority: 0.8 },
+    // The Hindi provider page is its own URL, so it is its own sitemap entry.
+    // Same priority as the English one — it is the same page, not a lesser
+    // version of it, and for a large part of this audience it is the primary.
+    { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
 
     ...listingEntries({}, 0.9),
     ...CATEGORY_ORDER.flatMap((category) => listingEntries({ category }, 0.8)),

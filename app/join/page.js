@@ -1,17 +1,29 @@
-import JoinClient from './JoinClient';
+import JsonLd from '@/components/JsonLd';
+import JoinBody from './JoinBody';
+import { joinJsonLd, joinMetadata } from './seo';
 
-export const metadata = {
-  title: 'Work as a security guard — get paid in two days',
-  description:
-    'Join 20fourr as a security guard, bouncer, gunman, PSO or agency. Set your own rate, get 30% the moment duty starts and the rest two days later. Free to join. Hindi and English support.',
-  alternates: { canonical: '/join' },
-  openGraph: {
-    title: 'Work as a security guard — get paid in two days | 20fourr',
-    description:
-      'Set your own rate. 30% released the moment duty starts, the remaining 70% two days after it ends. Free to join.',
-  },
-};
+export const metadata = joinMetadata('en');
 
+/* What this page declares, and deliberately what it does not.
+ *
+ * No JobPosting. 20fourr does not employ anyone — the home page says so in as
+ * many words, and the whole product rests on providers being independent,
+ * PSARA-licensed agencies and individuals. Marking this up as a job ad would
+ * name us as the hiring organisation for security work we do not perform, which
+ * is a false claim before it is an SEO decision.
+ *
+ * No HowTo for the five joining steps: Google removed HowTo rich results
+ * entirely in 2023, so it is markup that can only cost a validation warning.
+ *
+ * No FAQPage for the six questions at the foot. FAQPage declares what a page
+ * *is*, and this page is a recruitment landing page with an FAQ on it, not an
+ * FAQ page — /faqs is that, and it already holds the node.
+ */
 export default function JoinPage() {
-  return <JoinClient />;
+  return (
+    <>
+      <JsonLd data={joinJsonLd('en')} />
+      <JoinBody lang="en" />
+    </>
+  );
 }

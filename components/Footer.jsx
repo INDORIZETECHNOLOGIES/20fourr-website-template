@@ -18,7 +18,7 @@ const COLUMNS = [
     links: [
       ['Become a provider', '/join'],
       ['How it works', '/#how'],
-      ['Help centre', '/#faq'],
+      ['Help centre', '/faqs'],
     ],
   },
   {
