@@ -400,6 +400,13 @@ b, strong { font-weight: 500; }
 .svc__code { font-family: var(--mono); font-size: .68rem; font-weight: 500; letter-spacing: .16em; color: var(--accent); }
 .svc__body { font-size: .92rem; color: var(--text-2); line-height: 1.55; flex: 1; }
 .svc__req { font-family: var(--mono); font-size: .68rem; color: var(--text-3); border-top: 1px dashed var(--line); padding-top: 12px; line-height: 1.5; }
+.text-link { color: var(--accent); font-family: var(--mono); font-size: .76rem; text-decoration: none; }
+.text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.city-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.city-link { background: var(--bg); padding: 18px 20px; color: var(--text); text-decoration: none; font-size: .92rem; display: flex; justify-content: space-between; gap: 14px; }
+.city-link:hover { background: var(--bg-3); color: var(--accent); }
+@media (max-width: 800px) { .city-links { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .city-links { grid-template-columns: 1fr; } }
 @media (max-width: 1000px) { .svcs { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px)  { .svcs { grid-template-columns: 1fr; } }
 

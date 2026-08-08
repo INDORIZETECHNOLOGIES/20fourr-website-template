@@ -4,8 +4,9 @@ import {
   PROVIDERS,
   queryProviders,
 } from './security-providers/data';
+import { SITE_URL } from './site';
 
-const BASE = 'https://20fourr.com';
+const BASE = SITE_URL;
 
 /**
  * Must stay byte-identical to canonicalFor() in security-providers/page.js — a

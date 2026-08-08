@@ -4,6 +4,35 @@ import DutyTicket from '@/components/DutyTicket';
 import AppPreview from '@/components/AppPreview';
 import ProviderReel from '@/components/ProviderReel';
 
+const SERVICE_INTENTS = [
+  {
+    title: 'Private security agency services',
+    body: 'Compare PSARA-verified agencies for manned guarding, gate security, warehouse protection and regular site duty.',
+    href: '/security-providers?category=guard',
+    label: 'Browse security guards',
+  },
+  {
+    title: 'Event security services',
+    body: 'Book bouncers and event security personnel for weddings, concerts, clubs, corporate events and private functions.',
+    href: '/security-providers?category=bouncer',
+    label: 'Browse event security',
+  },
+  {
+    title: 'Armed security and gunman services',
+    body: 'Find providers whose firearm licence is checked separately from their PSARA credentials for eligible high-risk duties.',
+    href: '/security-providers?category=gunman',
+    label: 'Browse armed security',
+  },
+  {
+    title: 'Executive protection',
+    body: 'Arrange a personal security officer for close protection, travel, site visits and daily movement.',
+    href: '/security-providers?category=pso',
+    label: 'Browse personal security officers',
+  },
+];
+
+const COVERAGE_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Pune', 'Chennai', 'Jaipur', 'Ahmedabad'];
+
 const CREDENTIALS = [
   'PSARA-licensed providers only',
   'KYC verified before onboarding',
@@ -190,7 +219,15 @@ const ACCOUNTABILITY = [
    crawler that arrives on a tracking-parameter variant has nothing telling it
    which URL is the real one. */
 export const metadata = {
+  title: 'Private Security Services in India | Verified Guards, Bouncers & PSOs',
+  description:
+    'Find PSARA-verified private security agency services in India: manned guarding, event security, armed security and executive protection. Compare providers and book online.',
   alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Private Security Services in India | 20fourr',
+    description:
+      'Compare PSARA-verified security guards, bouncers, armed security providers and personal security officers across India.',
+  },
 };
 
 export default function HomePage() {
@@ -203,7 +240,7 @@ export default function HomePage() {
           <div className="stack g-28">
             <p className="eyebrow">For clients &middot; PSARA-licensed providers</p>
             <h1>
-              One platform to hire <em>verified</em>, security guards, bouncers and armed personnel anywhere in India.
+              Private security services with <em>verified</em> guards, bouncers and armed personnel anywhere in India.
             </h1>
             <p className="hero__sub">
               Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every PSARA-verified agency and officer in one place, so you see the price upfront and book in minutes.
@@ -225,6 +262,31 @@ export default function HomePage() {
           {CREDENTIALS.map((c) => (
             <span className="cred" key={c}>{c}</span>
           ))}
+        </div>
+      </section>
+
+      {/* Search intent section: each card answers a real service query and leads
+          to the matching, indexable provider directory view. */}
+      <section className="band" id="security-services">
+        <div className="wrap">
+          <Reveal className="head">
+            <p className="eyebrow">Security services</p>
+            <h2>Find the right private security service for the job.</h2>
+            <p className="lede">
+              From regular manned guarding to event security and executive protection, compare
+              PSARA-verified providers by role, city, rate and verification status.
+            </p>
+          </Reveal>
+
+          <Reveal className="svcs">
+            {SERVICE_INTENTS.map((service) => (
+              <article className="svc" key={service.title}>
+                <h3>{service.title}</h3>
+                <p className="svc__body">{service.body}</p>
+                <Link className="text-link" href={service.href}>{service.label} &rarr;</Link>
+              </article>
+            ))}
+          </Reveal>
         </div>
       </section>
 
@@ -439,6 +501,26 @@ export default function HomePage() {
 
           <Reveal>
             <ProviderReel />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="band band--paper" id="coverage">
+        <div className="wrap">
+          <Reveal className="head">
+            <p className="eyebrow">Local coverage</p>
+            <h2>Browse verified security providers by city.</h2>
+            <p className="lede">
+              Check live provider coverage in major Indian cities. Select a city to compare the
+              security services currently available there.
+            </p>
+          </Reveal>
+          <Reveal className="city-links">
+            {COVERAGE_CITIES.map((city) => (
+              <Link className="city-link" href={`/security-providers?city=${encodeURIComponent(city)}`} key={city}>
+                Security services in {city} <span aria-hidden="true">&rarr;</span>
+              </Link>
+            ))}
           </Reveal>
         </div>
       </section>
