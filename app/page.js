@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import DutyTicket from '@/components/DutyTicket';
 import AppPreview from '@/components/AppPreview';
+import BookingSteps from '@/components/BookingSteps';
+import DutySteps from '@/components/DutySteps';
 import ProviderReel from '@/components/ProviderReel';
 
 const SERVICE_INTENTS = [
@@ -65,35 +67,6 @@ const SERVICES = [
     name: 'Personal security officer',
     body: 'Dedicated close protection and travel escort for individuals facing a named or credible threat.',
     req: 'Highest tier · PSARA re-checked per booking',
-  },
-];
-
-// The booking's actual state machine. These are the names the platform uses
-// internally, which is the point — the log is a record, not a retelling.
-const LIFECYCLE = [
-  {
-    state: 'Requested',
-    d: <>You send a booking with the category, dates, address and purpose &mdash; wedding, industrial site, travel, a named threat &mdash; so it routes to someone who has done it before.</>,
-  },
-  {
-    state: 'Accepted',
-    d: <>A provider takes the job or declines it with a reason. No silent expiry, no waiting to find out.</>,
-  },
-  {
-    state: 'Paid',
-    d: <>Only now do you get the guard&rsquo;s number and address, and only now do they see your threat brief. Before payment, both sides stay private.</>,
-  },
-  {
-    state: 'Duty started',
-    d: <>A six-digit code appears on your phone. You read it out on arrival, they enter it. That is the attendance record &mdash; and it releases the first <code>30%</code>.</>,
-  },
-  {
-    state: 'Duty ended',
-    d: <>The same again at the end of the shift. The duty closes and the remaining <code>70%</code> is scheduled.</>,
-  },
-  {
-    state: 'Rated',
-    d: <>Both sides rate each other. Reputation follows the account, so repeat behaviour is visible before anyone accepts again.</>,
   },
 ];
 
@@ -316,26 +289,44 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ---------- how it works ----------
+          Sits between "what you can hire" and "what happens on duty", because
+          that is the order the question arrives in: the visitor now knows the
+          categories and wants to see what booking one actually looks like. */}
+      <section className="band band--ink-2" id="app">
+        <div className="wrap">
+          <Reveal className="head">
+            <p className="eyebrow">How it works</p>
+            <h2>Every screen between search and payment.</h2>
+            <p className="lede">
+              These are the client app&rsquo;s own screens, in the order you meet them. A booking
+              is priced before it is placed, and it does not move past the two disclaimer
+              screens until you have read and ticked both.
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <BookingSteps />
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---------- lifecycle ---------- */}
       <section className="band" id="how">
         <div className="wrap">
           <Reveal className="head">
             <p className="eyebrow">The duty log</p>
-            <h2>One booking, six proven states.</h2>
+            <h2>One booking, proven at every state.</h2>
             <p className="lede">
-              Every duty moves through the same verified sequence &mdash; nothing skips a step, and
-              nothing is marked done without proof.
+              Requesting and paying happen on the screens above. From there the duty runs on
+              proof &mdash; a provider accepts it, a code opens and closes the shift, and both
+              sides rate each other. Nothing skips a step, and nothing is marked done without
+              a record.
             </p>
           </Reveal>
 
-          <Reveal as="ol" className="log">
-            {LIFECYCLE.map((s, i) => (
-              <li className="log__row" key={s.state}>
-                <span className="log__n">{String(i + 1).padStart(2, '0')}</span>
-                <span className="log__state">{s.state}</span>
-                <p className="log__d">{s.d}</p>
-              </li>
-            ))}
+          <Reveal>
+            <DutySteps />
           </Reveal>
 
           {/* The lede caps at 62ch, which left the right half of this row empty on

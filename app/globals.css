@@ -931,6 +931,74 @@ b, strong { font-weight: 500; }
 .scr__dot { width: 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--verified); flex-shrink: 0; }
 .scr__payout { font-family: var(--mono); font-size: 4.2cqw; color: var(--amber); margin-top: 3cqw; }
 
+/* ---------- how it works: the booking, screen by screen ----------
+   Amber plates are the one place raw amber covers a large area. It earns it
+   because the screenshots are near-black: the phone becomes the darkest thing
+   on the band, so the eye lands on the product rather than on the panel.
+   Squared off, not rounded — every other card on this site is, and a run of
+   eight rounded tiles would read as borrowed from somewhere else. */
+.steps {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 34px) clamp(18px, 2.2vw, 30px);
+}
+.step { display: flex; flex-direction: column; }
+
+.step__stage {
+  /* Sized so the widest shot (710 x 1400) lands just inside the plate's side
+     padding — the frames are as large as four columns allow. */
+  --shot-h: clamp(300px, 30vw, 424px);
+  --shot-pad: clamp(12px, 1.4vw, 16px);
+  background: var(--amber);
+  /* the dotted ground, in ink at low alpha — texture, not a second colour */
+  background-image: radial-gradient(rgba(18, 24, 27, .17) 1.1px, transparent 1.1px);
+  background-size: 12px 12px;
+  padding: var(--shot-pad);
+  display: flex; justify-content: center; align-items: center;
+  margin-bottom: clamp(18px, 2vw, 26px);
+}
+/* Driven by height, not width. The eight shots come off the device at slightly
+   different ratios (1.94–2.04), so matching their widths would leave the plates
+   ragged along the bottom of a row; matching heights keeps the row level and
+   costs a few pixels of width variation nobody can see. Every frame is shown
+   whole — no crop. */
+.step__shot {
+  display: block;
+  height: var(--shot-h); width: auto; max-width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 26px 50px -22px rgba(0, 0, 0, .9);
+}
+
+.step__n {
+  font-family: var(--mono); font-size: .68rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 10px;
+}
+.step__h { margin-bottom: 10px; }
+.step__b { font-size: .9rem; line-height: 1.58; color: var(--text-2); }
+
+/* Three across, against the booking strip's four. Both sections use the same
+   plate, so the differing column count is what keeps the second from reading
+   as a repeat of the first. The wider column also buys these three frames
+   noticeably more size than the eight above them get. */
+.steps--duty { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.steps--duty .step__stage { --shot-h: clamp(300px, 33vw, 470px); }
+
+@media (max-width: 1000px) {
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step__stage { --shot-h: min(48vw, 560px); }
+}
+/* Three items go straight from three columns to one — two would leave an
+   orphan on the second row. */
+@media (max-width: 700px) {
+  .steps--duty { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .steps--duty .step__stage { --shot-h: min(124vw, 560px); }
+}
+@media (max-width: 600px) {
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .step__stage { --shot-h: min(124vw, 560px); }
+}
+
 /* ---------- onboarding chat ----------
    Drawn in this palette, not as a WhatsApp replica: a second brand's green
    would break the one-accent rule, and a convincing fake of someone else's
