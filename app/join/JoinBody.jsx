@@ -3,6 +3,7 @@ import Reveal from '@/components/Reveal';
 import RoleFrames from '@/components/RoleFrames';
 import ChatPreview from '@/components/ChatPreview';
 import content, { WHATSAPP_URL } from './content';
+import { PROVIDER_APP_URL } from '@/app/site';
 
 /**
  * Both language versions of the provider page.
@@ -74,7 +75,7 @@ export default function JoinBody({ lang = 'en' }) {
                 <WhatsAppIcon />
                 {t.ctaWhatsapp}
               </a>
-              <a className="btn btn--lg btn--ghost" href="#">
+              <a className="btn btn--lg btn--ghost" href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
                 {t.ctaApp}
               </a>
             </div>
@@ -228,7 +229,7 @@ export default function JoinBody({ lang = 'en' }) {
                 <WhatsAppIcon />
                 {t.ctaWhatsapp}
               </a>
-              <a className="btn btn--lg btn--ghost" href="#">
+              <a className="btn btn--lg btn--ghost" href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
                 {t.ctaApp}
               </a>
             </div>

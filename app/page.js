@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CLIENT_APP_URL, PROVIDER_APP_URL } from '@/app/site';
 import Reveal from '@/components/Reveal';
 import DutyTicket from '@/components/DutyTicket';
 import AppPreview from '@/components/AppPreview';
@@ -523,15 +524,31 @@ export default function HomePage() {
             <p className="eyebrow">Get started</p>
             <h2 style={{ maxWidth: '18ch' }}>Put a verified guard on your gate this week.</h2>
             <p className="lede">
-              Download the app, tell us what you need, and we&rsquo;ll match you with licensed
-              providers in your city. You approve the provider, you pay in the app, and you
-              issue the code that starts the duty.
+              Open the app in your browser, tell us what you need, and we&rsquo;ll match you with
+              licensed providers in your city. You approve the provider, you pay in the app, and
+              you issue the code that starts the duty.
             </p>
             <div className="final__ctas">
-              <a className="btn btn--primary" href="#">Download for iPhone</a>
-              <a className="btn btn--ghost" href="#">Download for Android</a>
+              <a
+                className="btn btn--primary"
+                href={CLIENT_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open the client app
+              </a>
+              <a
+                className="btn btn--ghost"
+                href={PROVIDER_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open the provider app
+              </a>
             </div>
             <p className="hero__fine">
+              Runs in any phone browser &mdash; the iPhone and Android apps are in store review.
+              <br />
               Are you a guard or an agency?{' '}
               <Link href="/join" style={{ color: 'var(--amber)' }}>Join as a provider</Link>
             </p>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import Image from 'next/image';
-import { LEGAL_NAME } from '@/app/site';
+import { LEGAL_NAME, CLIENT_APP_URL, PROVIDER_APP_URL } from '@/app/site';
 
 const COLUMNS = [
   {
@@ -11,6 +11,15 @@ const COLUMNS = [
       ['Bouncers', '/security-providers?category=bouncer'],
       ['Armed gunmen', '/security-providers?category=gunman'],
       ['Personal security officers', '/security-providers?category=pso'],
+    ],
+  },
+  {
+    title: 'Apps',
+    links: [
+      // External: the two shipping web apps live on their own subdomains, so
+      // these render as plain anchors rather than routed <Link>s.
+      ['Client app', CLIENT_APP_URL, true],
+      ['Provider app', PROVIDER_APP_URL, true],
     ],
   },
   {
@@ -60,9 +69,15 @@ export default function Footer() {
             <div key={col.title}>
               <h4>{col.title}</h4>
               <ul>
-                {col.links.map(([label, href]) => (
+                {col.links.map(([label, href, external]) => (
                   <li key={label}>
-                    <Link href={href}>{label}</Link>
+                    {external ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer">
+                        {label}
+                      </a>
+                    ) : (
+                      <Link href={href}>{label}</Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -70,7 +70,7 @@ const content = {
     title: 'Get paid in two days. Not in ninety.',
     sub: 'Set your own rate, choose your own days, and get paid on a schedule you can plan around. Joining is free — clear KYC once, then start taking work.',
     ctaWhatsapp: 'Join on WhatsApp',
-    ctaApp: 'Download the provider app',
+    ctaApp: 'Open the provider app',
     fine: 'Support in Hindi and English throughout onboarding',
 
     moneyHead: 'How you get paid',
@@ -194,7 +194,7 @@ const content = {
     title: 'दो दिन में पेमेंट। नब्बे दिन में नहीं।',
     sub: 'अपना रेट खुद तय करें, अपने दिन खुद चुनें, और तय समय पर पैसा पाएँ। जुड़ना बिल्कुल मुफ़्त है — KYC एक बार, उसके बाद काम शुरू।',
     ctaWhatsapp: 'व्हाट्सऐप पर जुड़ें',
-    ctaApp: 'प्रोवाइडर ऐप डाउनलोड करें',
+    ctaApp: 'प्रोवाइडर ऐप खोलें',
     fine: 'शुरू से आख़िर तक हिंदी और अंग्रेज़ी में सहायता',
 
     moneyHead: 'पैसा कैसे मिलता है',
