@@ -71,7 +71,7 @@ export const metadata = {
 // One fixed scheme — the page ground is ink in every context, so the browser
 // chrome matches it regardless of the visitor's OS preference.
 export const viewport = {
-  themeColor: '#12181B',
+  themeColor: '#060C16',
   colorScheme: 'dark',
 };
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
-import RoleFrames from '@/components/RoleFrames';
+import PhoneFrame from '@/components/PhoneFrame';
 import ChatPreview from '@/components/ChatPreview';
 import content, { WHATSAPP_URL } from './content';
 import { PROVIDER_APP_URL } from '@/app/site';
@@ -82,7 +82,22 @@ export default function JoinBody({ lang = 'en' }) {
             <p className="hero__fine">{t.fine}</p>
           </div>
 
-          <RoleFrames roles={t.roles} />
+          {/* The real provider app: what you earn, and what you manage. Beats a
+              plate of role photos for a money-first recruitment pitch. */}
+          <div className="phones-duo jhero__shots">
+            <PhoneFrame
+              src="/app/provider/earnings.png"
+              alt="Provider Earnings screen — this month’s earnings, 30% released at duty start and 70% two days after"
+              priority
+              sizes="(max-width: 900px) 60vw, 236px"
+            />
+            <PhoneFrame
+              src="/app/provider/dashboard.png"
+              alt="Provider Dashboard — on-duty status, active and completed jobs, and new booking requests"
+              className="phones-duo__back"
+              sizes="(max-width: 900px) 50vw, 236px"
+            />
+          </div>
         </div>
       </header>
 
@@ -166,20 +181,31 @@ export default function JoinBody({ lang = 'en' }) {
       {/* ---------- documents ---------- */}
       <section className="band band--paper">
         <div className="wrap">
-          <Reveal className="head">
-            <h2>{t.docsHead}</h2>
-          </Reveal>
-          <Reveal className="docs">
-            {t.docs.map((d) => (
-              <div className="doc" key={d.t}>
-                <Tick />
-                <div>
-                  <div className="doc__t">{d.t}</div>
-                  <p className="doc__d">{d.d}</p>
-                </div>
-              </div>
-            ))}
-          </Reveal>
+          <div className="showcase">
+            <div className="showcase__copy showcase__copy--wide">
+              <Reveal className="head" style={{ marginBottom: 'clamp(20px,2.6vw,32px)' }}>
+                <h2>{t.docsHead}</h2>
+              </Reveal>
+              <Reveal className="docs">
+                {t.docs.map((d) => (
+                  <div className="doc" key={d.t}>
+                    <Tick />
+                    <div>
+                      <div className="doc__t">{d.t}</div>
+                      <p className="doc__d">{d.d}</p>
+                    </div>
+                  </div>
+                ))}
+              </Reveal>
+            </div>
+            {/* the real upload screen — what the KYC step actually looks like */}
+            <Reveal className="showcase__shots">
+              <PhoneFrame
+                src="/app/provider/document-upload.png"
+                alt="Provider Document Upload screen — Aadhaar, PAN, live selfie and PSARA licence"
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import {
   PROVIDERS,
   queryProviders,
 } from './security-providers/data';
+import { SERVICES } from './lib/services';
 import { SITE_URL } from './site';
 
 const BASE = SITE_URL;
@@ -59,6 +60,22 @@ export default function sitemap() {
     // version of it, and for a large part of this audience it is the primary.
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
+
+    // Dedicated content landing pages. These are the pages built to rank for
+    // "security guards in India" / "private security in Delhi" and funnel into
+    // the filtered directory views below — higher priority than a bare filter.
+    { url: `${BASE}/services`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/cities`, changeFrequency: 'monthly', priority: 0.8 },
+    ...SERVICES.map((s) => ({
+      url: `${BASE}/services/${s.slug}`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    })),
+    ...FILTER_CITIES.map((city) => ({
+      url: `${BASE}/cities/${city.toLowerCase()}`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    })),
 
     ...listingEntries({}, 0.9),
     ...CATEGORY_ORDER.flatMap((category) => listingEntries({ category }, 0.8)),
