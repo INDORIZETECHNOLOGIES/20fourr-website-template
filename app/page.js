@@ -215,19 +215,24 @@ export default function HomePage() {
       {/* ---------- 10 · final cta ---------- */}
       <section className="band band--paper" id="book">
         <div className="wrap">
-          <Reveal className="stack g-20 finalcta">
-            <h2>Your security shouldn&rsquo;t be complicated.</h2>
-            <p className="lede">
-              Tell us what you need. Approve the provider. Pay in the app. Issue the code that starts
-              the duty.
-            </p>
-            <div>
-              <Link className="btn btn--primary btn--lg" href={FIND}>Find Security</Link>
-            </div>
-            <p className="hero__fine">
-              Are you a guard or an agency? <Link href="/join" className="gold">Join as a provider</Link>
-            </p>
-          </Reveal>
+          <div className="showcase">
+            <Reveal className="showcase__copy finalcta">
+              <h2>Your security shouldn&rsquo;t be complicated.</h2>
+              <p className="lede">
+                Tell us what you need. Approve the provider. Pay in the app. Issue the code that
+                starts the duty.
+              </p>
+              <div>
+                <Link className="btn btn--primary btn--lg" href={FIND}>Find Security</Link>
+              </div>
+              <p className="hero__fine">
+                Are you a guard or an agency? <Link href="/join" className="gold">Join as a provider</Link>
+              </p>
+            </Reveal>
+            <Reveal className="showcase__shots">
+              <PhoneFrame src="/app/home.png" alt="Client app home — find security services near you, with upcoming and active bookings at a glance" />
+            </Reveal>
+          </div>
         </div>
       </section>
 
