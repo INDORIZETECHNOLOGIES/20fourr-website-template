@@ -49,7 +49,7 @@ export default function HomePage() {
               <Link className="btn btn--primary btn--lg" href={FIND}>Find Security</Link>
               <Link className="btn btn--ghost" href="#how-it-works">See how it works</Link>
             </div>
-            <p className="hero__fine">Itemised GST invoice on every booking &middot; <span className="gold">Total ₹9,910</span> — nothing hidden</p>
+            <p className="hero__fine">Itemised GST invoice on every booking &middot; <span className="gold">Total ₹8,910</span> — nothing hidden</p>
           </div>
 
           <figure className="hero__shot">

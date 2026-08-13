@@ -1614,3 +1614,47 @@ b, strong { font-weight: 500; }
 
 /* docs checklist beside a screen wants the full column, not the 54ch prose cap */
 .showcase__copy--wide { max-width: none; }
+
+/* ---------- mobile navigation ----------
+   The desktop link row is hidden ≤900px; the hamburger + panel restore
+   navigation there. Nav sits above the panel so its close (X) stays tappable;
+   the panel sits above the sticky bottom CTA so it isn't poked through. */
+.nav { z-index: 100; }
+.navburger {
+  display: none; align-items: center; justify-content: center;
+  width: 42px; height: 42px; margin-left: 2px; flex-shrink: 0;
+  background: transparent; border: 1px solid var(--hair); color: var(--text);
+  cursor: pointer;
+}
+.navburger:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.navburger__box { position: relative; width: 18px; height: 12px; }
+.navburger__box span { position: absolute; left: 0; width: 100%; height: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease, top .2s ease; }
+.navburger__box span:nth-child(1) { top: 0; }
+.navburger__box span:nth-child(2) { top: 5px; }
+.navburger__box span:nth-child(3) { top: 10px; }
+.navburger__box.is-open span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+.navburger__box.is-open span:nth-child(2) { opacity: 0; }
+.navburger__box.is-open span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+@media (max-width: 900px) { .navburger { display: inline-flex; } }
+
+.mobmenu { position: fixed; inset: 66px 0 0 0; z-index: 90; background: color-mix(in srgb, var(--ink) 88%, transparent); backdrop-filter: blur(8px); }
+.mobmenu__panel { background: var(--ink-2); border-bottom: 1px solid var(--hair); box-shadow: var(--shadow); padding: 10px var(--gut) 26px; display: flex; flex-direction: column; }
+.mobmenu__links { list-style: none; margin: 0; padding: 0; }
+.mobmenu__links a { display: block; padding: 17px 2px; font-size: 1.06rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
+.mobmenu__links a:active { color: var(--accent); }
+.mobmenu__ctas { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.mobmenu__ctas .btn { width: 100%; }
+
+/* ---------- legal placeholder pages ---------- */
+.legal { max-width: 760px; }
+.legal__note { border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent); background: color-mix(in srgb, var(--amber) 8%, transparent); color: var(--text); padding: 16px 18px; font-size: .92rem; line-height: 1.55; margin-bottom: clamp(28px, 4vw, 44px); }
+.legal__note b { color: var(--accent); }
+.legal h2 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-top: clamp(28px, 3.5vw, 40px); margin-bottom: 10px; }
+.legal p { color: var(--text-2); line-height: 1.7; margin-bottom: 12px; }
+.legal__todo { font-family: var(--mono); font-size: .8rem; color: var(--text-3); letter-spacing: .02em; }
+.legal__meta { margin-top: clamp(32px, 4vw, 48px); padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: .74rem; color: var(--text-3); }
+
+/* while the mobile menu is open, hide the sticky bottom CTA bars so the panel
+   isn't poked through by a duplicate action */
+body.mobmenu-open .mbar,
+body.mobmenu-open .jbar { display: none; }
