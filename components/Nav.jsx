@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import MobileNav from './MobileNav';
 
 export default function Nav() {
   return (
@@ -11,10 +12,10 @@ export default function Nav() {
         </Link>
 
         <div className="nav__links">
-          <Link href="/#services">Services</Link>
-          <Link href="/#how">How it works</Link>
+          <Link href="/services">Services</Link>
+          <Link href="/cities">Cities</Link>
           <Link href="/#trust">Trust &amp; compliance</Link>
-          <Link href="/security-providers">Security</Link>
+          <Link href="/security-providers">Providers</Link>
           <Link href="/faqs">FAQs</Link>
         </div>
 
@@ -22,10 +23,12 @@ export default function Nav() {
           <Link className="btn btn--sm btn--ghost" href="/join">
             Work as a guard
           </Link>
-          <Link className="btn btn--sm btn--primary" href="/#book">
-            Book security
+          <Link className="btn btn--sm btn--primary" href="/security-providers">
+            Find Security
           </Link>
         </div>
+
+        <MobileNav />
       </div>
     </nav>
   );

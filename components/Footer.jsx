@@ -7,10 +7,20 @@ const COLUMNS = [
   {
     title: 'Services',
     links: [
-      ['Security guards', '/security-providers?category=guard'],
-      ['Bouncers', '/security-providers?category=bouncer'],
-      ['Armed gunmen', '/security-providers?category=gunman'],
-      ['Personal security officers', '/security-providers?category=pso'],
+      ['Security guards', '/services/security-guards'],
+      ['Bouncers & events', '/services/bouncers'],
+      ['Armed security', '/services/armed-security'],
+      ['Executive protection', '/services/executive-protection'],
+    ],
+  },
+  {
+    title: 'Cities',
+    links: [
+      ['Delhi', '/cities/delhi'],
+      ['Mumbai', '/cities/mumbai'],
+      ['Bengaluru', '/cities/bengaluru'],
+      ['Hyderabad', '/cities/hyderabad'],
+      ['All cities', '/cities'],
     ],
   },
   {
@@ -56,8 +66,8 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot__cols">
           <div className="foot__brand">
-            <Link className="brand" href="/">
-              <Image src="/logo-mark.svg" alt="20fourr logo" width={48} height={48} priority />
+            <Link className="brand foot__brandlink" href="/">
+              <Image src="/logo-mark.svg" alt="20fourr logo" width={72} height={72} priority />
               <span className="brand__name" style={{ color: 'var(--paper)' }}>
                 20fourr
               </span>
