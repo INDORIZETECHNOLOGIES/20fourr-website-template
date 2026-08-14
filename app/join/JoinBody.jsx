@@ -86,13 +86,13 @@ export default function JoinBody({ lang = 'en' }) {
               plate of role photos for a money-first recruitment pitch. */}
           <div className="phones-duo jhero__shots">
             <PhoneFrame
-              src="/app/provider/earnings.png"
+              src="/app/provider/earnings.webp"
               alt="Provider Earnings screen — this month’s earnings, 30% released at duty start and 70% two days after"
               priority
               sizes="(max-width: 900px) 60vw, 236px"
             />
             <PhoneFrame
-              src="/app/provider/dashboard.png"
+              src="/app/provider/dashboard.webp"
               alt="Provider Dashboard — on-duty status, active and completed jobs, and new booking requests"
               className="phones-duo__back"
               sizes="(max-width: 900px) 50vw, 236px"
@@ -201,7 +201,7 @@ export default function JoinBody({ lang = 'en' }) {
             {/* the real upload screen — what the KYC step actually looks like */}
             <Reveal className="showcase__shots">
               <PhoneFrame
-                src="/app/provider/document-upload.png"
+                src="/app/provider/document-upload.webp"
                 alt="Provider Document Upload screen — Aadhaar, PAN, live selfie and PSARA licence"
               />
             </Reveal>

@@ -9,10 +9,10 @@ import PhoneFrame from './PhoneFrame';
  * customer story.
  */
 const STEPS = [
-  ['01', '/app/find-providers.png', 'Find Security Providers screen', 'Filter by city and service. Rating, day rate and badges on every listing.'],
-  ['02', '/app/provider-detail.png', 'Provider Detail screen', 'Read the full profile — bookings, rating, years served, verified credentials.'],
-  ['03', '/app/booking-request.png', 'Booking Request screen', 'See the price itemised before you book. The total is the total.'],
-  ['04', '/app/duty-otp.png', 'Duty OTP screen', 'A code starts and ends the shift. Attendance is proof, not opinion.'],
+  ['01', '/app/find-providers.webp', 'Find Security Providers screen', 'Filter by city and service. Rating, day rate and badges on every listing.'],
+  ['02', '/app/provider-detail.webp', 'Provider Detail screen', 'Read the full profile — bookings, rating, years served, verified credentials.'],
+  ['03', '/app/booking-request.webp', 'Booking Request screen', 'See the price itemised before you book. The total is the total.'],
+  ['04', '/app/duty-otp.webp', 'Duty OTP screen', 'A code starts and ends the shift. Attendance is proof, not opinion.'],
 ];
 
 export default function HowItWorks() {

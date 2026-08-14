@@ -71,7 +71,7 @@ export default async function CityPage({ params }) {
             {from != null && <p className="hero__fine"><span className="gold">From {inr(from)} / day</span> in {city}</p>}
           </div>
           <figure className="hero__shot">
-            <PhoneFrame src="/app/find-providers.png" alt={`Find Security Providers screen showing verified providers in ${city}`} priority sizes="(max-width: 980px) 70vw, 320px" />
+            <PhoneFrame src="/app/find-providers.webp" alt={`Find Security Providers screen showing verified providers in ${city}`} priority sizes="(max-width: 980px) 70vw, 320px" />
           </figure>
         </div>
       </header>
@@ -123,7 +123,7 @@ export default async function CityPage({ params }) {
               <TrustStrip />
             </Reveal>
             <Reveal className="showcase__shots">
-              <PhoneFrame src="/app/provider-documents.png" alt="Provider Documents screen with credentials verified" />
+              <PhoneFrame src="/app/provider-documents.webp" alt="Provider Documents screen with credentials verified" />
             </Reveal>
           </div>
         </div>

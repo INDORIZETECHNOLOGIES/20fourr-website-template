@@ -124,7 +124,7 @@ export default async function ServicePage({ params }) {
               <TrustStrip badges={service.badges} />
             </Reveal>
             <Reveal className="showcase__shots">
-              <PhoneFrame src="/app/provider-documents.png" alt="Provider Documents screen with credentials verified" />
+              <PhoneFrame src="/app/provider-documents.webp" alt="Provider Documents screen with credentials verified" />
             </Reveal>
           </div>
         </div>

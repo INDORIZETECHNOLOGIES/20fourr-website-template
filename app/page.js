@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
 
           <figure className="hero__shot">
-            <PhoneFrame src="/app/booking-request.png" alt="Booking Request screen with the full price breakdown" priority sizes="(max-width: 980px) 70vw, 320px" />
+            <PhoneFrame src="/app/booking-request.webp" alt="Booking Request screen with the full price breakdown" priority sizes="(max-width: 980px) 70vw, 320px" />
           </figure>
         </div>
       </header>
@@ -120,7 +120,7 @@ export default function HomePage() {
               <TrustStrip badges={['elite_protection', 'ex_serviceman', 'psara_verified', 'verified_identity', 'background_verified']} />
             </Reveal>
             <Reveal className="showcase__shots">
-              <PhoneFrame src="/app/provider-documents.png" alt="Provider Documents screen — PSARA, Government ID, Training Certificate and Arms Licence all verified" />
+              <PhoneFrame src="/app/provider-documents.webp" alt="Provider Documents screen — PSARA, Government ID, Training Certificate and Arms Licence all verified" />
             </Reveal>
           </div>
         </div>
@@ -139,8 +139,8 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal className="showcase__shots phones-duo">
-              <PhoneFrame src="/app/duty-otp.png" alt="Duty OTP screen — a code shared to start the shift" />
-              <PhoneFrame src="/app/booking-detail.png" alt="Booking Detail screen showing the lifecycle stepper" className="phones-duo__back" />
+              <PhoneFrame src="/app/duty-otp.webp" alt="Duty OTP screen — a code shared to start the shift" />
+              <PhoneFrame src="/app/booking-detail.webp" alt="Booking Detail screen showing the lifecycle stepper" className="phones-duo__back" />
             </Reveal>
           </div>
         </div>
@@ -159,8 +159,8 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal className="showcase__shots phones-duo">
-              <PhoneFrame src="/app/payment.png" alt="Payment screen with the itemised charge" />
-              <PhoneFrame src="/app/invoice.png" alt="Tax invoice screen" className="phones-duo__back" />
+              <PhoneFrame src="/app/payment.webp" alt="Payment screen with the itemised charge" />
+              <PhoneFrame src="/app/invoice.webp" alt="Tax invoice screen" className="phones-duo__back" />
             </Reveal>
           </div>
         </div>
@@ -179,8 +179,8 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal className="showcase__shots phones-duo">
-              <PhoneFrame src="/app/risk-acknowledgement.png" alt="Risk Acknowledgement waiver screen" />
-              <PhoneFrame src="/app/safety-disclaimer.png" alt="Safety Disclaimer waiver screen" className="phones-duo__back" />
+              <PhoneFrame src="/app/risk-acknowledgement.webp" alt="Risk Acknowledgement waiver screen" />
+              <PhoneFrame src="/app/safety-disclaimer.webp" alt="Safety Disclaimer waiver screen" className="phones-duo__back" />
             </Reveal>
           </div>
           <Reveal className="tiers" style={{ marginTop: 'clamp(32px,4vw,52px)' }}>
@@ -230,7 +230,7 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal className="showcase__shots">
-              <PhoneFrame src="/app/home.png" alt="Client app home — find security services near you, with upcoming and active bookings at a glance" />
+              <PhoneFrame src="/app/home.webp" alt="Client app home — find security services near you, with upcoming and active bookings at a glance" />
             </Reveal>
           </div>
         </div>
