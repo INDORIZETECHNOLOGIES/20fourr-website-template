@@ -29,21 +29,36 @@ function listingUrl({ category, city, page = 1 }) {
 }
 
 /**
- * Every page of a filter view, but only for filters that actually match
- * providers. An empty combination (say, gunmen in Dehradun) renders a real page
- * with nothing on it; submitting those is how a small site earns a "crawled —
- * currently not indexed" pile in Search Console.
+ * A filter view is only worth submitting once it holds enough distinct
+ * providers to be a page in its own right. Below this, the view is a near-
+ * duplicate of the broader category page and of the providers' own pages — a
+ * "bouncer in Indore" listing that is really a doorway to one provider. Those
+ * are exactly the URLs Search Console reports as "Discovered — currently not
+ * indexed": Google finds them in the sitemap and declines to spend an index
+ * slot on them. Raise this as inventory grows; lower it toward 1 to submit
+ * more of the long tail once the domain has the authority to get it indexed.
  */
-function listingEntries(filter, priority) {
-  const { total, pages } = queryProviders({ ...filter, page: 1 });
-  if (total === 0) return [];
+const MIN_PROVIDERS_FOR_LISTING = 3;
 
-  return Array.from({ length: pages }, (_, i) => ({
-    url: listingUrl({ ...filter, page: i + 1 }),
-    changeFrequency: 'weekly',
-    // Deeper pages of the same filter are worth less than its first page.
-    priority: i === 0 ? priority : Math.max(0.3, priority - 0.2),
-  }));
+/**
+ * At most one entry per filter — page 1. An empty or thin combination (say,
+ * gunmen in Dehradun) still renders a real page, but submitting it is how a
+ * small site earns that not-indexed pile. Deeper pages of a filter are near-
+ * duplicates of one another and the thinnest thing we could submit; they stay
+ * crawlable through the on-page pagination links, they just don't belong in the
+ * sitemap.
+ */
+function listingEntry(filter, priority) {
+  const { total } = queryProviders({ ...filter, page: 1 });
+  if (total < MIN_PROVIDERS_FOR_LISTING) return [];
+
+  return [
+    {
+      url: listingUrl({ ...filter, page: 1 }),
+      changeFrequency: 'weekly',
+      priority,
+    },
+  ];
 }
 
 export default function sitemap() {
@@ -60,15 +75,16 @@ export default function sitemap() {
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
 
-    ...listingEntries({}, 0.9),
-    ...CATEGORY_ORDER.flatMap((category) => listingEntries({ category }, 0.8)),
-    ...FILTER_CITIES.flatMap((city) => listingEntries({ city }, 0.8)),
+    ...listingEntry({}, 0.9),
+    ...CATEGORY_ORDER.flatMap((category) => listingEntry({ category }, 0.8)),
+    ...FILTER_CITIES.flatMap((city) => listingEntry({ city }, 0.8)),
 
     // Category × city is the long tail people actually search for
     // ("bouncer in Mumbai"), so it is worth listing every combination that
-    // has providers behind it.
+    // clears the threshold above — the ones thin enough to go unindexed are
+    // held back until they have the providers to earn the slot.
     ...CATEGORY_ORDER.flatMap((category) =>
-      FILTER_CITIES.flatMap((city) => listingEntries({ category, city }, 0.7))
+      FILTER_CITIES.flatMap((city) => listingEntry({ category, city }, 0.7))
     ),
 
     ...PROVIDERS.map((p) => ({
