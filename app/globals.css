@@ -1296,3 +1296,33 @@ b, strong { font-weight: 500; }
   .ticket .trow, .ticket__ft { opacity: 1 !important; transform: none !important; animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none; }
 }
+
+/* ---------- legal pages (privacy / terms / refunds / grievance) ----------
+   Long-form clauses, not marketing copy — the type stays the same voice as
+   the rest of the site (no serif switch, no separate "document" theme) but
+   the rhythm slows down: tighter measure, a plain list instead of an icon
+   grid, and a meta line under the h1 instead of a lede pulling the whole
+   width. */
+.legal-meta {
+  font-family: var(--mono); font-size: .78rem; color: var(--text-2);
+  letter-spacing: .01em;
+}
+.legal-group { scroll-margin-top: 78px; }
+.legal-group:first-child .subhead { margin-top: 0; }
+.legal-group h2 {
+  font-weight: 700; font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  letter-spacing: -.01em; line-height: 1.18;
+}
+.legal-body { display: flex; flex-direction: column; gap: 14px; max-width: 68ch; }
+.legal-body p { font-size: .95rem; color: var(--text-2); line-height: 1.68; }
+.legal-body h3 { font-size: 1rem; margin-top: 4px; }
+.legal-body b { color: var(--text); }
+.legal-list { list-style: disc; margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; }
+.legal-list li { font-size: .95rem; color: var(--text-2); line-height: 1.6; }
+.legal-list li::marker { color: var(--accent); }
+.legal-list li b { color: var(--text); font-weight: 500; }
+.callout {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  background: var(--bg-2); padding: 16px 20px; max-width: 68ch;
+}
+.callout p { font-size: .92rem; color: var(--text-2); line-height: 1.6; }

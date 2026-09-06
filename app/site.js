@@ -13,7 +13,7 @@ export const SITE_URL = 'https://20fourr.com';
 export const ORG_ID = `${SITE_URL}/#organization`;
 
 /** Registered entity behind the product. */
-export const LEGAL_NAME = 'Indorse Technologies Pvt. Ltd.';
+export const LEGAL_NAME = 'Indorize Technologies Pvt. Ltd.';
 
 /**
  * The two shipping web apps, on their own subdomains.
