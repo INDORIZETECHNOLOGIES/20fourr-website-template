@@ -1,4 +1,5 @@
 import PhoneSteps from '@/components/PhoneSteps';
+import BookingCarousel from '@/components/BookingCarousel';
 
 /**
  * The eight client screens a booking walks through, in order: search, profile,
@@ -92,5 +93,14 @@ const STEPS = [
 ];
 
 export default function BookingSteps() {
-  return <PhoneSteps steps={STEPS} />;
+  return (
+    <>
+      <div className="steps-view--grid">
+        <PhoneSteps steps={STEPS} />
+      </div>
+      <div className="steps-view--carousel">
+        <BookingCarousel steps={STEPS} />
+      </div>
+    </>
+  );
 }

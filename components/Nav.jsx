@@ -20,10 +20,12 @@ export default function Nav() {
 
         <div className="nav__cta">
           <Link className="btn btn--sm btn--ghost" href="/join">
-            Work as a guard
+            <span className="btn__label-full">Work as a guard</span>
+            <span className="btn__label-short">Guard</span>
           </Link>
           <Link className="btn btn--sm btn--primary" href="/#book">
-            Book security
+            <span className="btn__label-full">Book security</span>
+            <span className="btn__label-short">Book</span>
           </Link>
         </div>
       </div>

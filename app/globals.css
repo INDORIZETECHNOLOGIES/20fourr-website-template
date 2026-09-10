@@ -267,9 +267,33 @@ b, strong { font-weight: 500; }
 .nav__links a:hover { color: var(--text); }
 .nav__cta { display: flex; align-items: center; gap: 10px; }
 @media (max-width: 900px) { .nav__links { display: none; } .nav__in { gap: 16px; } }
-/* Mono labels run wider than the sans ones did — both nav CTAs no longer fit
-   alongside the wordmark until ~720px, so the secondary drops earlier. */
-@media (max-width: 720px) { .nav__cta .btn--ghost { display: none; } }
+/* Below 760px both nav CTAs step down to the same quiet, outlined weight
+   rather than one of them dropping — the audience split ("guard" vs "client")
+   has to stay legible before a visitor scrolls. The loud amber fill is
+   reserved for the hero CTA and the sticky bar that takes over once it
+   scrolls out of view (see .stickybar) — never both at once. */
+@media (max-width: 760px) {
+  .nav__cta .btn--primary,
+  .nav__cta .btn--ghost {
+    background: transparent; border-color: var(--line); color: var(--text);
+    padding: 10px 14px; font-size: .78rem;
+  }
+  .nav__cta .btn--primary:hover,
+  .nav__cta .btn--ghost:hover { border-color: var(--text-2); background: color-mix(in srgb, var(--text) 6%, transparent); }
+}
+.btn__label-short { display: none; }
+/* Below ~560px "Work as a guard" + "Book security" plus the wordmark no
+   longer fit on one 66px row. The wordmark drops to its mark (the logo
+   already carries the brand) and both labels shorten — same two links, same
+   destinations, just fewer letters. */
+@media (max-width: 560px) {
+  .brand__name { display: none; }
+  .nav__cta { gap: 8px; }
+  .nav__cta .btn--primary,
+  .nav__cta .btn--ghost { padding: 9px 12px; }
+  .btn__label-full { display: none; }
+  .btn__label-short { display: inline; }
+}
 
 /* ---------- hero ---------- */
 .hero {
@@ -294,7 +318,40 @@ b, strong { font-weight: 500; }
 /* The subhead runs at the dimmer tone; a bolded word inside it steps up to the
    full text colour rather than staying flat. Same pattern as .tcard__b b. */
 .hero__sub b { color: var(--text); font-weight: 500; }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+/* The city picker sits beside the button as an input, not a second action —
+   filled-field treatment, same height as the button, so the row reads as
+   "choose, then book" rather than two competing choices. */
+.hero__city {
+  appearance: none;
+  background: var(--bg-2);
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%), linear-gradient(135deg, var(--text-2) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: .92rem;
+  padding: 15px 40px 15px 16px;
+  min-width: 172px;
+  cursor: pointer;
+  transition: border-color .15s ease;
+}
+.hero__city:hover { border-color: var(--text-2); }
+.hero__city:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (max-width: 560px) { .hero__city { width: 100%; } }
+/* Visually subordinate on purpose — the trust content it points at already
+   exists further down the page (see #trust); this is one click away, not a
+   second button competing with "Book verified security". */
+.hero__verify {
+  font-family: var(--mono); font-size: .8rem; color: var(--text-2);
+  text-decoration: underline; text-underline-offset: 4px;
+  display: inline-block;
+}
+.hero__verify:hover { color: var(--text); }
+[lang="hi"] .hero__verify { font-family: var(--deva); font-size: .88rem; }
 .hero__fine { font-family: var(--mono); font-size: .74rem; color: var(--text-2); letter-spacing: .03em; }
 [lang="hi"] .hero__fine { font-family: var(--deva); letter-spacing: 0; font-size: .82rem; }
 
@@ -551,11 +608,17 @@ b, strong { font-weight: 500; }
   .log:not(.log--narrow) .log__d { grid-column: 2 / -1; }
 }
 
-/* ---------- trust ---------- */
-.trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-@media (max-width: 940px) { .trust { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 620px) { .trust { grid-template-columns: 1fr; } }
+/* ---------- trust ----------
+   Two columns × three rows, not three across — six rules read as a short,
+   even list this way, and it matches the "what verification does not mean"
+   grid below it rather than introducing a third column count on the page. */
+.trust { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 680px) { .trust { grid-template-columns: 1fr; } }
 .tcard { background: var(--bg); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 11px; }
+/* Muted, not amber — six icons at full accent strength would spend the one
+   rationed colour on decoration instead of the thing it's supposed to mark. */
+.tcard__icon { width: 20px; height: 20px; color: var(--text-3); }
+.tcard__icon svg { width: 100%; height: 100%; display: block; }
 .tcard__k { font-family: var(--mono); font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
 .tcard__b { font-size: .92rem; color: var(--text-2); line-height: 1.58; }
 .tcard__b b { color: var(--text); font-weight: 500; }
@@ -570,6 +633,8 @@ b, strong { font-weight: 500; }
    encodes "this one is worse than the last"; three parallel caveats have no such
    order, so they all take the one advisory rule instead. */
 .tier--note { border-top-color: var(--amber); }
+.tier__icon { width: 18px; height: 18px; color: var(--text-3); margin-bottom: 2px; }
+.tier__icon svg { width: 100%; height: 100%; display: block; }
 .tier__l { font-family: var(--mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
 .tier__h { font-size: .97rem; font-weight: 600; }
 .tier__d { font-size: .87rem; color: var(--text-2); line-height: 1.5; }
@@ -1295,6 +1360,61 @@ b, strong { font-weight: 500; }
   html { scroll-behavior: auto; }
   .ticket .trow, .ticket__ft { opacity: 1 !important; transform: none !important; animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+}
+
+/* ---------- sticky book bar (home, mobile) ----------
+   Thumb reach: once the hero (and its own CTA) has scrolled out of view, this
+   takes over at the bottom of the screen rather than sending the visitor back
+   up to the nav. It only ever shows one action, and only on the widths where
+   the nav's own CTAs have already stepped down to quiet outlines — so there
+   is never a second filled button on screen at the same time as this one. */
+.stickybar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
+  display: none;
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--hair);
+  padding: 12px var(--gut) calc(12px + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  transition: transform .25s ease;
+}
+.stickybar.is-visible { transform: translateY(0); }
+.stickybar .btn { width: 100%; }
+@media (max-width: 760px) { .stickybar { display: block; } }
+@media (prefers-reduced-motion: reduce) { .stickybar { transition: none; } }
+
+/* ---------- booking flow: mobile carousel ----------
+   Swaps the 8-up grid for a swipeable, one-step-at-a-time strip below 601px,
+   where eight full-size screenshots stacked vertically made "how it works"
+   the longest scroll on the page. Desktop keeps the grid untouched. */
+.steps-view--carousel { display: none; }
+@media (max-width: 600px) {
+  .steps-view--grid { display: none; }
+  .steps-view--carousel { display: block; }
+}
+.carousel__pos {
+  font-family: var(--mono); font-size: .68rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 14px;
+}
+.carousel__track {
+  display: flex; gap: 16px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  margin-inline: calc(var(--gut) * -1);
+  padding-inline: var(--gut);
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.carousel__track::-webkit-scrollbar { display: none; }
+.carousel__track:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.carousel__item { flex: 0 0 84%; scroll-snap-align: center; display: flex; flex-direction: column; }
+.carousel__dots { display: flex; gap: 6px; justify-content: center; margin-top: 18px; }
+.carousel__dot { width: 5px; height: 5px; border-radius: 5px; background: var(--line); transition: width .3s ease, background-color .3s ease; }
+.carousel__dot.is-on { width: 18px; background: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .carousel__track { scroll-behavior: auto; }
+  .carousel__dot { transition: none; }
 }
 
 /* ---------- legal pages (privacy / terms / refunds / grievance) ----------

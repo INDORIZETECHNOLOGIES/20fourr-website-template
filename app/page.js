@@ -6,6 +6,20 @@ import AppPreview from '@/components/AppPreview';
 import BookingSteps from '@/components/BookingSteps';
 import DutySteps from '@/components/DutySteps';
 import ProviderReel from '@/components/ProviderReel';
+import HeroBooking from '@/components/HeroBooking';
+import StickyBookBar from '@/components/StickyBookBar';
+import HomeFaq from '@/components/HomeFaq';
+import {
+  LockIcon,
+  BriefingIcon,
+  DocCheckIcon,
+  ClockIcon,
+  TicketIcon,
+  ScaleIcon,
+  BadgeIcon,
+  SirenIcon,
+  DocStampIcon,
+} from '@/components/TrustIcons';
 
 const SERVICE_INTENTS = [
   {
@@ -136,31 +150,37 @@ const TRUST = [
     k: 'Contact privacy',
     h: 'Numbers stay hidden until you pay',
     b: <>A provider cannot see your address and you cannot see their number until the booking is paid. It keeps deals on the platform &mdash; which is what keeps the licence checks, the insurance trail and the dispute route intact.</>,
+    Icon: LockIcon,
   },
   {
     k: 'Threat brief',
     h: 'They arrive knowing what they’re walking into',
     b: <>If you&rsquo;ve been threatened or attacked before, you record it once in your profile. It&rsquo;s released to the assigned provider <b>after payment only</b> &mdash; late enough to protect you, early enough for them to prepare.</>,
+    Icon: BriefingIcon,
   },
   {
     k: 'Verification',
     h: 'KYC reviewed by a person',
-    b: <>Documents are uploaded, then approved or rejected with a written reason by our compliance team. <b>Unverified providers cannot accept a single booking.</b> Gunmen need a current firearm licence on top.</>,
+    b: <>Documents are uploaded, then approved or rejected with a written reason by our compliance team. <b>Unverified providers cannot accept a single booking</b> &mdash; gunmen need a current firearm licence on top.</>,
+    Icon: DocCheckIcon,
   },
   {
     k: 'Cancellation',
     h: 'Refunds on a published clock',
-    b: <>Cancel more than 24 hours out and <b>90%</b> comes back to your wallet. Between 12 and 24 hours, <b>50%</b>. Inside 12 hours, nothing &mdash; because by then the guard has already turned down other work.</>,
+    b: <>Cancel more than 24 hours out and <b>90%</b> comes back to your wallet; between 12 and 24 hours, <b>50%</b>. Inside 12 hours, nothing &mdash; because by then the guard has already turned down other work.</>,
+    Icon: ClockIcon,
   },
   {
     k: 'Disputes',
     h: 'A ticket, an owner, an outcome',
     b: <>Raise a dispute and it becomes a tracked ticket with an assigned reviewer, a full chat record, and a resolution type &mdash; refund, credit, replacement or penalty. Not an inbox.</>,
+    Icon: TicketIcon,
   },
   {
     k: 'Ratings',
     h: 'Both directions',
-    b: <>You rate the guard on professionalism, punctuality, communication and compliance. They rate you too. Ratings follow the account, so repeat behaviour is visible before anyone accepts.</>,
+    b: <>You rate the guard on professionalism, punctuality, communication and compliance, and they rate you too. Ratings follow the account, so repeat behaviour is visible before anyone accepts.</>,
+    Icon: ScaleIcon,
   },
 ];
 
@@ -219,16 +239,15 @@ export default function HomePage() {
             <p className="hero__sub">
               Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every PSARA-verified agency and officer in one place, so you see the price upfront and book in minutes.
             </p>
-            <div className="hero__ctas">
-              <Link className="btn btn--primary" href="#book">Book verified security</Link>
-              <Link className="btn btn--ghost" href="#trust">See how we verify</Link>
-            </div>
+            <HeroBooking cities={COVERAGE_CITIES} />
             <p className="hero__fine">No cash at the gate &middot; Itemised tax invoice on every booking</p>
           </div>
 
           <DutyTicket />
         </div>
       </header>
+
+      <StickyBookBar />
 
       {/* ---------- credential ticker ---------- */}
       <section className="creds">
@@ -396,6 +415,7 @@ export default function HomePage() {
           <Reveal className="trust">
             {TRUST.map((t) => (
               <article className="tcard" key={t.k}>
+                <span className="tcard__icon"><t.Icon /></span>
                 <span className="tcard__k">{t.k}</span>
                 <h3>{t.h}</h3>
                 <p className="tcard__b">{t.b}</p>
@@ -403,12 +423,12 @@ export default function HomePage() {
             ))}
           </Reveal>
 
-          <Reveal style={{ marginTop: 'clamp(48px,6vw,72px)' }}>
-            <p className="eyebrow" style={{ marginBottom: 14 }}>Read this before you book</p>
-            <h3 style={{ fontSize: 'clamp(1.35rem,2.4vw,1.75rem)', maxWidth: '24ch' }}>
+          <Reveal className="subhead">
+            <p className="eyebrow">Read this before you book</p>
+            <h3 style={{ maxWidth: '24ch' }}>
               What verification does not mean.
             </h3>
-            <p className="lede" style={{ marginTop: 12, maxWidth: '62ch' }}>
+            <p className="lede" style={{ maxWidth: '62ch' }}>
               Being straight about the limits is part of being trustworthy. Verification is a check
               on documents and history &mdash; it is not a guarantee of future conduct, and no
               platform can honestly claim otherwise.
@@ -416,6 +436,7 @@ export default function HomePage() {
             {/* Three limits, not three severities — see the note on .tier--note. */}
             <div className="tiers">
               <div className="tier tier--note">
+                <span className="tier__icon"><BadgeIcon /></span>
                 <span className="tier__l">Who performs the duty</span>
                 <div className="tier__h">20fourr is a technology platform</div>
                 <p className="tier__d">
@@ -425,6 +446,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="tier tier--note">
+                <span className="tier__icon"><SirenIcon /></span>
                 <span className="tier__l">Emergencies</span>
                 <div className="tier__h">We are not an emergency service</div>
                 <p className="tier__d">
@@ -433,6 +455,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="tier tier--note">
+                <span className="tier__icon"><DocStampIcon /></span>
                 <span className="tier__l">What a badge proves</span>
                 <div className="tier__h">A document was checked on a date</div>
                 <p className="tier__d">
@@ -497,7 +520,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="band band--paper" id="coverage">
+      <section className="band" id="coverage">
         <div className="wrap">
           <Reveal className="head">
             <p className="eyebrow">Local coverage</p>
@@ -516,6 +539,8 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      <HomeFaq />
 
       {/* ---------- final cta ---------- */}
       <section className="band" id="book">
