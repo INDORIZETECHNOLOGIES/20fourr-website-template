@@ -76,8 +76,11 @@ export const viewport = {
 
 /* Organization is what lets Google attach the name, logo and site to one entity
    instead of inferring three. Only claims that are true on the page are here —
-   no address, no phone, no ratings, because unverifiable markup is the kind that
-   gets a site a manual action rather than a rich result.
+   no phone, no ratings, because unverifiable markup is the kind that gets a
+   site a manual action rather than a rich result. The address and email
+   *are* both already true on the page — they've been published on /privacy
+   since it shipped — this just surfaces them in structured data too instead
+   of leaving them undiscoverable outside one legal page.
 
    20fourr is the product; Indorse Technologies Pvt. Ltd. is the company that
    builds it. Stating the parent explicitly is what keeps searches for either
@@ -92,12 +95,26 @@ const ORGANIZATION_LD = {
   description:
     'On-demand booking for PSARA-licensed security guards, bouncers, armed gunmen and personal security officers across India.',
   areaServed: { '@type': 'Country', name: 'India' },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'privacy@20fourr.com',
+    contactType: 'customer support',
+    areaServed: 'IN',
+    availableLanguage: ['en', 'hi'],
+  },
   parentOrganization: {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#parent-organization`,
     name: LEGAL_NAME,
     legalName: LEGAL_NAME,
-    address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Miyawala',
+      addressLocality: 'Dehradun',
+      addressRegion: 'Uttarakhand',
+      postalCode: '248001',
+      addressCountry: 'IN',
+    },
   },
 };
 
