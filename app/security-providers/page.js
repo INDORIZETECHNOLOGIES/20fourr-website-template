@@ -9,10 +9,21 @@ import { listingJsonLd } from './schema';
 import {
   CATEGORY_LABEL,
   CATEGORY_PLURAL,
+  CATEGORY_SERVICE_PHRASE,
   PAGE_SIZE,
   parseSearchParams,
   queryProviders,
 } from './data';
+
+/**
+ * The provider dataset is a static array (data.js) that only changes on
+ * redeploy, but this route reads `searchParams`, which by default makes every
+ * request a fresh, uncached render — measured at 719ms-1.0s TTFB on faceted
+ * URLs vs. 116-254ms on the fully static pages. ISR caches each distinct
+ * query-string combination for an hour; a new deploy still invalidates the
+ * cache immediately, so this never serves stale data past the next release.
+ */
+export const revalidate = 3600;
 
 /**
  * Canonical for a filtered view. `sortBy` is excluded on purpose: it re-orders an
@@ -34,18 +45,24 @@ export async function generateMetadata({ searchParams }) {
   const view = parseSearchParams(await searchParams);
   const { category, city, page } = view;
 
-  const what = category ? CATEGORY_PLURAL[category] : 'security providers';
+  // The <title>/H1 use buyer-facing service phrasing (see CATEGORY_SERVICE_PHRASE):
+  // the plain "{category} in {city}" form this replaced reads like a job
+  // posting to both searchers and Google. The meta description keeps the
+  // "hire {category-plural} in {city}" verb-phrase form — that one already
+  // matches buyer intent.
+  const serviceWhat = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
+  const hireWhat = category ? CATEGORY_PLURAL[category] : 'security providers';
   const where = city ? `in ${city}` : 'across India';
   const suffix = page > 1 ? ` — page ${page}` : '';
 
   return {
-    title: `Verified ${what} ${where}${suffix}`,
+    title: `${serviceWhat} ${where}${suffix}`,
     description: city
-      ? `Hire PSARA-verified ${what} in ${city}. Compare day rates, check verification badges and price a specific date range — no account, no phone number, no sales call.`
-      : `Browse PSARA-verified ${what} by service and city across India. Compare day rates and price a specific date range — no account, no phone number, no sales call.`,
+      ? `Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range — no account, no phone number, no sales call.`
+      : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range — no account, no phone number, no sales call.`,
     alternates: { canonical: canonicalFor(view) },
     openGraph: {
-      title: `Verified ${what} ${where}`,
+      title: `${serviceWhat} ${where}`,
       description: `PSARA-licensed, identity-checked providers. Compare day rates by service and city.`,
     },
   };
@@ -83,9 +100,11 @@ export default async function ProvidersPage({ searchParams }) {
             <p className="eyebrow">Providers</p>
             {/* The H1 tracks the filters for the same reason the <title> does: on
                 ?city=Dehradun the page really is about Dehradun, and a generic
-                "across India" heading contradicts both the title and the results. */}
+                "across India" heading contradicts both the title and the results.
+                Uses the same buyer-facing service phrasing as the <title> — see
+                CATEGORY_SERVICE_PHRASE in data.js for why. */}
             <h1>
-              Verified <em>{category ? CATEGORY_PLURAL[category] : 'security providers'}</em>{' '}
+              <em>{category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services'}</em>{' '}
               {city ? `in ${city}` : 'across India'}
             </h1>
             <p className="lede">

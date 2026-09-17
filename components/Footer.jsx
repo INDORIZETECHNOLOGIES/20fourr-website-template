@@ -63,6 +63,13 @@ export default function Footer() {
               </span>
             </Link>
             <p>Licensed private security, booked and verified from your phone.</p>
+            {/* Same email/address already published on /privacy — this just
+                makes it findable without having to open that page first. */}
+            <p>
+              <a href="mailto:privacy@20fourr.com">privacy@20fourr.com</a>
+              <br />
+              Miyawala, Dehradun, Uttarakhand &mdash; 248001
+            </p>
           </div>
 
           {COLUMNS.map((col) => (
