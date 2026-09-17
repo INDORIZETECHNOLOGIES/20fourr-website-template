@@ -74,6 +74,11 @@ export default function sitemap() {
     // version of it, and for a large part of this audience it is the primary.
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
+    // /terms, /refunds and /grievance are deliberately excluded here — they're
+    // still noindex drafts (see their own metadata), and a noindex page in the
+    // sitemap sends a mixed signal. Add them once each is reviewed and its
+    // robots.index flips to true.
+    { url: `${BASE}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
 
     ...listingEntry({}, 0.9),
     ...CATEGORY_ORDER.flatMap((category) => listingEntry({ category }, 0.8)),

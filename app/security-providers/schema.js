@@ -1,5 +1,11 @@
 import { ORG_ID, SITE_URL } from '@/app/site';
-import { BADGE_LABEL, CATEGORY_LABEL, CATEGORY_PLURAL, displayName } from './data';
+import {
+  BADGE_LABEL,
+  CATEGORY_LABEL,
+  CATEGORY_SERVICE_PHRASE,
+  displayName,
+  shownCityFor,
+} from './data';
 
 /**
  * Ratings in structured data.
@@ -183,7 +189,7 @@ export function providerJsonLd(p) {
  * `position` is offset by the page number so page 3 does not claim to start at 1.
  */
 export function listingJsonLd({ providers, category, city, page, pageSize, canonical }) {
-  const what = category ? CATEGORY_PLURAL[category] : 'security providers';
+  const what = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
   const where = city ? `in ${city}` : 'across India';
 
   return {
@@ -193,7 +199,7 @@ export function listingJsonLd({ providers, category, city, page, pageSize, canon
         '@type': 'CollectionPage',
         '@id': `${SITE_URL}${canonical}`,
         url: `${SITE_URL}${canonical}`,
-        name: `Verified ${what} ${where}`,
+        name: `${what} ${where}`,
         isPartOf: { '@id': `${SITE_URL}/#website` },
         about: { '@id': ORG_ID },
         mainEntity: {
@@ -206,7 +212,7 @@ export function listingJsonLd({ providers, category, city, page, pageSize, canon
           itemListElement: providers.map((p, i) => ({
             '@type': 'ListItem',
             position: (page - 1) * pageSize + i + 1,
-            name: displayName(p),
+            name: displayName(p, shownCityFor(p, city)),
             url: providerUrl(p),
           })),
         },

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
+import { CLIENT_APP_URL } from '@/app/site';
 import { providerJsonLd } from '../schema';
 import {
   badgeLabel,
@@ -25,8 +26,11 @@ export async function generateMetadata({ params }) {
   if (!p) return { title: 'Provider not found' };
 
   const name = displayName(p);
+  // Agency names already say "Security agency in {city}" — don't repeat the city
+  // a second time in the title.
+  const rateLine = p.agency ? `${inr(p.dailyRate)}/day` : `${inr(p.dailyRate)}/day in ${p.city}`;
   return {
-    title: `${name} — ${inr(p.dailyRate)}/day in ${p.city}`,
+    title: `${name} — ${rateLine}`,
     description: `${name} is a PSARA-verified provider in ${p.city}, rated ${p.rating.toFixed(
       1
     )} across ${p.ratingCount} bookings. ${categoryList(p.categories)} from ${inr(
@@ -121,15 +125,18 @@ export default async function ProviderPage({ params }) {
       {/* ---------- rate + verification ---------- */}
       <section className="band band--ink-2">
         <div className="wrap inv-grid">
+          <h2 className="visually-hidden">Day rate and what we checked before listing them</h2>
           <Reveal className="invoice invoice--profile">
             <div className="invoice__hd">
               <span className="invoice__ttl">Day rate</span>
+              <span className="visually-hidden"> — </span>
               <span className="invoice__ref">Before platform fee &amp; GST</span>
             </div>
             <div className="rows">
               <div className="row">
                 <span className="row__k">
                   Services offered
+                  <span className="visually-hidden">: </span>
                   <small>Each priced from the same day rate</small>
                 </span>
                 <span className="row__v">{categoryList(provider.categories)}</span>
@@ -137,6 +144,7 @@ export default async function ProviderPage({ params }) {
               <div className="row">
                 <span className="row__k">
                   Based in
+                  <span className="visually-hidden">: </span>
                   <small>Primary posting city</small>
                 </span>
                 <span className="row__v">{provider.city}</span>
@@ -144,6 +152,7 @@ export default async function ProviderPage({ params }) {
               <div className="row">
                 <span className="row__k">
                   Also operates in
+                  <span className="visually-hidden">: </span>
                   <small>Covered by the same PSARA licence</small>
                 </span>
                 <span className="row__v">{others.length ? others.join(' · ') : '—'}</span>
@@ -164,7 +173,7 @@ export default async function ProviderPage({ params }) {
 
           <Reveal className="stack g-28">
             <div className="stack g-16">
-              <p className="eyebrow">What we checked before listing them</p>
+              <h2 className="eyebrow">What we checked before listing them</h2>
               <div className="checks">
                 {CHECKS.map((c, i) => (
                   <div className="check" key={i}>
@@ -185,9 +194,14 @@ export default async function ProviderPage({ params }) {
             )}
 
             <div className="pdetail__ctas">
-              <Link className="btn btn--primary" href="/#book">
+              <a
+                className="btn btn--primary"
+                href={CLIENT_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Book this provider
-              </Link>
+              </a>
               <Link className="btn btn--ghost" href="/security-providers">
                 Back to all providers
               </Link>

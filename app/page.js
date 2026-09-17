@@ -48,7 +48,11 @@ const SERVICE_INTENTS = [
   },
 ];
 
-const COVERAGE_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Pune', 'Chennai', 'Jaipur', 'Ahmedabad'];
+// Every city here has to clear app/sitemap.js's MIN_PROVIDERS_FOR_LISTING
+// gate — Jaipur used to be listed here but only has 2 primary-city providers,
+// so the homepage was linking to a page the sitemap deliberately excludes as
+// too thin to index. Kolkata has 3 and is already in the sitemap.
+const COVERAGE_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Pune', 'Chennai', 'Kolkata', 'Ahmedabad'];
 
 const CREDENTIALS = [
   'PSARA-licensed providers only',

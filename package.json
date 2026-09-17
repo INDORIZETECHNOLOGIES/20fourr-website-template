@@ -6,11 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 90",
+      "safari >= 14",
+      "firefox >= 88",
+      "edge >= 90",
+      "not dead",
+      "not ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

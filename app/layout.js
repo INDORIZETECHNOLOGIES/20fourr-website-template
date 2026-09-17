@@ -1,10 +1,5 @@
 import './globals.css';
-import {
-  Big_Shoulders,
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
-  IBM_Plex_Sans_Devanagari,
-} from 'next/font/google';
+import { Big_Shoulders, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
@@ -19,8 +14,16 @@ const display = Big_Shoulders({
   axes: ['opsz'],
   variable: '--font-display',
   display: 'swap',
-  // No published fallback metrics for this family; pick a condensed stand-in
-  // ourselves rather than let it swap against a normal-width grotesque.
+  // adjustFontFallback: true was tried here (per a CLS finding: div.hero__glow
+  // shifts ~0.169 on the homepage when this font swaps in) but Next.js's
+  // automatic metric calculation fails for this specific variable font/axis
+  // combination ("Failed to find font override values for font `Big
+  // Shoulders`" at build time) — it silently produces no adjustment at all, so
+  // flipping this to true doesn't fix the CLS issue, it just fails quietly.
+  // Fixing this for real needs next/font/local with hand-measured
+  // ascentOverride/descentOverride/lineGapOverride against the actual font
+  // file, which needs visual verification this pass didn't include — flagging
+  // for a follow-up rather than shipping a fallback change that doesn't work.
   adjustFontFallback: false,
   fallback: ['Arial Narrow', 'Helvetica Neue', 'sans-serif'],
 });
@@ -39,14 +42,10 @@ const mono = IBM_Plex_Mono({
   display: 'swap',
 });
 
-// The display face has no Devanagari. Plex does, and it is metrically related
-// to the body face, so Hindi on /join never falls back to a broken stack.
-const deva = IBM_Plex_Sans_Devanagari({
-  subsets: ['devanagari', 'latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-deva',
-  display: 'swap',
-});
+// The Devanagari face is loaded only in app/join/hi/layout.js — it's needed on
+// that one route, and every other page (including all provider/facet pages)
+// used to preload it too when it lived here, which was ~100-150KB of dead
+// weight on every English-language request.
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -114,10 +113,7 @@ const WEBSITE_LD = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en-IN"
-      className={`${display.variable} ${body.variable} ${mono.variable} ${deva.variable}`}
-    >
+    <html lang="en-IN" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <JsonLd data={[ORGANIZATION_LD, WEBSITE_LD]} />
         <Nav />

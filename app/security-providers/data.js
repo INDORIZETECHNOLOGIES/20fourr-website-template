@@ -27,12 +27,33 @@ export const CATEGORY_LABEL = {
 };
 
 /* Sentence-case plurals for headings and prose. "Security Guards in Delhi"
-   reads as a job posting — the wrong intent for a listing page. */
+   reads as a job posting — the wrong intent for a listing page. Used inside
+   an existing verb phrase ("Hire PSARA-verified security guards in Delhi"),
+   which SERP research shows still reads as buyer intent — it's the bare
+   noun-phrase form (no verb, no "services") that collides with job-board
+   results. See CATEGORY_SERVICE_PHRASE below for where that bare form used
+   to appear (the page title and H1) and was replaced. */
 export const CATEGORY_PLURAL = {
   guard: 'security guards',
   bouncer: 'bouncers',
   gunman: 'armed gunmen',
   pso: 'personal security officers',
+};
+
+/* Buyer-facing service phrasing for the listing page's <title> and <h1>.
+ * "Verified security guards in Mumbai" (the bare noun form this replaced)
+ * matches the same phrase a guard searches for work with — measured SERP
+ * composition for "security guards in Mumbai" is ~67% job boards. These
+ * phrases mirror the wording the homepage's own service cards already use
+ * (SERVICE_INTENTS in app/page.js), which matches the query intent that
+ * actually returns comparable service pages ("security agency/services in
+ * [city]").
+ */
+export const CATEGORY_SERVICE_PHRASE = {
+  guard: 'Private security agency services',
+  bouncer: 'Event security services',
+  gunman: 'Armed security and gunman services',
+  pso: 'Executive protection',
 };
 
 export const CATEGORY_ORDER = ['guard', 'bouncer', 'gunman', 'pso'];
@@ -62,6 +83,7 @@ export const FILTER_CITIES = [
   'Hyderabad',
   'Indore',
   'Jaipur',
+  'Kochi',
   'Kolkata',
   'Lucknow',
   'Mumbai',
@@ -721,14 +743,29 @@ export function inr(rupees) {
 }
 
 /**
+ * Which of a provider's cities to lead with. When a city filter is on and this
+ * provider covers it, that's the city the visitor asked about, so the card/name
+ * should answer about that city — not the provider's unrelated home city.
+ */
+export function shownCityFor(p, selectedCity) {
+  return selectedCity && p.cities.includes(selectedCity) ? selectedCity : p.city;
+}
+
+/**
  * Public display name.
  *
  * Agencies are deliberately anonymised until a booking is confirmed, so pricing
  * stays comparable and nobody gets pulled into an off-platform negotiation before
  * anything is on record. Individuals appear under their own name.
+ *
+ * `shownCity` lets a filtered context (e.g. `?city=Mumbai`) override which city an
+ * agency is named after, so an agency whose home city is Pune but who also covers
+ * Mumbai is labelled "Security agency in Mumbai" on a Mumbai-filtered view instead
+ * of leaking its home city.
  */
-export function displayName(p) {
-  if (p.agency) return p.city ? `Security agency in ${p.city}` : 'Verified security agency';
+export function displayName(p, shownCity) {
+  const city = shownCity || p.city;
+  if (p.agency) return city ? `Security agency in ${city}` : 'Verified security agency';
   return p.name || 'Security professional';
 }
 
