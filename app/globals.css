@@ -1484,6 +1484,26 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 @media (min-width: 601px) {
   .carousel { max-width: 640px; }
   .carousel__item { flex-basis: 88%; }
+  /* The bleed-to-screen-edge trick above is for mobile, where .carousel spans
+     the full band and touch-dragging should reach past the wrap's own
+     gutter. Once .carousel is already a narrow, capped column, that same
+     trick widens the track's scrollable viewport by 2×--gut beyond the cap
+     — up to 96px at wide viewports, which is enough for the next slide's
+     caption to read clearly instead of just peeking. Neutralised here, plus
+     a soft fade so the peeking plate's own edge isn't a hard crop. */
+  .carousel__track {
+    margin-inline: 0; padding-inline: 0;
+    mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
+  }
+  /* The peek is only ~22px wide at this width — plenty to show a plate is
+     there, not enough to fade a caption's first word into illegibility
+     rather than invisibility. Only the active step's text renders; the
+     image alone carries "there's more" for its neighbours. */
+  .carousel__item:not(.is-active) .step__n,
+  .carousel__item:not(.is-active) .step__h,
+  .carousel__item:not(.is-active) .step__b {
+    opacity: 0;
+  }
 }
 .carousel__dots { display: flex; gap: 6px; justify-content: center; margin-top: 18px; }
 .carousel__dot {

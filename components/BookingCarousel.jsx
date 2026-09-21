@@ -72,7 +72,7 @@ export default function BookingCarousel({ steps }) {
       <div className="carousel__track" ref={trackRef} tabIndex={0} onKeyDown={onKeyDown}>
         {steps.map((s, i) => (
           <div
-            className="carousel__item"
+            className={`carousel__item${i === active ? ' is-active' : ''}`}
             key={s.n}
             ref={(el) => { itemRefs.current[i] = el; }}
           >
