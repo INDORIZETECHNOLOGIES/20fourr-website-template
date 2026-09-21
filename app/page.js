@@ -12,9 +12,7 @@ import HomeFaq from '@/components/HomeFaq';
 import {
   LockIcon,
   BriefingIcon,
-  DocCheckIcon,
   ClockIcon,
-  TicketIcon,
   ScaleIcon,
   BadgeIcon,
   SirenIcon,
@@ -139,16 +137,11 @@ const BADGES = [
   },
 ];
 
-/* The badge section's three claims, set beside the lede. Deliberately blunt and
-   unqualified — every one of them is discharged by a card in the grid below, so
-   the column states the promise and the grid shows the receipts. */
-const CLAIMS = [
-  <><em>Verified</em> means verified.</>,
-  <>Checked before they&rsquo;re listed.</>,
-  <>We check the papers, not just the profile.</>,
-];
-
-// The compliance guarantees, run through the same log.
+// The compliance guarantees, run through the same log. "Verification" and
+// "Disputes" used to be their own cards here — the first said nothing BADGES
+// doesn't already prove, and the second said nothing ACCOUNTABILITY doesn't
+// already own; both were cut rather than repeated. See ACCOUNTABILITY's
+// "Evidence" entry for where the dispute-process specifics live now.
 const TRUST = [
   {
     k: 'Contact privacy',
@@ -163,22 +156,10 @@ const TRUST = [
     Icon: BriefingIcon,
   },
   {
-    k: 'Verification',
-    h: 'KYC reviewed by a person',
-    b: <>Documents are uploaded, then approved or rejected with a written reason by our compliance team. <b>Unverified providers cannot accept a single booking</b> &mdash; gunmen need a current firearm licence on top.</>,
-    Icon: DocCheckIcon,
-  },
-  {
     k: 'Cancellation',
     h: 'Refunds on a published clock',
     b: <>Cancel more than 24 hours out and <b>90%</b> comes back to your wallet; between 12 and 24 hours, <b>50%</b>. Inside 12 hours, nothing &mdash; because by then the guard has already turned down other work.</>,
     Icon: ClockIcon,
-  },
-  {
-    k: 'Disputes',
-    h: 'A ticket, an owner, an outcome',
-    b: <>Raise a dispute and it becomes a tracked ticket with an assigned reviewer, a full chat record, and a resolution type &mdash; refund, credit, replacement or penalty. Not an inbox.</>,
-    Icon: TicketIcon,
   },
   {
     k: 'Ratings',
@@ -196,7 +177,7 @@ const ACCOUNTABILITY = [
   ['Delisting', 'Repeated no-shows or persistently poor ratings lead to delisting.'],
   [
     'Evidence',
-    'Check-in and check-out are recorded against the shift you paid for, so attendance is evidence rather than opinion.',
+    'Check-in and check-out are recorded against the shift you paid for. Raise a dispute and it becomes a tracked ticket with an assigned reviewer, the full chat record, and a resolution — refund, credit, replacement or penalty.',
   ],
   [
     'PSARA 2005',
@@ -241,7 +222,7 @@ export default function HomePage() {
               Private security services with <em>verified</em> guards, bouncers and armed personnel anywhere in India.
             </h1>
             <p className="hero__sub">
-              Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every PSARA-verified agency and officer in one place, so you see the price upfront and book in minutes.
+              Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every provider licensed under <abbr title="Private Security Agencies (Regulation) Act, 2005">PSARA</abbr>, India’s law on who may supply private security, in one place, so you see the price upfront and book in minutes.
             </p>
             <HeroBooking cities={COVERAGE_CITIES} />
             <p className="hero__fine">No cash at the gate &middot; Itemised tax invoice on every booking</p>
@@ -301,8 +282,8 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal className="svcs">
-            {SERVICES.map((s) => (
-              <article className="svc" key={s.code}>
+            {SERVICES.map((s, i) => (
+              <article className={`svc svc--l${i + 1}`} key={s.code}>
                 <span className="svc__code">{s.code}</span>
                 <h3>{s.name}</h3>
                 <p className="svc__body">{s.body}</p>
@@ -335,7 +316,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- lifecycle ---------- */}
+      {/* ---------- trust sequence, part 1: what's checked ----------
+          The duty log, the badges that gate a listing, and the guarantees that
+          apply on every booking, in one continuous band rather than three
+          separately-introduced ones — they are one argument (what is checked
+          and enforced before and during a duty), not three. */}
       <section className="band" id="how">
         <div className="wrap">
           <Reveal className="head">
@@ -353,26 +338,14 @@ export default function HomePage() {
             <DutySteps />
           </Reveal>
 
-          {/* The lede caps at 62ch, which left the right half of this row empty on
-              anything wider than a laptop. These three claims fill it — and they
-              are the paragraph's argument stated flat, so the column earns its
-              width rather than padding it. */}
-          <Reveal className="subhead subhead--split">
-            <div className="subhead__copy">
-              <p className="eyebrow">Trust badges</p>
-              <h3>Badges are earned, never self-declared.</h3>
-              <p className="lede">
-                Every badge below is computed from documents a 20fourr admin has reviewed and
-                approved. A provider cannot switch one on for themselves, and a badge disappears
-                automatically the moment the underlying document expires or is revoked.
-              </p>
-            </div>
-
-            <ul className="claims">
-              {CLAIMS.map((c, i) => (
-                <li className="claim" key={i}>{c}</li>
-              ))}
-            </ul>
+          <Reveal className="subhead anchor" id="trust">
+            <p className="eyebrow">Trust badges</p>
+            <h3>Badges are earned, never self-declared.</h3>
+            <p className="lede">
+              Every badge below is computed from documents a 20fourr admin has reviewed and
+              approved. A provider cannot switch one on for themselves, and a badge disappears
+              automatically the moment the underlying document expires or is revoked.
+            </p>
           </Reveal>
 
           <Reveal className="badges">
@@ -385,34 +358,12 @@ export default function HomePage() {
             ))}
           </Reveal>
 
-          {/* Closes the badge grid with the one thing the grid implies but never
-              says: the badges are on the listings, so go read them. Centred and
-              ruled off — the only centred block on the page, which is what makes
-              it read as a stop rather than another row. */}
-          <Reveal className="pricecta">
-            <h2>
-              Know the price. <em>Then decide.</em>
-            </h2>
+          <Reveal className="subhead">
+            <p className="eyebrow">Enforced on every booking</p>
+            <h3>The rules are in the software, not in a policy document.</h3>
             <p className="lede">
-              Compare ratings. Pick your agency or individuals. Set your dates. See just the price
-              &mdash; in <b>seconds</b>.
-            </p>
-            <Link className="btn btn--primary btn--lg" href="/security-providers">
-              Compare security agencies
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- trust ---------- */}
-      <section className="band band--paper" id="trust">
-        <div className="wrap">
-          <Reveal className="head">
-            <p className="eyebrow">Trust &amp; compliance</p>
-            <h2>The rules are in the software, not in a policy document.</h2>
-            <p className="lede">
-              A promise you have to enforce by hand is not a protection. These are constraints the
-              platform applies on every single booking, whether or not anyone is watching.
+              A promise you have to enforce by hand is not a protection. These run on every
+              single booking, whether or not anyone is watching.
             </p>
           </Reveal>
 
@@ -426,56 +377,65 @@ export default function HomePage() {
               </article>
             ))}
           </Reveal>
+        </div>
+      </section>
 
-          <Reveal className="subhead">
+      {/* ---------- trust sequence, part 2: what we don't promise ----------
+          Named as its own band head rather than a caveat nested inside the
+          section above it — being straight about the limits is what makes the
+          checks above credible, not a disclaimer to get through. */}
+      <section className="band band--paper" id="limits">
+        <div className="wrap">
+          <Reveal className="head">
             <p className="eyebrow">Read this before you book</p>
-            <h3 style={{ maxWidth: '24ch' }}>
-              What verification does not mean.
-            </h3>
-            <p className="lede" style={{ maxWidth: '62ch' }}>
+            <h2 style={{ maxWidth: '24ch' }}>What verification does not mean.</h2>
+            <p className="lede">
               Being straight about the limits is part of being trustworthy. Verification is a check
               on documents and history &mdash; it is not a guarantee of future conduct, and no
               platform can honestly claim otherwise.
             </p>
-            {/* Three limits, not three severities — see the note on .tier--note. */}
-            <div className="tiers">
-              <div className="tier tier--note">
-                <span className="tier__icon"><BadgeIcon /></span>
-                <span className="tier__l">Who performs the duty</span>
-                <div className="tier__h">20fourr is a technology platform</div>
-                <p className="tier__d">
-                  The security services themselves are performed by independent, PSARA-licensed
-                  agencies and their personnel, and responsibility for their conduct on duty sits
-                  with them.
-                </p>
-              </div>
-              <div className="tier tier--note">
-                <span className="tier__icon"><SirenIcon /></span>
-                <span className="tier__l">Emergencies</span>
-                <div className="tier__h">We are not an emergency service</div>
-                <p className="tier__d">
-                  In an emergency, contact the police on 112 first, then raise an incident on your
-                  booking so the record, the agency and our compliance team stay aligned.
-                </p>
-              </div>
-              <div className="tier tier--note">
-                <span className="tier__icon"><DocStampIcon /></span>
-                <span className="tier__l">What a badge proves</span>
-                <div className="tier__h">A document was checked on a date</div>
-                <p className="tier__d">
-                  A verified badge does not predict behaviour. Ratings, check-in records and the
-                  incident process exist precisely because paperwork alone is not enough.
-                </p>
-              </div>
-            </div>
           </Reveal>
+
+          {/* Three limits, not three severities — see the note on .tier--note. */}
+          <div className="tiers">
+            <div className="tier tier--note">
+              <span className="tier__icon"><BadgeIcon /></span>
+              <span className="tier__l">Who performs the duty</span>
+              <div className="tier__h">20fourr is a technology platform</div>
+              <p className="tier__d">
+                The security services themselves are performed by independent, PSARA-licensed
+                agencies and their personnel, and responsibility for their conduct on duty sits
+                with them.
+              </p>
+            </div>
+            <div className="tier tier--note">
+              <span className="tier__icon"><SirenIcon /></span>
+              <span className="tier__l">Emergencies</span>
+              <div className="tier__h">We are not an emergency service</div>
+              <p className="tier__d">
+                In an emergency, contact the police on 112 first, then raise an incident on your
+                booking so the record, the agency and our compliance team stay aligned.
+              </p>
+            </div>
+            <div className="tier tier--note">
+              <span className="tier__icon"><DocStampIcon /></span>
+              <span className="tier__l">What a badge proves</span>
+              <div className="tier__h">A document was checked on a date</div>
+              <p className="tier__d">
+                A verified badge does not predict behaviour. Ratings, check-in records and the
+                incident process exist precisely because paperwork alone is not enough.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ---------- accountability ----------
+      {/* ---------- trust sequence, part 3: what happens if it's wrong ----------
           Follows the verification limits deliberately: having just said what a
           badge does not prove, this is the route when the gap shows up on a real
-          booking, and the statute the whole listing rests on. */}
+          booking, and the statute the whole listing rests on. Closes the whole
+          sequence on the price CTA — the one centred block on the page — because
+          by here there is nothing left to prove, only a decision to make. */}
       <section className="band band--ink-2" id="report">
         <div className="wrap">
           <Reveal className="head">
@@ -496,30 +456,18 @@ export default function HomePage() {
               </div>
             ))}
           </Reveal>
-        </div>
-      </section>
 
-      {/* ---------- provider teaser ---------- */}
-      <section className="band band--paper" id="providers">
-        <div className="wrap join">
-          <Reveal className="stack g-28">
-            <p className="eyebrow">For guards, bouncers and agencies</p>
-            <h2>Get paid in two days. Not in ninety.</h2>
+          <Reveal className="pricecta">
+            <h2>
+              Know the price. <em>Then decide.</em>
+            </h2>
             <p className="lede">
-              Set your own rate, pick your own days, and get paid on a schedule you can actually plan
-              around. Joining is free &mdash; you clear KYC once and start taking work.
+              Compare ratings. Pick your agency or individuals. Set your dates. See just the price
+              &mdash; in <b>seconds</b>.
             </p>
-            <div className="hero__ctas">
-              <Link className="btn btn--primary" href="/join">Join as a provider</Link>
-              {/* The FAQ moved to its own route; this lands on the agency group
-                  rather than the top of a seven-section page. */}
-              <Link className="btn btn--outline" href="/faqs#for-providers">Questions from agencies</Link>
-            </div>
-            <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
-          </Reveal>
-
-          <Reveal>
-            <ProviderReel />
+            <Link className="btn btn--primary btn--lg" href="/security-providers">
+              Compare security agencies
+            </Link>
           </Reveal>
         </div>
       </section>
@@ -546,7 +494,40 @@ export default function HomePage() {
 
       <HomeFaq />
 
-      {/* ---------- final cta ---------- */}
+      {/* ---------- provider aside ----------
+          Moved out from between the accountability section and the coverage
+          links, where it interrupted a client's trust-arc reading with an
+          unrelated recruitment pitch — and reweighted to read as a brief
+          mention rather than a section with equal standing to the client
+          content around it: half the band rhythm, an h3 instead of an h2,
+          plain ink instead of a paper "document" band. */}
+      <section className="band band--ink-2 band--aside" id="providers">
+        <div className="wrap join">
+          <Reveal className="stack g-16">
+            <p className="eyebrow">For guards, bouncers and agencies</p>
+            <h3>Get paid in two days. Not in ninety.</h3>
+            <p className="lede">
+              Set your own rate, pick your own days, and get paid on a schedule you can actually plan
+              around. Joining is free &mdash; you clear KYC once and start taking work.
+            </p>
+            <div className="hero__ctas">
+              <Link className="btn btn--outline" href="/join">Join as a provider</Link>
+              <Link className="text-link" href="/faqs#for-providers">Questions from agencies &rarr;</Link>
+            </div>
+            <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
+          </Reveal>
+
+          <Reveal>
+            <ProviderReel />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- final cta ----------
+          One button, not two: this band closes the client funnel, so the
+          provider path steps down to the same fine-print line "Join as a
+          provider" already sits on, rather than a second full-weight button
+          competing with it for the highest-intent moment on the page. */}
       <section className="band" id="book">
         <Reveal className="wrap final">
           <div className="final__copy">
@@ -559,27 +540,23 @@ export default function HomePage() {
             </p>
             <div className="final__ctas">
               <a
-                className="btn btn--primary"
+                className="btn btn--primary btn--lg"
                 href={CLIENT_APP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Open the client app
               </a>
-              <a
-                className="btn btn--ghost"
-                href={PROVIDER_APP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open the provider app
-              </a>
             </div>
             <p className="hero__fine">
               Runs in any phone browser &mdash; the iPhone and Android apps are in store review.
               <br />
               Are you a guard or an agency?{' '}
-              <Link href="/join" style={{ color: 'var(--amber)' }}>Join as a provider</Link>
+              <Link href="/join">Join as a provider</Link>
+              {' '}&middot;{' '}
+              <a href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
+                Open the provider app
+              </a>
             </p>
           </div>
 

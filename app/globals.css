@@ -151,6 +151,10 @@ h3 {
 p  { margin: 0; }
 a  { color: inherit; }
 b, strong { font-weight: 500; }
+/* Themed rather than left at the browser default black dotted rule — the
+   hover/long-press hint for a first-timer who doesn't yet know an acronym
+   (PSARA, currently the only one used inline in running copy). */
+abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--text-3); cursor: help; }
 
 /* Hindi: swap the face and relax the leading Devanagari needs. Devanagari
    has no case, so `text-transform` is dropped rather than left to no-op —
@@ -209,7 +213,14 @@ b, strong { font-weight: 500; }
 .band { padding-block: var(--band-y); background: var(--bg); color: var(--text); }
 /* the nav is sticky and 66px tall — anchor targets have to clear it */
 .band[id], [id].hero { scroll-margin-top: 78px; }
+/* .anchor: a mid-band scroll target that isn't a whole .band's own id — e.g.
+   #trust now lands inside the "how" band, on the badges intro specifically,
+   rather than owning a full section of its own. */
+.anchor { scroll-margin-top: 78px; }
 .band--ink-2 { --bg: var(--ink-2); }
+/* A subordinate aside, not a peer section — half the usual band rhythm, for
+   content that should read as a brief mention rather than its own topic. */
+.band--aside { padding-block: clamp(48px, 6vw, 84px); }
 .stack { display: flex; flex-direction: column; }
 .g-12 { gap: 12px; } .g-16 { gap: 16px; } .g-20 { gap: 20px; }
 .g-28 { gap: 28px; } .g-40 { gap: 40px; }
@@ -380,6 +391,7 @@ b, strong { font-weight: 500; }
 .hero__verify:hover { color: var(--text); }
 [lang="hi"] .hero__verify { font-family: var(--deva); font-size: .88rem; }
 .hero__fine { font-family: var(--mono); font-size: .74rem; color: var(--text-2); letter-spacing: .03em; }
+.hero__fine a { color: var(--amber); }
 [lang="hi"] .hero__fine { font-family: var(--deva); letter-spacing: 0; font-size: .82rem; }
 
 /* ---------- duty ticket ----------
@@ -484,6 +496,22 @@ b, strong { font-weight: 500; }
 .svc__code { font-family: var(--mono); font-size: .68rem; font-weight: 500; letter-spacing: .16em; color: var(--accent); }
 .svc__body { font-size: .92rem; color: var(--text-2); line-height: 1.55; flex: 1; }
 .svc__req { font-family: var(--mono); font-size: .68rem; color: var(--text-3); border-top: 1px dashed var(--line); padding-top: 12px; line-height: 1.5; }
+
+/* The four SERVICES cards only (not the search-intent cards above, which
+   share .svc but have no tier to escalate) — "the heavier the responsibility,
+   the more paperwork" shown, not just stated. Reuses the exact tone ramp
+   .tiers already established (muted -> amber -> charcoal) rather than adding
+   a fifth colour, and pairs it with the one axis IBM Plex Mono can't carry
+   for .svc__code — weight — on the display face instead, which is loaded
+   here as a full variable font. */
+.svc--l1 { border-top: 3px solid var(--line); }
+.svc--l1 h3 { font-weight: 400; }
+.svc--l2 { border-top: 3px solid color-mix(in srgb, var(--charcoal) 24%, var(--paper)); }
+.svc--l2 h3 { font-weight: 500; }
+.svc--l3 { border-top: 3px solid var(--amber); }
+.svc--l3 h3 { font-weight: 600; }
+.svc--l4 { border-top: 3px solid var(--charcoal); }
+.svc--l4 h3 { font-weight: 700; }
 .text-link { color: var(--accent); font-family: var(--mono); font-size: .76rem; text-decoration: none; }
 .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .city-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
@@ -604,10 +632,10 @@ b, strong { font-weight: 500; }
 .claim + .claim { margin-top: clamp(16px, 1.9vw, 24px); }
 .claim em { font-style: normal; color: var(--accent); }
 
-/* ---------- price cta (closes the badge grid) ----------
+/* ---------- price cta (closes the trust sequence) ----------
    Centred, which nothing else on the page is. That is deliberate and it is why
-   the hairline above it matters: the rule ends the grid, the centring says the
-   section is over, and the button is the only thing left to do. */
+   the hairline above it matters: the rule ends the argument, the centring says
+   the section is over, and the button is the only thing left to do. */
 .pricecta {
   margin-top: clamp(56px, 7vw, 96px);
   padding-top: clamp(44px, 5.5vw, 72px);
@@ -636,9 +664,8 @@ b, strong { font-weight: 500; }
 }
 
 /* ---------- trust ----------
-   Two columns × three rows, not three across — six rules read as a short,
-   even list this way, and it matches the "what verification does not mean"
-   grid below it rather than introducing a third column count on the page. */
+   Two columns × two rows, matching .badges' own two-column grid above it in
+   the same band rather than introducing a third column count on the page. */
 .trust { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 @media (max-width: 680px) { .trust { grid-template-columns: 1fr; } }
 .tcard { background: var(--bg); padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 11px; }
@@ -1136,13 +1163,14 @@ b, strong { font-weight: 500; }
 .reel__dot {
   width: 5px; height: 5px; border-radius: 5px;
   background: currentColor; opacity: .26;
-  transition: width .4s ease, opacity .4s ease, background-color .4s ease;
+  transform: scaleX(1); transform-origin: center;
+  transition: transform .4s ease, opacity .4s ease, background-color .4s ease;
 }
 /* --accent, not raw --amber: this dot sits on the band itself, and #E8A33D on
    paper is ~1.8:1. The semantic token is --amber-dim there and full amber on
    ink, which is the whole reason the pair exists. The pip in the caption keeps
    raw amber — that one is on a dark pill. */
-.reel__dot.is-on { width: 22px; opacity: 1; background: var(--accent); }
+.reel__dot.is-on { transform: scaleX(4.4); opacity: 1; background: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {
   .reel__pip { animation: none; }
@@ -1410,20 +1438,32 @@ b, strong { font-weight: 500; }
 @media (max-width: 760px) { .stickybar { display: block; } }
 @media (prefers-reduced-motion: reduce) { .stickybar { transition: none; } }
 
-/* ---------- booking flow: mobile carousel ----------
-   Swaps the 8-up grid for a swipeable, one-step-at-a-time strip below 601px,
-   where eight full-size screenshots stacked vertically made "how it works"
-   the longest scroll on the page. Desktop keeps the grid untouched. */
-.steps-view--carousel { display: none; }
-@media (max-width: 600px) {
-  .steps-view--grid { display: none; }
-  .steps-view--carousel { display: block; }
+/* ---------- booking flow: one-step-at-a-time carousel ----------
+   The 8-up static grid this replaced put every screenshot — including the two
+   disclaimer gates — in front of the visitor at once, which read as a wall to
+   skim rather than a sequence to follow. One step at a time, at every width:
+   swipe on touch, the arrow buttons or track's own arrow-key handling
+   otherwise. DutySteps keeps PhoneSteps' static grid — three plates never had
+   this problem. */
+.carousel__head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
 }
 .carousel__pos {
   font-family: var(--mono); font-size: .68rem; font-weight: 500;
   letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 14px;
 }
+.carousel__arrows { display: flex; gap: 8px; }
+.carousel__arrow {
+  font-family: var(--mono); font-size: .82rem;
+  width: 34px; height: 34px;
+  border: 1px solid var(--line); background: transparent; color: var(--text);
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease;
+}
+.carousel__arrow:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.carousel__arrow:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.carousel__arrow:disabled { opacity: .32; cursor: default; }
 .carousel__track {
   display: flex; gap: 16px;
   overflow-x: auto; scroll-snap-type: x mandatory;
@@ -1436,9 +1476,24 @@ b, strong { font-weight: 500; }
 .carousel__track::-webkit-scrollbar { display: none; }
 .carousel__track:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 .carousel__item { flex: 0 0 84%; scroll-snap-align: center; display: flex; flex-direction: column; }
+/* Above phone-width, 84% of the full 1180px band left two slides fully
+   readable side by side — the exact "everything visible at once" problem
+   this carousel exists to fix. Capping the whole component to a narrower
+   column (matching how .lede caps prose to a measure instead of the full
+   band) keeps the same small, deliberate peek ratio the mobile strip has. */
+@media (min-width: 601px) {
+  .carousel { max-width: 640px; }
+  .carousel__item { flex-basis: 88%; }
+}
 .carousel__dots { display: flex; gap: 6px; justify-content: center; margin-top: 18px; }
-.carousel__dot { width: 5px; height: 5px; border-radius: 5px; background: var(--line); transition: width .3s ease, background-color .3s ease; }
-.carousel__dot.is-on { width: 18px; background: var(--accent); }
+.carousel__dot {
+  width: 5px; height: 5px; border-radius: 5px; padding: 0; border: none;
+  background: var(--line); cursor: pointer;
+  transform: scaleX(1); transform-origin: center;
+  transition: transform .3s ease, background-color .3s ease;
+}
+.carousel__dot:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.carousel__dot.is-on { transform: scaleX(3.6); background: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
   .carousel__track { scroll-behavior: auto; }
   .carousel__dot { transition: none; }
@@ -1469,7 +1524,7 @@ b, strong { font-weight: 500; }
 .legal-list li::marker { color: var(--accent); }
 .legal-list li b { color: var(--text); font-weight: 500; }
 .callout {
-  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border: 1px solid var(--line); border-top: 2px solid var(--accent);
   background: var(--bg-2); padding: 16px 20px; max-width: 68ch;
 }
 .callout p { font-size: .92rem; color: var(--text-2); line-height: 1.6; }

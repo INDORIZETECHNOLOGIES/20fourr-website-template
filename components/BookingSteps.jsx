@@ -1,4 +1,3 @@
-import PhoneSteps from '@/components/PhoneSteps';
 import BookingCarousel from '@/components/BookingCarousel';
 
 /**
@@ -7,6 +6,12 @@ import BookingCarousel from '@/components/BookingCarousel';
  *
  * Source: mobile/client-app-screens.html — screens 13, 15, 16, 17, 18, 19, 20, 21.
  * See PhoneSteps for why these are screenshots rather than drawn screens.
+ *
+ * Rendered one step at a time via BookingCarousel at every width, not just on
+ * mobile: eight full-size screenshots demanding attention in one static grid
+ * invited skimming exactly where this section needs sequential attention —
+ * the two disclaimer gates included. DutySteps' own three-item grid is a
+ * separate, smaller case and keeps PhoneSteps' static layout.
  */
 
 const STEPS = [
@@ -93,14 +98,5 @@ const STEPS = [
 ];
 
 export default function BookingSteps() {
-  return (
-    <>
-      <div className="steps-view--grid">
-        <PhoneSteps steps={STEPS} />
-      </div>
-      <div className="steps-view--carousel">
-        <BookingCarousel steps={STEPS} />
-      </div>
-    </>
-  );
+  return <BookingCarousel steps={STEPS} />;
 }

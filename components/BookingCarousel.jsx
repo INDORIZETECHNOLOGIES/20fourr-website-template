@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Mobile counterpart to the desktop `.steps` grid in PhoneSteps — one screen
- * per "page", swipeable, with a "Step X of N" position readout instead of the
- * eight stacked plates a vertical layout would produce below 601px. Renders
- * the same step data PhoneSteps does; see `.steps-view--*` in globals.css for
- * which of the two is shown at a given width.
+ * The booking flow's one-step-at-a-time strip, at every width — swipeable on
+ * touch, arrow-key and prev/next-button navigable otherwise, with a
+ * "Step X of N" position readout instead of the eight-plate grid PhoneSteps
+ * renders for DutySteps' three-item strip. Renders the same step data
+ * PhoneSteps does; see `.carousel` in globals.css for the responsive sizing.
  */
 export default function BookingCarousel({ steps }) {
   const trackRef = useRef(null);
@@ -44,7 +44,30 @@ export default function BookingCarousel({ steps }) {
 
   return (
     <div className="carousel" role="group" aria-roledescription="carousel" aria-label="Booking flow, step by step">
-      <p className="carousel__pos" aria-live="polite">Step {active + 1} of {steps.length}</p>
+      <div className="carousel__head">
+        <p className="carousel__pos" aria-live="polite">Step {active + 1} of {steps.length}</p>
+
+        <div className="carousel__arrows">
+          <button
+            type="button"
+            className="carousel__arrow"
+            onClick={() => goTo(active - 1)}
+            disabled={active === 0}
+            aria-label="Previous step"
+          >
+            &larr;
+          </button>
+          <button
+            type="button"
+            className="carousel__arrow"
+            onClick={() => goTo(active + 1)}
+            disabled={active === steps.length - 1}
+            aria-label="Next step"
+          >
+            &rarr;
+          </button>
+        </div>
+      </div>
 
       <div className="carousel__track" ref={trackRef} tabIndex={0} onKeyDown={onKeyDown}>
         {steps.map((s, i) => (
@@ -71,9 +94,16 @@ export default function BookingCarousel({ steps }) {
         ))}
       </div>
 
-      <div className="carousel__dots" aria-hidden="true">
+      <div className="carousel__dots">
         {steps.map((s, i) => (
-          <span key={s.n} className={`carousel__dot${i === active ? ' is-on' : ''}`} />
+          <button
+            type="button"
+            key={s.n}
+            className={`carousel__dot${i === active ? ' is-on' : ''}`}
+            onClick={() => goTo(i)}
+            aria-label={`Go to step ${i + 1}: ${s.h}`}
+            aria-current={i === active ? 'true' : undefined}
+          />
         ))}
       </div>
     </div>
