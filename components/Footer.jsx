@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import Image from 'next/image';
+import SocialLinks from './SocialLinks';
 import { LEGAL_NAME, CLIENT_APP_URL, PROVIDER_APP_URL } from '@/app/site';
 
 const COLUMNS = [
@@ -70,6 +71,7 @@ export default function Footer() {
               <br />
               Miyawala, Dehradun, Uttarakhand &mdash; 248001
             </p>
+            <SocialLinks />
           </div>
 
           {COLUMNS.map((col) => (
