@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { CLIENT_APP_URL, PROVIDER_APP_URL } from '@/app/site';
+import { CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
+import PlayStoreButton from '@/components/PlayStoreButton';
 import Reveal from '@/components/Reveal';
 import DutyTicket from '@/components/DutyTicket';
 import AppPreview from '@/components/AppPreview';
@@ -19,28 +20,43 @@ import {
   DocStampIcon,
 } from '@/components/TrustIcons';
 
-const SERVICE_INTENTS = [
+/* Merged: was two separate arrays (SERVICE_INTENTS for search cards + SERVICES
+   for the badge/req cards). Now one source of truth per category. The duplicate
+   section has been removed from the JSX — all four fields render in one grid. */
+const MERGED_SERVICES = [
   {
+    code: 'GRD',
     title: 'Private security agency services',
-    body: 'Compare PSARA-verified agencies for manned guarding, gate security, warehouse protection and regular site duty.',
+    name: 'Security guard',
+    body: 'Static post and gate duty for buildings, sites, warehouses and offices. Compare PSARA-verified agencies for manned guarding, gate security and warehouse protection.',
+    req: 'PSARA licence · Govt ID · Live selfie',
     href: '/security-providers?category=guard',
     label: 'Browse security guards',
   },
   {
+    code: 'BNC',
     title: 'Event security services',
-    body: 'Book bouncers and event security personnel for weddings, concerts, clubs, corporate events and private functions.',
+    name: 'Bouncer',
+    body: 'Crowd control and door management for clubs, concerts, weddings and large private functions.',
+    req: 'PSARA licence · Govt ID · Live selfie',
     href: '/security-providers?category=bouncer',
     label: 'Browse event security',
   },
   {
+    code: 'GUN',
     title: 'Armed security and gunman services',
-    body: 'Find providers whose firearm licence is checked separately from their PSARA credentials for eligible high-risk duties.',
+    name: 'Armed gunman',
+    body: 'Licensed armed protection for cash movement, industrial sites and elevated-risk premises. Firearm licence checked separately from PSARA credentials.',
+    req: 'Firearm licence verified per booking · PSARA',
     href: '/security-providers?category=gunman',
     label: 'Browse armed security',
   },
   {
+    code: 'PSO',
     title: 'Executive protection',
-    body: 'Arrange a personal security officer for close protection, travel, site visits and daily movement.',
+    name: 'Personal security officer',
+    body: 'Dedicated close protection and travel escort for individuals facing a named or credible threat.',
+    req: 'Highest tier · PSARA re-checked per booking',
     href: '/security-providers?category=pso',
     label: 'Browse personal security officers',
   },
@@ -52,39 +68,13 @@ const SERVICE_INTENTS = [
 // too thin to index. Kolkata has 3 and is already in the sitemap.
 const COVERAGE_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Pune', 'Chennai', 'Kolkata', 'Ahmedabad'];
 
-const CREDENTIALS = [
+/* Trust chips shown inline under the hero CTA — same claims as the old
+   credentials ticker but surfaced at point-of-action, not two scrolls below. */
+const HERO_CHIPS = [
   'PSARA-licensed providers only',
-  'KYC verified before onboarding',
+  'KYC verified',
   'Address hidden until payment',
-  'Threat brief released on assignment',
-  'GST-compliant, itemised billing',
-];
-
-const SERVICES = [
-  {
-    code: 'GRD',
-    name: 'Security guard',
-    body: 'Static post and gate duty for buildings, sites, warehouses and offices. Available as a single shift or a standing weekly deployment.',
-    req: 'PSARA licence · Govt ID · Live selfie',
-  },
-  {
-    code: 'BNC',
-    name: 'Bouncer',
-    body: 'Crowd control and door management for clubs, concerts, weddings and large private functions.',
-    req: 'PSARA licence · Govt ID · Live selfie',
-  },
-  {
-    code: 'GUN',
-    name: 'Armed gunman',
-    body: 'Licensed armed protection for cash movement, industrial sites and elevated-risk premises.',
-    req: 'Firearm licence verified per booking · PSARA',
-  },
-  {
-    code: 'PSO',
-    name: 'Personal security officer',
-    body: 'Dedicated close protection and travel escort for individuals facing a named or credible threat.',
-    req: 'Highest tier · PSARA re-checked per booking',
-  },
+  'GST invoice on every booking',
 ];
 
 /* The complete badge vocabulary — these seven are exactly BADGE_LABEL in
@@ -225,6 +215,13 @@ export default function HomePage() {
               Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every provider licensed under <abbr title="Private Security Agencies (Regulation) Act, 2005">PSARA</abbr>, India’s law on who may supply private security, in one place, so you see the price upfront and book in minutes.
             </p>
             <HeroBooking cities={COVERAGE_CITIES} />
+            {/* Trust chips: same claims as the credentials ticker, now at
+                point-of-action — trust and CTA in the same viewport. */}
+            <ul className="hero__chips" aria-label="Platform guarantees">
+              {HERO_CHIPS.map((c) => (
+                <li className="hero__chip" key={c}>{c}</li>
+              ))}
+            </ul>
             <p className="hero__fine">No cash at the gate &middot; Itemised tax invoice on every booking</p>
           </div>
 
@@ -234,45 +231,18 @@ export default function HomePage() {
 
       <StickyBookBar />
 
-      {/* ---------- credential ticker ---------- */}
-      <section className="creds">
-        <div className="wrap creds__in">
-          {CREDENTIALS.map((c) => (
-            <span className="cred" key={c}>{c}</span>
-          ))}
-        </div>
-      </section>
+      {/* Credentials ticker removed — the same claims now live as chips
+          directly under the hero CTA (see hero__chips above), so repeating
+          them in a separate band two sections later was pure duplication. */}
 
-      {/* Search intent section: each card answers a real service query and leads
-          to the matching, indexable provider directory view. */}
-      <section className="band" id="security-services">
+      {/* ---------- services (merged) ----------
+          One card per category: code badge, name, description, verification
+          requirements, and the browse link — previously split across two
+          separate sections (SERVICE_INTENTS cards + SERVICES cards). */}
+      <section className="band" id="services">
         <div className="wrap">
           <Reveal className="head">
             <p className="eyebrow">Security services</p>
-            <h2>Find the right private security service for the job.</h2>
-            <p className="lede">
-              From regular manned guarding to event security and executive protection, compare
-              PSARA-verified providers by role, city, rate and verification status.
-            </p>
-          </Reveal>
-
-          <Reveal className="svcs">
-            {SERVICE_INTENTS.map((service) => (
-              <article className="svc" key={service.title}>
-                <h3>{service.title}</h3>
-                <p className="svc__body">{service.body}</p>
-                <Link className="text-link" href={service.href}>{service.label} &rarr;</Link>
-              </article>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- services ---------- */}
-      <section className="band band--paper" id="services">
-        <div className="wrap">
-          <Reveal className="head">
-            <p className="eyebrow">What you can book</p>
             <h2>Four categories. Each with its own bar to clear.</h2>
             <p className="lede">
               A gate guard and an armed PSO are not the same hire, so we don&rsquo;t verify them the
@@ -282,12 +252,13 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal className="svcs">
-            {SERVICES.map((s, i) => (
+            {MERGED_SERVICES.map((s, i) => (
               <article className={`svc svc--l${i + 1}`} key={s.code}>
                 <span className="svc__code">{s.code}</span>
                 <h3>{s.name}</h3>
                 <p className="svc__body">{s.body}</p>
                 <p className="svc__req">{s.req}</p>
+                <Link className="text-link" href={s.href}>{s.label} &rarr;</Link>
               </article>
             ))}
           </Reveal>
@@ -348,13 +319,17 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <Reveal className="badges">
-            {BADGES.map((b) => (
-              <article className="bcard" key={b.k}>
-                <h3 className="bcard__k">{b.k}</h3>
-                <p className="bcard__b">{b.b}</p>
-                <p className="bcard__m">{b.m}</p>
-              </article>
+          {/* Badges → accordion: 8 full-height cards replaced by a compact
+              list, one expanded at a time. First item open by default. */}
+          <Reveal className="acc-list">
+            {BADGES.map((b, i) => (
+              <details className="acc" key={b.k} open={i === 0 || undefined}>
+                <summary className="acc__sum">
+                  <span className="acc__label">{b.k}</span>
+                  <span className="acc__meta">{b.m}</span>
+                </summary>
+                <p className="acc__body">{b.b}</p>
+              </details>
             ))}
           </Reveal>
 
@@ -367,14 +342,20 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <Reveal className="trust">
-            {TRUST.map((t) => (
-              <article className="tcard" key={t.k}>
-                <span className="tcard__icon"><t.Icon /></span>
-                <span className="tcard__k">{t.k}</span>
-                <h3>{t.h}</h3>
-                <p className="tcard__b">{t.b}</p>
-              </article>
+          {/* Trust guarantees → accordion: 4 full-height cards replaced by
+              a compact list matching the badge accordion pattern above. */}
+          <Reveal className="acc-list">
+            {TRUST.map((t, i) => (
+              <details className="acc" key={t.k} open={i === 0 || undefined}>
+                <summary className="acc__sum">
+                  <span className="acc__sum-left">
+                    <span className="acc__icon"><t.Icon /></span>
+                    <span className="acc__label">{t.h}</span>
+                  </span>
+                  <span className="acc__tag">{t.k}</span>
+                </summary>
+                <p className="acc__body">{t.b}</p>
+              </details>
             ))}
           </Reveal>
         </div>
@@ -396,37 +377,41 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          {/* Three limits, not three severities — see the note on .tier--note. */}
-          <div className="tiers">
-            <div className="tier tier--note">
-              <span className="tier__icon"><BadgeIcon /></span>
-              <span className="tier__l">Who performs the duty</span>
-              <div className="tier__h">20fourr is a technology platform</div>
-              <p className="tier__d">
-                The security services themselves are performed by independent, PSARA-licensed
-                agencies and their personnel, and responsibility for their conduct on duty sits
-                with them.
-              </p>
-            </div>
-            <div className="tier tier--note">
-              <span className="tier__icon"><SirenIcon /></span>
-              <span className="tier__l">Emergencies</span>
-              <div className="tier__h">We are not an emergency service</div>
-              <p className="tier__d">
-                In an emergency, contact the police on 112 first, then raise an incident on your
-                booking so the record, the agency and our compliance team stay aligned.
-              </p>
-            </div>
-            <div className="tier tier--note">
-              <span className="tier__icon"><DocStampIcon /></span>
-              <span className="tier__l">What a badge proves</span>
-              <div className="tier__h">A document was checked on a date</div>
-              <p className="tier__d">
-                A verified badge does not predict behaviour. Ratings, check-in records and the
-                incident process exist precisely because paperwork alone is not enough.
-              </p>
-            </div>
-          </div>
+          {/* Tiers → accordion: same three FAQ-shaped items, now collapsed
+              by default except the first, matching the badge/trust pattern. */}
+          <Reveal className="acc-list">
+            {[
+              {
+                label: 'Who performs the duty',
+                tag: '20fourr is a technology platform',
+                body: 'The security services themselves are performed by independent, PSARA-licensed agencies and their personnel, and responsibility for their conduct on duty sits with them.',
+                Icon: BadgeIcon,
+              },
+              {
+                label: 'Emergencies',
+                tag: 'We are not an emergency service',
+                body: 'In an emergency, contact the police on 112 first, then raise an incident on your booking so the record, the agency and our compliance team stay aligned.',
+                Icon: SirenIcon,
+              },
+              {
+                label: 'What a badge proves',
+                tag: 'A document was checked on a date',
+                body: 'A verified badge does not predict behaviour. Ratings, check-in records and the incident process exist precisely because paperwork alone is not enough.',
+                Icon: DocStampIcon,
+              },
+            ].map((item, i) => (
+              <details className="acc" key={item.label} open={i === 0 || undefined}>
+                <summary className="acc__sum">
+                  <span className="acc__sum-left">
+                    <span className="acc__icon"><item.Icon /></span>
+                    <span className="acc__label">{item.tag}</span>
+                  </span>
+                  <span className="acc__tag">{item.label}</span>
+                </summary>
+                <p className="acc__body">{item.body}</p>
+              </details>
+            ))}
+          </Reveal>
         </div>
       </section>
 
@@ -524,17 +509,16 @@ export default function HomePage() {
       </section>
 
       {/* ---------- final cta ----------
-          One button, not two: this band closes the client funnel, so the
-          provider path steps down to the same fine-print line "Join as a
-          provider" already sits on, rather than a second full-weight button
-          competing with it for the highest-intent moment on the page. */}
+          Both buttons are the client app — web and Play — so the provider
+          path still steps down to the fine-print line "Join as a provider"
+          sits on rather than competing for the highest-intent moment. */}
       <section className="band" id="book">
         <Reveal className="wrap final">
           <div className="final__copy">
             <p className="eyebrow">Get started</p>
             <h2 style={{ maxWidth: '18ch' }}>Put a verified guard on your gate this week.</h2>
             <p className="lede">
-              Open the app in your browser, tell us what you need, and we&rsquo;ll match you with
+              Get the app, tell us what you need, and we&rsquo;ll match you with
               licensed providers in your city. You approve the provider, you pay in the app, and
               you issue the code that starts the duty.
             </p>
@@ -547,15 +531,20 @@ export default function HomePage() {
               >
                 Open the client app
               </a>
+              <PlayStoreButton href={CLIENT_PLAY_URL} />
             </div>
             <p className="hero__fine">
-              Runs in any phone browser &mdash; the iPhone and Android apps are in store review.
+              On Google Play for Android, and in any phone browser &mdash; the iPhone app is in App Store review.
               <br />
               Are you a guard or an agency?{' '}
               <Link href="/join">Join as a provider</Link>
               {' '}&middot;{' '}
+              <a href={PROVIDER_PLAY_URL} target="_blank" rel="noopener noreferrer">
+                Provider app on Google Play
+              </a>
+              {' '}&middot;{' '}
               <a href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
-                Open the provider app
+                Open in browser
               </a>
             </p>
           </div>

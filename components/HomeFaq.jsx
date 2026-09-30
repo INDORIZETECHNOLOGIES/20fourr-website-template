@@ -32,8 +32,8 @@ export default function HomeFaq() {
         </Reveal>
 
         <Reveal className="faq">
-          {HOME_FAQS.map((f) => (
-            <details className="qa" key={f.q}>
+          {HOME_FAQS.map((f, i) => (
+            <details className="qa" key={f.q} open={i === 0 || undefined}>
               <summary>{f.q}</summary>
               <p className="qa__a">{f.a}</p>
             </details>

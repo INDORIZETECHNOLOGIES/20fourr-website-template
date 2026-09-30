@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Logo from './Logo';
 import Image from 'next/image';
 import SocialLinks from './SocialLinks';
-import { LEGAL_NAME, CLIENT_APP_URL, PROVIDER_APP_URL } from '@/app/site';
+import { LEGAL_NAME, CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
+import { PlayIcon } from './PlayStoreButton';
 
 const COLUMNS = [
   {
@@ -17,10 +18,12 @@ const COLUMNS = [
   {
     title: 'Apps',
     links: [
-      // External: the two shipping web apps live on their own subdomains, so
-      // these render as plain anchors rather than routed <Link>s.
+      // External: the web apps live on their own subdomains and the Android
+      // builds on Play, so these render as plain anchors rather than <Link>s.
       ['Client app', CLIENT_APP_URL, true],
       ['Provider app', PROVIDER_APP_URL, true],
+      ['Client app on Play', CLIENT_PLAY_URL, 'play'],
+      ['Provider app on Play', PROVIDER_PLAY_URL, 'play'],
     ],
   },
   {
@@ -81,7 +84,13 @@ export default function Footer() {
                 {col.links.map(([label, href, external]) => (
                   <li key={label}>
                     {external ? (
-                      <a href={href} target="_blank" rel="noopener noreferrer">
+                      <a
+                        className={external === 'play' ? 'foot__play' : undefined}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {external === 'play' && <PlayIcon />}
                         {label}
                       </a>
                     ) : (

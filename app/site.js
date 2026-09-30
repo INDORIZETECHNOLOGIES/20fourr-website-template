@@ -20,9 +20,12 @@ export const LEGAL_NAME = 'Indorize Technologies Pvt. Ltd.';
  *
  * Declared here rather than inline because they are the site's only outbound
  * product links and they appear in four places — the home CTA, both join CTAs
- * and the footer. The native apps are still in App Store and Play review, so
- * these are what every "get the app" control on the site points at; the copy
- * around them says browser, not download, for the same reason.
+ * and the footer. The iPhone apps are still in App Store review, so the web
+ * apps stay the universal "get the app" target; the Play links sit beside them.
  */
 export const CLIENT_APP_URL = 'https://client.20fourr.com';
 export const PROVIDER_APP_URL = 'https://provider.20fourr.com';
+
+/** Android listings on Google Play. */
+export const CLIENT_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.twentyfourr.client';
+export const PROVIDER_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.secureconnect.provider';

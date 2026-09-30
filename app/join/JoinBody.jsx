@@ -3,7 +3,8 @@ import Reveal from '@/components/Reveal';
 import RoleFrames from '@/components/RoleFrames';
 import ChatPreview from '@/components/ChatPreview';
 import content, { WHATSAPP_URL } from './content';
-import { PROVIDER_APP_URL } from '@/app/site';
+import { PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
+import PlayStoreButton from '@/components/PlayStoreButton';
 
 /**
  * Both language versions of the provider page.
@@ -75,11 +76,16 @@ export default function JoinBody({ lang = 'en' }) {
                 <WhatsAppIcon />
                 {t.ctaWhatsapp}
               </a>
-              <a className="btn btn--lg btn--ghost" href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
+              <PlayStoreButton href={PROVIDER_PLAY_URL} />
+            </div>
+            <p className="hero__fine">
+              {t.fine}
+              <br />
+              {t.iphone}{' '}
+              <a href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
                 {t.ctaApp}
               </a>
-            </div>
-            <p className="hero__fine">{t.fine}</p>
+            </p>
           </div>
 
           <RoleFrames roles={t.roles} />
@@ -229,10 +235,14 @@ export default function JoinBody({ lang = 'en' }) {
                 <WhatsAppIcon />
                 {t.ctaWhatsapp}
               </a>
-              <a className="btn btn--lg btn--ghost" href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
+              <PlayStoreButton href={PROVIDER_PLAY_URL} />
+            </div>
+            <p className="hero__fine">
+              {t.iphone}{' '}
+              <a href={PROVIDER_APP_URL} target="_blank" rel="noopener noreferrer">
                 {t.ctaApp}
               </a>
-            </div>
+            </p>
           </div>
 
           <ChatPreview chat={t.chat} icon={<WhatsAppIcon />} />
