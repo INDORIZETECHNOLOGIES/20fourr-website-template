@@ -32,6 +32,7 @@ const COLUMNS = [
       ['Become a provider', '/join'],
       ['How it works', '/#how'],
       ['Help centre', '/faqs'],
+      ['Support', '/support'],
     ],
   },
   {

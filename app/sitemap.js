@@ -74,6 +74,7 @@ export default function sitemap() {
     // version of it, and for a large part of this audience it is the primary.
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/support`, changeFrequency: 'monthly', priority: 0.5 },
     // /terms, /refunds and /grievance are deliberately excluded here — they're
     // still noindex drafts (see their own metadata), and a noindex page in the
     // sitemap sends a mixed signal. Add them once each is reviewed and its
