@@ -24,7 +24,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'Which cities do you cover?',
-        a: 'Coverage expands as verified agencies join. Search by city on the providers page to see live availability — if we have no verified provider there yet, you will be told so rather than shown an unverified one.',
+        a: 'Coverage expands as verified agencies join. Search by city on the providers page to see live availability. If we have no verified provider there yet, you will be told so rather than shown an unverified one.',
       },
       {
         q: 'How quickly can I get someone on site?',
@@ -42,7 +42,7 @@ export const FAQ_GROUPS = [
     items: [
       {
         q: 'What does PSARA-verified actually mean?',
-        a: 'It means an admin has seen the agency’s licence issued under the Private Security Agencies (Regulation) Act, 2005 and confirmed it is current. It is not a claim the agency makes about itself — a provider cannot award themselves a badge.',
+        a: 'It means an admin has seen the agency’s licence issued under the Private Security Agencies (Regulation) Act, 2005 and confirmed it is current. It is not a claim the agency makes about itself, and a provider cannot award themselves a badge.',
       },
       {
         q: 'Who does the verification?',
@@ -50,7 +50,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'What is checked for an individual officer?',
-        a: 'Identity documents, police verification where applicable, and — for armed roles — a separately verified weapon licence. Which checks a provider has cleared is shown on their listing.',
+        a: 'Identity documents, police verification where applicable, and, for armed roles, a separately verified weapon licence. Which checks a provider has cleared is shown on their listing.',
       },
       {
         q: 'How is the Top rated badge earned?',
@@ -72,7 +72,7 @@ export const FAQ_GROUPS = [
     items: [
       {
         q: 'What is the difference between a security guard and a bouncer?',
-        a: 'A security guard covers static duty at premises — offices, warehouses, sites and residential societies. A bouncer handles door control and crowd management at events and venues.',
+        a: 'A security guard covers static duty at premises such as offices, warehouses, sites and residential societies. A bouncer handles door control and crowd management at events and venues.',
       },
       {
         q: 'What is the difference between an armed gunman and a security guard?',
@@ -80,7 +80,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'What does a personal security officer do?',
-        a: 'Close protection for an individual, family or executive — travel, site visits, events and daily movement — rather than guarding a fixed location.',
+        a: 'Close protection for an individual, family or executive, covering travel, site visits, events and daily movement, rather than guarding a fixed location.',
       },
       {
         q: 'Can I request ex-army or ex-police personnel?',
@@ -102,7 +102,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'Are there hidden charges?',
-        a: 'No. The breakdown shown before you commit is the full amount. Any additional cost — extended hours, overtime, extra personnel added later — is quoted and approved separately.',
+        a: 'No. The breakdown shown before you commit is the full amount. Any additional cost, such as extended hours, overtime or extra personnel added later, is quoted and approved separately.',
       },
       {
         q: 'How do I pay?',
@@ -146,7 +146,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'What happens in a serious incident?',
-        a: 'Contact emergency services first — 20fourr is not an emergency service. Then raise an incident on the booking so the agency, our compliance team and the record are all aligned for anything that follows.',
+        a: 'Contact emergency services first. 20fourr is not an emergency service. Then raise an incident on the booking so the agency, our compliance team and the record are all aligned for anything that follows.',
       },
     ],
   },
@@ -164,7 +164,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: 'How long does verification take?',
-        a: 'It depends on how quickly complete documents are submitted. Incomplete or expired paperwork is the most common cause of delay — typically 2 to 5 working days once everything is in.',
+        a: 'It depends on how quickly complete documents are submitted. Incomplete or expired paperwork is the most common cause of delay. Once everything is in, it typically takes 2 to 5 working days.',
       },
       {
         q: 'What gets a provider removed?',

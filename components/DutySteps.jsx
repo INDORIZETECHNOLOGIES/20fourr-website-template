@@ -37,7 +37,7 @@ const STATES = [
     n: '02',
     kicker: 'Started & ended',
     h: 'A code opens and closes the shift',
-    b: 'Six digits on your phone. You read them out on arrival, they enter them — that is the attendance record, and it releases the first 30%. The same again at the end, which closes the duty and schedules the remaining 70%.',
+    b: 'Six digits on your phone. You read them out on arrival, they enter them. That is the attendance record, and it releases the first 30%. The same again at the end, which closes the duty and schedules the remaining 70%.',
     src: '/duty/duty-started.png',
     alt: 'The duty OTP screen showing a six-digit start code valid for 27 minutes, with the 30 and 70 percent payment schedule below.',
     w: 612,

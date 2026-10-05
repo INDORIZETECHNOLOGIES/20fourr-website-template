@@ -5,6 +5,7 @@ import Reveal from '@/components/Reveal';
 import Filters from './Filters';
 import Pager from './Pager';
 import ProviderCard from './ProviderCard';
+import { CLIENT_APP_URL } from '@/app/site';
 import { listingJsonLd } from './schema';
 import {
   CATEGORY_LABEL,
@@ -53,13 +54,13 @@ export async function generateMetadata({ searchParams }) {
   const serviceWhat = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
   const hireWhat = category ? CATEGORY_PLURAL[category] : 'security providers';
   const where = city ? `in ${city}` : 'across India';
-  const suffix = page > 1 ? ` — page ${page}` : '';
+  const suffix = page > 1 ? `, page ${page}` : '';
 
   return {
     title: `${serviceWhat} ${where}${suffix}`,
     description: city
-      ? `Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range — no account, no phone number, no sales call.`
-      : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range — no account, no phone number, no sales call.`,
+      ? `Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
+      : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
     alternates: { canonical: canonicalFor(view) },
     openGraph: {
       title: `${serviceWhat} ${where}`,
@@ -73,7 +74,7 @@ export default async function ProvidersPage({ searchParams }) {
   const { category, city, sortBy } = view;
   const { providers, total, page, pages } = queryProviders(view);
 
-  const countLine = `${total} verified provider${total === 1 ? '' : 's'}${
+  const countLine = `${total} example listing${total === 1 ? '' : 's'}${
     category ? ` offering ${CATEGORY_LABEL[category]}` : ''
   }${city ? ` operating in ${city}` : ''}`;
 
@@ -108,10 +109,23 @@ export default async function ProvidersPage({ searchParams }) {
               {city ? `in ${city}` : 'across India'}
             </h1>
             <p className="lede">
-              Every provider listed here has had their identity and PSARA licence checked by our
+              Every provider on 20fourr has had their identity and PSARA licence checked by our
               compliance team before appearing. Filter by service and city, compare day rates, and
-              price a specific date range &mdash; no account, no phone number, no sales call.
+              price a specific date range with no account, phone number or sales call.
             </p>
+            {/* The directory is sample data until the platform exports real listings
+                (see RATINGS_ARE_REAL in schema.js), so say so where it is read. */}
+            <div className="callout">
+              <p>
+                <b>Example listings.</b> The providers below show how the directory works. Their
+                names, ratings and rates are samples, not live providers. To see and book verified
+                providers near you,{' '}
+                <a href={CLIENT_APP_URL} target="_blank" rel="noopener noreferrer">
+                  open the client app
+                </a>
+                .
+              </p>
+            </div>
           </Reveal>
 
           {/* Filters read the query string, so they have to sit behind a Suspense
@@ -130,7 +144,7 @@ export default async function ProvidersPage({ searchParams }) {
           {providers.length === 0 ? (
             <p className="empty-state">
               <b>No verified providers match those filters yet.</b> Coverage expands as agencies
-              clear verification &mdash; try a different city or service, or tell us what you need
+              clear verification. Try a different city or service, or tell us what you need
               and we will place it with a PSARA-licensed provider near you.
             </p>
           ) : (
@@ -148,7 +162,7 @@ export default async function ProvidersPage({ searchParams }) {
             A provider that lists more than one city appears under each of them, as long as a
             current PSARA licence covers that state. Agencies are listed as{' '}
             <b>Security agency in {'{city}'}</b> with their rating and day rate. The agency&rsquo;s
-            name and contact details are released to you once a booking is confirmed &mdash; that is
+            name and contact details are released to you once a booking is confirmed. That is
             deliberate, so pricing stays comparable and nobody gets pulled into an off-platform
             negotiation before anything is on record.
           </p>

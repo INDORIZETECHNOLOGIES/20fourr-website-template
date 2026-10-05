@@ -738,7 +738,7 @@ export const PROVIDERS = [
 const inrFormatter = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
 
 export function inr(rupees) {
-  if (rupees == null || Number.isNaN(rupees)) return '—';
+  if (rupees == null || Number.isNaN(rupees)) return 'On request';
   return `₹${inrFormatter.format(Math.round(rupees))}`;
 }
 

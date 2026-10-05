@@ -30,12 +30,12 @@ export async function generateMetadata({ params }) {
   // a second time in the title.
   const rateLine = p.agency ? `${inr(p.dailyRate)}/day` : `${inr(p.dailyRate)}/day in ${p.city}`;
   return {
-    title: `${name} — ${rateLine}`,
-    description: `${name} is a PSARA-verified provider in ${p.city}, rated ${p.rating.toFixed(
-      1
-    )} across ${p.ratingCount} bookings. ${categoryList(p.categories)} from ${inr(
-      p.dailyRate
-    )} per day.`,
+    title: `${name}, ${rateLine}`,
+    // Sample data (see RATINGS_ARE_REAL in schema.js): no rating or booking
+    // count in the snippet, and the snippet says it is an example.
+    description: `Example 20fourr provider profile: ${categoryList(p.categories)} in ${
+      p.city
+    } from ${inr(p.dailyRate)} per day, with the verification checks every listing clears.`,
     alternates: { canonical: `/security-providers/${p.id}` },
     openGraph: {
       title: name,
@@ -72,7 +72,7 @@ export default async function ProviderPage({ params }) {
       every armed assignment.
     </>,
     <>
-      <b>Government photo ID</b> matched to a live selfie taken at onboarding &mdash; not an
+      <b>Government photo ID</b> matched to a live selfie taken at onboarding, not an
       uploaded photograph.
     </>,
     <>
@@ -118,6 +118,16 @@ export default async function ProviderPage({ params }) {
                 </span>
               ))}
             </div>
+            <div className="callout">
+              <p>
+                <b>Example profile.</b> This page shows how a provider profile works. The name,
+                rating and rate are samples, not a live provider. To book a verified provider,{' '}
+                <a href={CLIENT_APP_URL} target="_blank" rel="noopener noreferrer">
+                  open the client app
+                </a>
+                .
+              </p>
+            </div>
           </Reveal>
         </div>
       </header>
@@ -129,7 +139,7 @@ export default async function ProviderPage({ params }) {
           <Reveal className="invoice invoice--profile">
             <div className="invoice__hd">
               <span className="invoice__ttl">Day rate</span>
-              <span className="visually-hidden"> — </span>
+              <span className="visually-hidden">: </span>
               <span className="invoice__ref">Before platform fee &amp; GST</span>
             </div>
             <div className="rows">
@@ -155,7 +165,7 @@ export default async function ProviderPage({ params }) {
                   <span className="visually-hidden">: </span>
                   <small>Covered by the same PSARA licence</small>
                 </span>
-                <span className="row__v">{others.length ? others.join(' · ') : '—'}</span>
+                <span className="row__v">{others.length ? others.join(' · ') : 'None'}</span>
               </div>
               <div className="row row--total">
                 <span className="row__k">Day rate</span>
@@ -165,7 +175,7 @@ export default async function ProviderPage({ params }) {
             <div className="invoice__ft">
               <p>
                 The provider sets this rate themselves. Platform fee and GST are added on the
-                booking screen and itemised on the invoice &mdash; you see the total before you pay,
+                booking screen and itemised on the invoice, so you see the total before you pay,
                 not after. Night shift or under four hours&rsquo; notice adds a 20% surcharge each.
               </p>
             </div>
@@ -187,7 +197,7 @@ export default async function ProviderPage({ params }) {
             {provider.agency && (
               <p className="split__note">
                 This is a registered security agency. Its name and contact details are released to
-                you once a booking is confirmed &mdash; that is deliberate, so pricing stays
+                you once a booking is confirmed. That is deliberate, so pricing stays
                 comparable and nobody gets pulled into an off-platform negotiation before anything is
                 on record.
               </p>

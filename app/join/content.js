@@ -7,8 +7,10 @@
  * Hindi is written as Hindi, not translated English.
  */
 
-export const WHATSAPP_URL =
-  'https://wa.me/910000000000?text=' + encodeURIComponent('I want to join 20fourr as a provider');
+// Email until a real WhatsApp support number exists; the old wa.me link
+// pointed at a placeholder number.
+export const JOIN_EMAIL_URL =
+  'mailto:privacy@20fourr.com?subject=' + encodeURIComponent('I want to join 20fourr as a provider');
 
 /**
  * The roles shown in the hero.
@@ -68,8 +70,8 @@ const content = {
     langNote: 'Also available in Hindi',
     eyebrow: 'For guards, bouncers, gunmen and agencies',
     title: 'Get paid in two days. Not in ninety.',
-    sub: 'Set your own rate, choose your own days, and get paid on a schedule you can plan around. Joining is free — clear KYC once, then start taking work.',
-    ctaWhatsapp: 'Join on WhatsApp',
+    sub: 'Set your own rate, choose your own days, and get paid on a schedule you can plan around. Joining is free. Clear KYC once, then start taking work.',
+    ctaJoin: 'Apply by email',
     ctaApp: 'Open the provider app in your browser',
     iphone: 'On iPhone?',
     fine: 'Support in Hindi and English throughout onboarding',
@@ -89,7 +91,7 @@ const content = {
       {
         n: 'Your rate',
         k: 'You set the price',
-        d: 'Day rate, hourly rate and what you charge for a vehicle — all yours to decide. We never set your price for you.',
+        d: 'Day rate, hourly rate and what you charge for a vehicle are all yours to decide. We never set your price for you.',
       },
     ],
 
@@ -104,7 +106,7 @@ const content = {
     earnTotalV: '₹3,292.00',
     earnFoot: '₹987.60 on the day duty starts · ₹2,304.40 two days after it ends',
     earnNote:
-      'The client pays more than ₹4,000 — there is service GST on top — but that tax goes to the government, not to us and not to you. This is the whole of what we take.',
+      'The client pays more than ₹4,000 because service GST is added on top, but that tax goes to the government, not to us and not to you. This is the whole of what we take.',
 
     stepsHead: 'Joining takes about twenty minutes',
     steps: [
@@ -112,7 +114,7 @@ const content = {
       { t: 'Set your services and rates', d: 'Pick guard, bouncer, gunman or PSO, your city, and what you charge per day or per hour.' },
       { t: 'Upload your documents', d: 'Aadhaar, PAN, a live selfie and your PSARA licence. Photos taken on your phone are fine.' },
       { t: 'We verify you', d: 'A person checks every document. If something is wrong you are told exactly what, so you can fix it and resubmit.' },
-      { t: 'Start accepting work', d: 'Jobs arrive on your phone. Take the ones that suit you and decline the rest — declining carries no penalty.' },
+      { t: 'Start accepting work', d: 'Jobs arrive on your phone. Take the ones that suit you and decline the rest. Declining carries no penalty.' },
     ],
 
     docsHead: 'What to keep ready',
@@ -122,7 +124,7 @@ const content = {
       { t: 'Live selfie', d: 'Taken inside the app and matched against your ID.' },
       { t: 'PSARA licence', d: 'Needed for verified status. Without it you cannot accept bookings.' },
       { t: 'Firearm licence', d: 'Gunman work only. Re-checked before every armed booking.' },
-      { t: 'Bank account details', d: 'For your payouts. Only you can change these — no 20fourr staff member can edit them.' },
+      { t: 'Bank account details', d: 'For your payouts. Only you can change these. No 20fourr staff member can edit them.' },
     ],
 
     fairHead: 'Where you stand',
@@ -138,7 +140,7 @@ const content = {
       },
       {
         k: 'Safety',
-        b: 'Once the client has paid, you see their threat assessment before you go — whether they have been attacked before and how serious the risk is. You never walk in blind.',
+        b: 'Once the client has paid, you see their threat assessment before you go: whether they have been attacked before and how serious the risk is. You never walk in blind.',
       },
     ],
 
@@ -146,7 +148,7 @@ const content = {
     faq: [
       {
         q: 'Is there any joining fee?',
-        a: 'No. Registering, uploading documents and verification are all free. We take a 15% commission on work you actually complete — if you earn nothing, you pay nothing.',
+        a: 'No. Registering, uploading documents and verification are all free. We take a 15% commission on work you actually complete. If you earn nothing, you pay nothing.',
       },
       {
         q: 'Do I really need a PSARA licence?',
@@ -158,11 +160,11 @@ const content = {
       },
       {
         q: 'What if I accept a job and then cannot make it?',
-        a: 'Tell us as early as you can. More than two hours before the start, the penalty is 50% of the booking and a three-day suspension. Inside two hours it is the full booking value, a fifteen-day suspension and your PSARA privileges blocked — because at that point the client cannot find anyone else.',
+        a: 'Tell us as early as you can. More than two hours before the start, the penalty is 50% of the booking and a three-day suspension. Inside two hours it is the full booking value, a fifteen-day suspension and your PSARA privileges blocked, because at that point the client cannot find anyone else.',
       },
       {
         q: 'Do I earn anything beyond the job itself?',
-        a: 'Yes. ₹200 at ten completed jobs and a Trusted badge, ₹500 at fifty and an Elite badge — both visible to clients. Refer another provider and you get ₹300 once they finish their first job, with larger bonuses at three, five and ten referrals.',
+        a: 'Yes. ₹200 at ten completed jobs and a Trusted badge, ₹500 at fifty and an Elite badge, both visible to clients. Refer another provider and you get ₹300 once they finish their first job, with larger bonuses at three, five and ten referrals.',
       },
       {
         q: 'I run an agency with staff. Can I put my whole team on?',
@@ -171,21 +173,7 @@ const content = {
     ],
 
     finalTitle: 'Start taking work this week.',
-    finalSub: 'Message us on WhatsApp and we will walk you through the documents.',
-    chat: {
-      who: '20fourr',
-      status: 'Replies in minutes',
-      rows: [
-        // the message the WhatsApp CTA actually prefills — the thread starts
-        // where the button leaves off
-        { from: 'out', t: 'I want to join 20fourr as a provider' },
-        { from: 'in', t: 'Namaste! Send a photo of your Aadhaar card and we will start your file.' },
-        { from: 'out', doc: 'aadhaar.jpg' },
-        { from: 'in', t: 'Got it. PAN card next, then your PSARA licence.' },
-        { from: 'out', doc: 'psara.pdf' },
-        { from: 'in', ok: true, t: 'All four received. A person reviews it — you will hear back within 24 hours.' },
-      ],
-    },
+    finalSub: 'Email us and we will walk you through the documents, or sign up directly in the provider app.',
   },
 
   hi: {
@@ -193,8 +181,8 @@ const content = {
     langNote: 'English में भी उपलब्ध',
     eyebrow: 'गार्ड, बाउंसर, गनमैन और एजेंसियों के लिए',
     title: 'दो दिन में पेमेंट। नब्बे दिन में नहीं।',
-    sub: 'अपना रेट खुद तय करें, अपने दिन खुद चुनें, और तय समय पर पैसा पाएँ। जुड़ना बिल्कुल मुफ़्त है — KYC एक बार, उसके बाद काम शुरू।',
-    ctaWhatsapp: 'व्हाट्सऐप पर जुड़ें',
+    sub: 'अपना रेट खुद तय करें, अपने दिन खुद चुनें, और तय समय पर पैसा पाएँ। जुड़ना बिल्कुल मुफ़्त है। KYC एक बार, उसके बाद काम शुरू।',
+    ctaJoin: 'ईमेल से आवेदन करें',
     ctaApp: 'ब्राउज़र में प्रोवाइडर ऐप खोलें',
     iphone: 'iPhone पर हैं?',
     fine: 'शुरू से आख़िर तक हिंदी और अंग्रेज़ी में सहायता',
@@ -214,7 +202,7 @@ const content = {
       {
         n: 'आपका रेट',
         k: 'दाम आप तय करते हैं',
-        d: 'दिन का रेट, घंटे का रेट और गाड़ी का चार्ज — सब आपका फ़ैसला। हम आपका दाम कभी तय नहीं करते।',
+        d: 'दिन का रेट, घंटे का रेट और गाड़ी का चार्ज, सब आपका फ़ैसला। हम आपका दाम कभी तय नहीं करते।',
       },
     ],
 
@@ -229,7 +217,7 @@ const content = {
     earnTotalV: '₹3,292.00',
     earnFoot: '₹987.60 ड्यूटी शुरू होने वाले दिन · ₹2,304.40 ख़त्म होने के दो दिन बाद',
     earnNote:
-      'क्लाइंट ₹4,000 से ज़्यादा देता है — ऊपर से सर्विस GST लगता है — लेकिन वह टैक्स सरकार को जाता है, न हमें और न आपको। हम बस इतना ही लेते हैं।',
+      'क्लाइंट ₹4,000 से ज़्यादा देता है क्योंकि ऊपर से सर्विस GST लगता है, लेकिन वह टैक्स सरकार को जाता है, न हमें और न आपको। हम बस इतना ही लेते हैं।',
 
     stepsHead: 'जुड़ने में लगभग बीस मिनट लगते हैं',
     steps: [
@@ -237,7 +225,7 @@ const content = {
       { t: 'अपनी सेवाएँ और रेट भरें', d: 'गार्ड, बाउंसर, गनमैन या PSO चुनें, अपना शहर बताएँ, और दिन या घंटे का रेट भरें।' },
       { t: 'अपने दस्तावेज़ अपलोड करें', d: 'आधार, पैन, एक लाइव सेल्फ़ी और PSARA लाइसेंस। फ़ोन से खींची हुई फ़ोटो चल जाएगी।' },
       { t: 'हम जाँच करते हैं', d: 'हर दस्तावेज़ को एक व्यक्ति देखता है। कुछ ग़लत हुआ तो आपको साफ़ बताया जाएगा कि क्या ठीक करना है, और आप दोबारा भेज सकते हैं।' },
-      { t: 'काम लेना शुरू करें', d: 'काम आपके फ़ोन पर आएगा। जो ठीक लगे ले लें, बाक़ी मना कर दें — मना करने पर कोई जुर्माना नहीं।' },
+      { t: 'काम लेना शुरू करें', d: 'काम आपके फ़ोन पर आएगा। जो ठीक लगे ले लें, बाक़ी मना कर दें। मना करने पर कोई जुर्माना नहीं।' },
     ],
 
     docsHead: 'क्या तैयार रखें',
@@ -247,7 +235,7 @@ const content = {
       { t: 'लाइव सेल्फ़ी', d: 'ऐप में ही ली जाएगी और आपके ID से मिलान किया जाएगा।' },
       { t: 'PSARA लाइसेंस', d: 'वेरिफ़ाइड होने के लिए ज़रूरी। इसके बिना आप बुकिंग नहीं ले सकते।' },
       { t: 'हथियार लाइसेंस', d: 'सिर्फ़ गनमैन के काम के लिए। हर आर्म्ड बुकिंग से पहले दोबारा जाँचा जाता है।' },
-      { t: 'बैंक खाते की जानकारी', d: 'पेमेंट के लिए। इसे सिर्फ़ आप बदल सकते हैं — 20fourr का कोई कर्मचारी नहीं बदल सकता।' },
+      { t: 'बैंक खाते की जानकारी', d: 'पेमेंट के लिए। इसे सिर्फ़ आप बदल सकते हैं। 20fourr का कोई कर्मचारी नहीं बदल सकता।' },
     ],
 
     fairHead: 'आपकी जगह कहाँ है',
@@ -263,7 +251,7 @@ const content = {
       },
       {
         k: 'सुरक्षा',
-        b: 'क्लाइंट के पेमेंट करते ही आपको उसका ख़तरा आकलन दिख जाता है — उस पर पहले हमला हुआ है या नहीं, और जोखिम कितना है। आप कभी अनजान होकर नहीं जाते।',
+        b: 'क्लाइंट के पेमेंट करते ही आपको उसका ख़तरा आकलन दिख जाता है: उस पर पहले हमला हुआ है या नहीं, और जोखिम कितना है। आप कभी अनजान होकर नहीं जाते।',
       },
     ],
 
@@ -271,7 +259,7 @@ const content = {
     faq: [
       {
         q: 'जुड़ने की कोई फ़ीस है?',
-        a: 'नहीं। रजिस्टर करना, दस्तावेज़ भेजना और जाँच — सब मुफ़्त है। जो काम आप पूरा करते हैं उसी पर हम 15% कमीशन लेते हैं। कमाई नहीं तो कोई पैसा नहीं।',
+        a: 'नहीं। रजिस्टर करना, दस्तावेज़ भेजना और जाँच, सब मुफ़्त है। जो काम आप पूरा करते हैं उसी पर हम 15% कमीशन लेते हैं। कमाई नहीं तो कोई पैसा नहीं।',
       },
       {
         q: 'क्या PSARA लाइसेंस सचमुच ज़रूरी है?',
@@ -283,11 +271,11 @@ const content = {
       },
       {
         q: 'काम लेने के बाद न जा पाऊँ तो क्या होगा?',
-        a: 'जितनी जल्दी हो सके हमें बताइए। शुरू होने से दो घंटे से ज़्यादा पहले बताने पर बुकिंग का 50% कटता है और तीन दिन का निलंबन लगता है। दो घंटे के अंदर बताने पर पूरी बुकिंग की रक़म कटती है, पंद्रह दिन का निलंबन लगता है और PSARA अधिकार रोक दिए जाते हैं — क्योंकि उतने कम समय में क्लाइंट को कोई और नहीं मिल पाता।',
+        a: 'जितनी जल्दी हो सके हमें बताइए। शुरू होने से दो घंटे से ज़्यादा पहले बताने पर बुकिंग का 50% कटता है और तीन दिन का निलंबन लगता है। दो घंटे के अंदर बताने पर पूरी बुकिंग की रक़म कटती है, पंद्रह दिन का निलंबन लगता है और PSARA अधिकार रोक दिए जाते हैं, क्योंकि उतने कम समय में क्लाइंट को कोई और नहीं मिल पाता।',
       },
       {
         q: 'काम के अलावा और कुछ कमाई होती है?',
-        a: 'हाँ। दस काम पूरे होने पर ₹200 और Trusted बैज, पचास पर ₹500 और Elite बैज — दोनों क्लाइंट को दिखते हैं। किसी और प्रोवाइडर को जोड़ने पर उसका पहला काम पूरा होते ही ₹300, और तीन, पाँच व दस रेफ़रल पर उससे बड़े बोनस।',
+        a: 'हाँ। दस काम पूरे होने पर ₹200 और Trusted बैज, पचास पर ₹500 और Elite बैज, दोनों क्लाइंट को दिखते हैं। किसी और प्रोवाइडर को जोड़ने पर उसका पहला काम पूरा होते ही ₹300, और तीन, पाँच व दस रेफ़रल पर उससे बड़े बोनस।',
       },
       {
         q: 'मेरी एजेंसी है, क्या पूरी टीम को जोड़ सकता हूँ?',
@@ -296,19 +284,7 @@ const content = {
     ],
 
     finalTitle: 'इसी हफ़्ते काम लेना शुरू करें।',
-    finalSub: 'व्हाट्सऐप पर हमें मैसेज करें, हम दस्तावेज़ों में आपकी मदद करेंगे।',
-    chat: {
-      who: '20fourr',
-      status: 'कुछ ही मिनटों में जवाब',
-      rows: [
-        { from: 'out', t: 'मुझे प्रोवाइडर के रूप में जुड़ना है' },
-        { from: 'in', t: 'नमस्ते! शुरू करने के लिए अपने आधार कार्ड की फ़ोटो भेजें।' },
-        { from: 'out', doc: 'aadhaar.jpg' },
-        { from: 'in', t: 'मिल गया। अब पैन कार्ड, फिर आपका PSARA लाइसेंस।' },
-        { from: 'out', doc: 'psara.pdf' },
-        { from: 'in', ok: true, t: 'चारों दस्तावेज़ मिल गए। एक व्यक्ति जाँच करेगा — 24 घंटे में जवाब मिलेगा।' },
-      ],
-    },
+    finalSub: 'हमें ईमेल करें, हम दस्तावेज़ों में आपकी मदद करेंगे। या सीधे प्रोवाइडर ऐप में साइन अप करें।',
   },
 };
 

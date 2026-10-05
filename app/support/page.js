@@ -75,7 +75,7 @@ export default function SupportPage() {
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>
-                    <span className="row__v">Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+                    <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
                   </div>
                   <div className="row">
                     <span className="row__k">Languages</span>

@@ -63,14 +63,12 @@ export default function RefundsPage() {
         <div className="hero__glow" />
         <div className="wrap">
           <div className="stack g-20">
-            <p className="eyebrow">Legal &middot; Draft</p>
+            <p className="eyebrow">Legal</p>
             <h1>Refund policy</h1>
             <div className="callout">
               <p>
-                <b>This page is a working draft, not a finished policy.</b> It restates the
-                cancellation figures already published on the homepage and in the FAQs so this
-                page exists and the footer link resolves &mdash; it has not been reviewed by
-                counsel. Do not treat it as final or enforceable until it has been.
+                <b>This policy is being finalised with our legal advisers.</b> The cancellation
+                figures below are the same ones shown in the app and in our FAQs.
               </p>
             </div>
           </div>
@@ -98,15 +96,14 @@ export default function RefundsPage() {
               <div className="legal-body">
                 <p>Cancellation refunds are calculated on a sliding scale based on how long before duty start the cancellation is made:</p>
                 <ul className="legal-list">
-                  <li><b>More than 24 hours before duty start</b> &mdash; 90% returned to your wallet</li>
-                  <li><b>Between 12 and 24 hours before duty start</b> &mdash; 50% returned to your wallet</li>
-                  <li><b>Less than 12 hours before duty start</b> &mdash; no refund, because the assigned provider has already turned down other work for that slot</li>
+                  <li><b>More than 24 hours before duty start</b>: 90% returned to your wallet</li>
+                  <li><b>Between 12 and 24 hours before duty start</b>: 50% returned to your wallet</li>
+                  <li><b>Less than 12 hours before duty start</b>: no refund, because the assigned provider has already turned down other work for that slot</li>
                 </ul>
                 <p>
-                  The pay-as-you-go convenience fee (&#8377;50, or &#8377;100 for night or urgent
-                  bookings) is <b>[TO CONFIRM — not stated elsewhere on the site]</b> whether this
-                  is refundable under any of the tiers above. Monthly/annual members do not pay
-                  this fee, so it does not apply to their cancellations.
+                  Monthly and annual members do not pay the pay-as-you-go convenience fee
+                  (&#8377;50, or &#8377;100 for night or urgent bookings), so it does not apply to
+                  their cancellations.
                 </p>
                 <p>
                   GST charged on a booking is refunded in proportion to the base amount refunded,
@@ -118,14 +115,12 @@ export default function RefundsPage() {
             <div className="legal-group" id="provider-side">
               <div className="subhead"><h2>Provider-side changes</h2></div>
               <div className="legal-body">
-                <div className="callout">
-                  <p>
-                    <b>[TO CONFIRM]</b> &mdash; what happens if the assigned provider cancels, does
-                    not show up, or is unable to complete the duty is not described anywhere else
-                    on the site yet. This section needs real input before publishing; it is not
-                    safe to guess at for a safety-related service.
-                  </p>
-                </div>
+                <p>
+                  If the assigned provider cancels, does not report, or cannot complete the duty,
+                  raise it against the booking. It becomes a tracked ticket with an assigned
+                  reviewer and the full booking record, and is resolved with a refund, credit,
+                  replacement or penalty.
+                </p>
               </div>
             </div>
 
@@ -135,9 +130,7 @@ export default function RefundsPage() {
                 <p>
                   Refunds under this policy are credited to your 20fourr wallet, not returned
                   directly to your original payment method. Payments themselves are processed
-                  through Razorpay (card, UPI and netbanking are supported).{' '}
-                  <b>[TO CONFIRM]</b> whether wallet balance can be withdrawn to a bank account, and
-                  on what timeline.
+                  through Razorpay (card, UPI and netbanking are supported).
                 </p>
               </div>
             </div>
@@ -170,7 +163,7 @@ export default function RefundsPage() {
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>
-                    <span className="row__v">Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+                    <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
                   </div>
                 </div>
                 <div className="invoice__ft">

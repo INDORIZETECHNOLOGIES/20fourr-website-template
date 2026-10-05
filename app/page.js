@@ -136,19 +136,19 @@ const TRUST = [
   {
     k: 'Contact privacy',
     h: 'Numbers stay hidden until you pay',
-    b: <>A provider cannot see your address and you cannot see their number until the booking is paid. It keeps deals on the platform &mdash; which is what keeps the licence checks, the insurance trail and the dispute route intact.</>,
+    b: <>A provider cannot see your address and you cannot see their number until the booking is paid. That keeps deals on the platform, which is what keeps the licence checks, the insurance trail and the dispute route intact.</>,
     Icon: LockIcon,
   },
   {
     k: 'Threat brief',
     h: 'They arrive knowing what they’re walking into',
-    b: <>If you&rsquo;ve been threatened or attacked before, you record it once in your profile. It&rsquo;s released to the assigned provider <b>after payment only</b> &mdash; late enough to protect you, early enough for them to prepare.</>,
+    b: <>If you&rsquo;ve been threatened or attacked before, you record it once in your profile. It&rsquo;s released to the assigned provider <b>after payment only</b>: late enough to protect you, early enough for them to prepare.</>,
     Icon: BriefingIcon,
   },
   {
     k: 'Cancellation',
     h: 'Refunds on a published clock',
-    b: <>Cancel more than 24 hours out and <b>90%</b> comes back to your wallet; between 12 and 24 hours, <b>50%</b>. Inside 12 hours, nothing &mdash; because by then the guard has already turned down other work.</>,
+    b: <>Cancel more than 24 hours out and <b>90%</b> comes back to your wallet; between 12 and 24 hours, <b>50%</b>. Inside 12 hours there is no refund, because by then the guard has already turned down other work.</>,
     Icon: ClockIcon,
   },
   {
@@ -167,7 +167,7 @@ const ACCOUNTABILITY = [
   ['Delisting', 'Repeated no-shows or persistently poor ratings lead to delisting.'],
   [
     'Evidence',
-    'Check-in and check-out are recorded against the shift you paid for. Raise a dispute and it becomes a tracked ticket with an assigned reviewer, the full chat record, and a resolution — refund, credit, replacement or penalty.',
+    'Check-in and check-out are recorded against the shift you paid for. Raise a dispute and it becomes a tracked ticket with an assigned reviewer, the full chat record, and a resolution: refund, credit, replacement or penalty.',
   ],
   [
     'PSARA 2005',
@@ -179,7 +179,7 @@ const ACCOUNTABILITY = [
   ],
   [
     'On lapse',
-    'When a licence lapses, the provider is blocked from search and from accepting new bookings automatically — not at an admin’s discretion — until the renewed licence is verified.',
+    'When a licence lapses, the provider is blocked from search and from accepting new bookings automatically, without waiting on an admin’s discretion, until the renewed licence is verified.',
   ],
 ];
 
@@ -212,7 +212,7 @@ export default function HomePage() {
               Private security services with <em>verified</em> guards, bouncers and armed personnel anywhere in India.
             </h1>
             <p className="hero__sub">
-              Ten calls, four quotes, zero paperwork — that’s how security gets hired today. <b>20fourr</b> puts every provider licensed under <abbr title="Private Security Agencies (Regulation) Act, 2005">PSARA</abbr>, India’s law on who may supply private security, in one place, so you see the price upfront and book in minutes.
+              Ten calls, four quotes, zero paperwork. That’s how security gets hired today. <b>20fourr</b> puts every provider licensed under <abbr title="Private Security Agencies (Regulation) Act, 2005">PSARA</abbr>, India’s law on who may supply private security, in one place, so you see the price upfront and book in minutes.
             </p>
             <HeroBooking cities={COVERAGE_CITIES} />
             {/* Trust chips: same claims as the credentials ticker, now at
@@ -299,7 +299,7 @@ export default function HomePage() {
             <h2>One booking, proven at every state.</h2>
             <p className="lede">
               Requesting and paying happen on the screens above. From there the duty runs on
-              proof &mdash; a provider accepts it, a code opens and closes the shift, and both
+              proof: a provider accepts it, a code opens and closes the shift, and both
               sides rate each other. Nothing skips a step, and nothing is marked done without
               a record.
             </p>
@@ -372,7 +372,7 @@ export default function HomePage() {
             <h2 style={{ maxWidth: '24ch' }}>What verification does not mean.</h2>
             <p className="lede">
               Being straight about the limits is part of being trustworthy. Verification is a check
-              on documents and history &mdash; it is not a guarantee of future conduct, and no
+              on documents and history. It is not a guarantee of future conduct, and no
               platform can honestly claim otherwise.
             </p>
           </Reveal>
@@ -427,8 +427,8 @@ export default function HomePage() {
             <p className="eyebrow">Report a concern &middot; PSARA compliance</p>
             <h2>If something is wrong, there is one route.</h2>
             <p className="lede">
-              An officer who did not report, conduct you are unhappy with, or a document you believe
-              is not genuine &mdash; raise it against the booking. It reaches our compliance team
+              If an officer did not report, you are unhappy with someone&rsquo;s conduct, or you believe
+              a document is not genuine, raise it against the booking. It reaches our compliance team
               and the agency at the same time, with the booking record attached.
             </p>
           </Reveal>
@@ -447,8 +447,8 @@ export default function HomePage() {
               Know the price. <em>Then decide.</em>
             </h2>
             <p className="lede">
-              Compare ratings. Pick your agency or individuals. Set your dates. See just the price
-              &mdash; in <b>seconds</b>.
+              Compare ratings. Pick your agency or individuals. Set your dates. See the price
+              in <b>seconds</b>.
             </p>
             <Link className="btn btn--primary btn--lg" href="/security-providers">
               Compare security agencies
@@ -493,13 +493,13 @@ export default function HomePage() {
             <h3>Get paid in two days. Not in ninety.</h3>
             <p className="lede">
               Set your own rate, pick your own days, and get paid on a schedule you can actually plan
-              around. Joining is free &mdash; you clear KYC once and start taking work.
+              around. Joining is free. You clear KYC once and start taking work.
             </p>
             <div className="hero__ctas">
               <Link className="btn btn--outline" href="/join">Join as a provider</Link>
               <Link className="text-link" href="/faqs#for-providers">Questions from agencies &rarr;</Link>
             </div>
-            <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
+            <p className="eyebrow">Hindi &amp; English &middot; Help with your documents during onboarding</p>
           </Reveal>
 
           <Reveal>
@@ -534,7 +534,7 @@ export default function HomePage() {
               <PlayStoreButton href={CLIENT_PLAY_URL} />
             </div>
             <p className="hero__fine">
-              On Google Play for Android, and in any phone browser &mdash; the iPhone app is in App Store review.
+              On Google Play for Android, and in any phone browser. The iPhone app is in App Store review.
               <br />
               Are you a guard or an agency?{' '}
               <Link href="/join">Join as a provider</Link>
