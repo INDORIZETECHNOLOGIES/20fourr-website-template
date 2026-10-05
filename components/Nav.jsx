@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Logo from './Logo';
 
 /**
  * Below 900px the link row (Services / How it works / Trust & compliance /
@@ -27,8 +27,8 @@ export default function Nav() {
     <nav className={open ? 'nav nav--open' : 'nav'}>
       <div className="wrap nav__in">
         <Link className="brand" href="/" onClick={close}>
-          <Image src="/logo-mark.svg" alt="20fourr logo" width={48} height={48} priority />
-          <span className="brand__name">20fourr</span>
+          <Logo />
+          <span className="visually-hidden">20fourr home</span>
         </Link>
 
         <button

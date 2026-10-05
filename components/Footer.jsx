@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Logo from './Logo';
 import SocialLinks from './SocialLinks';
 import { LEGAL_NAME, CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import { PlayIcon } from './PlayStoreButton';
@@ -54,8 +54,8 @@ export default function Footer() {
         <div className="foot__top">
           <div className="foot__brand">
             <Link className="brand" href="/">
-              <Image src="/logo-mark.svg" alt="20fourr logo" width={40} height={40} />
-              <span className="brand__name">20fourr</span>
+              <Logo className="brand__logo brand__logo--lg" />
+              <span className="visually-hidden">20fourr home</span>
             </Link>
             <p>Licensed private security, booked and verified from your phone.</p>
             {/* Same email/address already published on /privacy — this just
