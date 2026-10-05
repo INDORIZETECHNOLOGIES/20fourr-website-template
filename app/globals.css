@@ -419,21 +419,26 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
    a verified-green dot so the claim reads as a stamp, not a marketing bullet. */
 .hero__chips {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex-wrap: wrap; gap: 8px 12px;
+  /* a 2×2 block rather than a free wrap — four claims of different lengths
+     wrapped 2/1/1 and read as leftovers, not a set */
+  display: grid; grid-template-columns: repeat(2, max-content); gap: 8px;
 }
+@media (max-width: 560px) { .hero__chips { grid-template-columns: 1fr; } }
+/* One step above .hero__fine (steel) and one below the CTA: these are the
+   page's guarantees, so they can't read as disabled microcopy. */
 .hero__chip {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-family: var(--mono); font-size: .72rem; letter-spacing: .04em;
-  color: var(--text-2);
-  border: 1px solid var(--line);
-  padding: 5px 10px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .04em;
+  color: color-mix(in srgb, var(--paper) 82%, var(--steel));
+  border: 1px solid rgba(146, 160, 166, .28);
+  padding: 6px 11px;
   white-space: nowrap;
 }
 /* Green dot — the one place the verified colour appears outside the ticket,
    because each chip is a literal verification claim. */
 .hero__chip::before {
   content: "";
-  width: 5px; height: 5px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--verified);
   flex-shrink: 0;

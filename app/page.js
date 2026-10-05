@@ -222,7 +222,7 @@ export default function HomePage() {
                 <li className="hero__chip" key={c}>{c}</li>
               ))}
             </ul>
-            <p className="hero__fine">No cash at the gate &middot; Itemised tax invoice on every booking</p>
+            <p className="hero__fine">No cash at the gate</p>
           </div>
 
           <DutyTicket />
