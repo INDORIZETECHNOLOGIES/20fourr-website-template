@@ -1346,25 +1346,83 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 }
 .bub--doc svg { width: 3.8cqw; height: 4.4cqw; flex-shrink: 0; }
 
-/* ---------- footer ---------- */
-.foot { background: var(--ink); color: var(--steel); border-top: 1px solid var(--hair); padding-block: 56px 40px; }
-/* Brand block plus one track per COLUMNS entry — five since the apps got their
-   own heading. The brand column keeps its extra weight; the gap tightens to buy
-   the link columns back the width the fifth one costs them. */
-.foot__cols { display: grid; grid-template-columns: 1.3fr repeat(5, 1fr); gap: 26px; }
-@media (max-width: 900px) { .foot__cols { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .foot__cols { grid-template-columns: 1fr; } }
-.foot h4 { font-family: var(--mono); font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; color: var(--steel); margin: 0 0 14px; font-weight: 400; }
-.foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-.foot a { font-size: .88rem; color: var(--steel); text-decoration: none; transition: color .15s ease; }
+/* ---------- footer ----------
+   Three tiers, each with one job: where to go (brand + three link columns),
+   how to get the product (the two apps, web and Play side by side), and who
+   is behind it (legal line + socials). */
+.foot { background: var(--ink); color: var(--steel); border-top: 1px solid var(--hair); padding-block: clamp(56px, 7vw, 88px) 32px; }
+.foot a { color: var(--steel); text-decoration: none; transition: color .15s ease, border-color .15s ease, background-color .15s ease; }
 .foot a:hover { color: var(--paper); }
-.foot__play { display: inline-flex; align-items: center; gap: 8px; }
-.foot__play svg { width: 14px; height: 14px; flex-shrink: 0; }
-.foot__brand p { font-size: .87rem; line-height: 1.6; margin-top: 12px; max-width: 34ch; }
+.foot a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.foot__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: clamp(40px, 6vw, 96px); }
+.foot__brand .brand { color: var(--paper); }
+.foot__brand p { font-size: .92rem; line-height: 1.6; margin: 18px 0 0; max-width: 30ch; color: var(--steel); }
+.foot__contact { font-style: normal; display: flex; flex-direction: column; gap: 4px; margin-top: 22px; font-size: .84rem; line-height: 1.5; }
+.foot__contact a { font-family: var(--mono); font-size: .8rem; color: var(--paper); width: fit-content; border-bottom: 1px solid var(--hair); padding-bottom: 1px; }
+.foot__contact a:hover { border-color: var(--amber); }
+
+.foot__nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.foot h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); margin: 6px 0 18px; font-weight: 400; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.foot ul a { font-size: .9rem; line-height: 1.35; }
+
+/* the two apps sit as a pair of rows between hairlines — the same ruled
+   rhythm as the duty ticket, not a pair of cards */
+.foot__apps {
+  margin-top: clamp(48px, 6vw, 72px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-block: 1px solid var(--hair);
+}
+.foot__app { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+.foot__app + .foot__app { border-left: 1px solid var(--hair); padding-left: clamp(20px, 3vw, 40px); }
+.foot__app:first-child { padding-right: clamp(20px, 3vw, 40px); }
+.foot__app-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.foot__app-id strong {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  font-size: 1.2rem; letter-spacing: .05em; line-height: 1.1; color: var(--paper);
+  font-variation-settings: "opsz" 20;
+}
+.foot__app-id span { font-size: .82rem; color: var(--steel); }
+.foot__app-links { display: flex; gap: 8px; flex-shrink: 0; }
+.foot__chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .02em; white-space: nowrap;
+  padding: 9px 12px; border: 1px solid var(--hair);
+}
+.foot .foot__chip { color: var(--paper); }
+.foot__chip:hover { border-color: var(--steel); background: color-mix(in srgb, var(--paper) 5%, transparent); }
+.foot__chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+.foot__chip:has(> svg:first-child) svg { width: 14px; height: 14px; }
+
 .foot__legal {
-  margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--hair);
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
   font-family: var(--mono); font-size: .72rem; color: var(--steel);
+}
+.foot__credit { margin: 0; display: flex; flex-wrap: wrap; column-gap: 10px; row-gap: 6px; }
+.foot__credit span + span::before { content: "·"; margin-right: 10px; }
+.social { display: flex; gap: 4px; margin-right: -9px; }
+.social a { display: grid; place-items: center; width: 36px; height: 36px; }
+
+@media (max-width: 1000px) {
+  .foot__top { grid-template-columns: 1fr; }
+  .foot__apps { grid-template-columns: 1fr; }
+  .foot__app + .foot__app { border-left: 0; border-top: 1px solid var(--hair); padding-left: 0; }
+  .foot__app:first-child { padding-right: 0; }
+}
+@media (max-width: 560px) {
+  /* the nav hides the wordmark at this width for room; the footer has room */
+  .foot .brand__name { display: inline; }
+  .foot__nav { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .foot__nav > :last-child { grid-column: 1 / -1; }
+  .foot__nav > :last-child ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+  .foot__app { flex-direction: column; align-items: stretch; }
+  .foot__app-links > * { flex: 1; justify-content: center; }
+  .foot__credit { flex-direction: column; }
+  .foot__credit span + span::before { content: none; }
+  .foot__legal { flex-direction: column-reverse; align-items: flex-start; }
+  .social { margin-left: -9px; margin-right: 0; }
 }
 
 /* ============================================================
