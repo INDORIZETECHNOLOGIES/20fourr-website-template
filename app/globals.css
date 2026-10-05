@@ -285,14 +285,10 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 }
 .nav__in { display: flex; align-items: center; gap: 32px; height: 66px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); flex-shrink: 0; }
-.brand__mark { width: 22px; height: 26px; flex-shrink: 0; }
-/* The wordmark holds one step more weight than the headings — at 22px a
-   300 would disappear against the nav's own hairline. */
-.brand__name {
-  font-family: var(--display); font-size: 1.38rem; font-weight: 500;
-  letter-spacing: .045em; text-transform: uppercase;
-  font-variation-settings: "opsz" 22;
-}
+/* The lockup is the wordmark, so there is no separate name beside it. 34px is
+   the smallest height where the vertical FOURR still reads as letters. */
+.brand__logo { display: block; height: 34px; width: auto; flex-shrink: 0; }
+.brand__logo--lg { height: 46px; }
 .nav__links { display: flex; align-items: center; gap: clamp(16px, 1.8vw, 26px); margin-left: auto; }
 /* Plex Sans is wider than a system grotesque — without this the link row
    wraps to two lines and breaks the 66px bar. */
@@ -339,12 +335,10 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
   .nav__cta .btn--ghost:hover { border-color: var(--text-2); background: color-mix(in srgb, var(--text) 6%, transparent); }
 }
 .btn__label-short { display: none; }
-/* Below ~560px "Work as a guard" + "Book security" plus the wordmark no
-   longer fit on one 66px row. The wordmark drops to its mark (the logo
-   already carries the brand) and both labels shorten — same two links, same
+/* Below ~560px "Work as a guard" + "Book security" plus the logo no longer
+   fit on one 66px row, so both labels shorten — same two links, same
    destinations, just fewer letters. */
 @media (max-width: 560px) {
-  .brand__name { display: none; }
   .nav__cta { gap: 8px; }
   .nav__cta .btn--primary,
   .nav__cta .btn--ghost { padding: 9px 12px; }
@@ -1418,8 +1412,6 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
   .foot__app:first-child { padding-right: 0; }
 }
 @media (max-width: 560px) {
-  /* the nav hides the wordmark at this width for room; the footer has room */
-  .foot .brand__name { display: inline; }
   .foot__nav { grid-template-columns: 1fr 1fr; row-gap: 40px; }
   .foot__nav > :last-child { grid-column: 1 / -1; }
   .foot__nav > :last-child ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
