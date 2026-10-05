@@ -3,7 +3,7 @@ import { Big_Shoulders, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, ORG_ID, SITE_URL } from './site';
+import { LEGAL_NAME, OG_BASE, ORG_ID, SITE_URL, WHATSAPP_TELEPHONE } from './site';
 
 /* Self-hosted at build time by next/font — no third-party request at runtime,
    and no layout shift, which a <link> to fonts.googleapis.com cannot promise.
@@ -56,14 +56,12 @@ export const metadata = {
   description:
     'Book a PSARA-licensed security guard, bouncer, armed gunman or personal security officer from your phone. Every duty is verified with a code, and every booking comes with an itemised GST invoice.',
   openGraph: {
-    type: 'website',
-    locale: 'en_IN',
-    siteName: '20fourr',
+    ...OG_BASE,
     title: '20fourr | Verified security, dispatched on demand',
     description:
       'Licensed guards, bouncers, armed protection and PSOs. Duty proven with a code. Payment released against verified attendance.',
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: OG_BASE.images },
   robots: { index: true, follow: true },
 };
 
@@ -76,11 +74,10 @@ export const viewport = {
 
 /* Organization is what lets Google attach the name, logo and site to one entity
    instead of inferring three. Only claims that are true on the page are here —
-   no phone, no ratings, because unverifiable markup is the kind that gets a
-   site a manual action rather than a rich result. The address and email
-   *are* both already true on the page — they've been published on /privacy
-   since it shipped — this just surfaces them in structured data too instead
-   of leaving them undiscoverable outside one legal page.
+   no ratings, because unverifiable markup is the kind that gets a site a
+   manual action rather than a rich result. The address, email and WhatsApp
+   number are all published on the site (/privacy, /support, the footer); this
+   surfaces them in structured data too.
 
    20fourr is the product; Indorse Technologies Pvt. Ltd. is the company that
    builds it. Stating the parent explicitly is what keeps searches for either
@@ -98,10 +95,20 @@ const ORGANIZATION_LD = {
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'privacy@20fourr.com',
+    // The company WhatsApp, published on /support and /join.
+    telephone: WHATSAPP_TELEPHONE,
     contactType: 'customer support',
     areaServed: 'IN',
     availableLanguage: ['en', 'hi'],
   },
+  // The brand's own profiles, the same ones linked in the footer, written as
+  // their canonical URLs (no share or tracking parameters). The footer's Reddit
+  // link is a personal account, not the company's, so it is left out.
+  sameAs: [
+    'https://x.com/20_fourr',
+    'https://www.instagram.com/20_fourr',
+    'https://www.facebook.com/profile.php?id=61592917686310',
+  ],
   parentOrganization: {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#parent-organization`,

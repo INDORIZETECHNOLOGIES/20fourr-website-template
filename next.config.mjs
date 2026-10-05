@@ -28,6 +28,14 @@ const nextConfig = {
   // Marketing pages are fully static — city and service pages added later
   // will be generated at build time by generateStaticParams().
   poweredByHeader: false,
+  // Next 15.2+ streams generateMetadata output into <body> for any user agent
+  // not on its built-in bot list, and that list leaves out plain Googlebot and
+  // the AI crawlers. On /security-providers (which reads searchParams) those
+  // crawlers got the <title>, description and canonical after </head>, and
+  // Google only honours a canonical in the head. Matching every UA makes
+  // metadata block into <head> for everyone; the metadata is computed from
+  // static data, so the cost is negligible.
+  htmlLimitedBots: /.*/,
   async headers() {
     return [
       {

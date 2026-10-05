@@ -1,6 +1,6 @@
 import JsonLd from '@/components/JsonLd';
 import JumpNav from './JumpNav';
-import { LEGAL_NAME, SITE_URL } from '../site';
+import { LEGAL_NAME, OG_BASE, SITE_URL } from '../site';
 
 /**
  * DRAFT — see the callout at the top of the page. Sections sourced from copy
@@ -20,6 +20,7 @@ export const metadata = {
   alternates: { canonical: '/terms' },
   robots: { index: false, follow: true },
   openGraph: {
+    ...OG_BASE,
     title: 'Terms of service | 20fourr',
     description: 'The terms governing use of the 20fourr platform.',
   },

@@ -24,7 +24,7 @@
   --paper-2:      #E3E6DB;  /* secondary paper tone */
 
   --amber:        #E8A33D;  /* the only saturated colour, rationed */
-  --amber-dim:    #B87F2A;  /* amber as text on paper, contrast-safe */
+  --amber-dim:    #8A5E1C;  /* amber as text on paper: 4.9:1, AA for small text */
 
   --verified:     #3FA66B;  /* verified states only — ticket dots, the stamp */
   --verified-dim: #2C7A4B;  /* the same, legible on paper */
@@ -1369,7 +1369,7 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 .foot__contact a:hover { border-color: var(--amber); }
 
 .foot__nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-.foot h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); margin: 6px 0 18px; font-weight: 400; }
+.foot h2 { font-family: var(--mono); font-size: .68rem; line-height: inherit; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); margin: 6px 0 18px; font-weight: 400; }
 .foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
 .foot ul a { font-size: .9rem; line-height: 1.35; }
 

@@ -1,4 +1,4 @@
-import { ORG_ID, SITE_URL } from '../site';
+import { OG_BASE, ORG_ID, SITE_URL } from '../site';
 
 /**
  * Metadata and structured data for both language versions of /join.
@@ -58,6 +58,7 @@ export function joinMetadata(lang) {
     description: c.description,
     alternates: { canonical: PATH[lang], languages: LANGUAGES },
     openGraph: {
+      ...OG_BASE,
       title: c.ogTitle,
       description: c.ogDescription,
       locale: c.locale,

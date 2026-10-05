@@ -37,3 +37,25 @@ export const PROVIDER_PLAY_URL = 'https://play.google.com/store/apps/details?id=
  */
 export const WHATSAPP_DISPLAY = '+91 92595 77593';
 export const WHATSAPP_URL = 'https://wa.me/919259577593';
+/** The same number in E.164, for structured data. */
+export const WHATSAPP_TELEPHONE = '+919259577593';
+
+/**
+ * Open Graph fields every page shares. Next replaces, not merges, a page's
+ * `openGraph` object with the layout's, so a page that sets its own title
+ * would otherwise ship with no image, type or site name. Spread this first:
+ * `openGraph: { ...OG_BASE, title, description }`.
+ */
+export const OG_BASE = {
+  type: 'website',
+  locale: 'en_IN',
+  siteName: '20fourr',
+  images: [
+    {
+      url: '/og.png',
+      width: 1200,
+      height: 630,
+      alt: '20fourr: Verified security, dispatched on demand. Guards, bouncers, armed guards and PSOs across India.',
+    },
+  ],
+};

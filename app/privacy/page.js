@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import JumpNav from './JumpNav';
-import { LEGAL_NAME, SITE_URL } from '../site';
+import { LEGAL_NAME, OG_BASE, SITE_URL } from '../site';
 
 export const metadata = {
   title: 'Privacy policy',
@@ -9,6 +9,7 @@ export const metadata = {
     'What 20fourr collects from clients and security providers, how it is used, who it is shared with, how long it is kept, and your rights under the DPDP Act, 2023.',
   alternates: { canonical: '/privacy' },
   openGraph: {
+    ...OG_BASE,
     title: 'Privacy policy | 20fourr',
     description:
       'What we collect, how we use it, who we share it with, and your rights under the DPDP Act, 2023.',

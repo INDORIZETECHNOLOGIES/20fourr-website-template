@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
+import { CLIENT_APP_URL, CLIENT_PLAY_URL, OG_BASE, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import PlayStoreButton from '@/components/PlayStoreButton';
 import Reveal from '@/components/Reveal';
 import DutyTicket from '@/components/DutyTicket';
@@ -183,16 +183,18 @@ const ACCOUNTABILITY = [
   ],
 ];
 
-/* Title and description are inherited from the root layout; this exists so the
-   home page states its own canonical like every other route does. Without it a
-   crawler that arrives on a tracking-parameter variant has nothing telling it
-   which URL is the real one. */
+/* The layout's '%s | 20fourr' template only applies to child segments, not to
+   this page, so the brand is written into the title by hand. Without it the
+   home page was the one result that didn't say 20fourr. The canonical is here
+   so a crawler arriving on a tracking-parameter variant knows which URL is the
+   real one. */
 export const metadata = {
-  title: 'Private Security Services in India | Verified Guards, Bouncers & PSOs',
+  title: 'Private Security Services in India: Verified Guards | 20fourr',
   description:
-    'Find PSARA-verified private security agency services in India: manned guarding, event security, armed security and executive protection. Compare providers and book online.',
+    'Book PSARA-verified private security in India: manned guarding, event security, armed guards and executive protection. Compare providers and book online.',
   alternates: { canonical: '/' },
   openGraph: {
+    ...OG_BASE,
     title: 'Private Security Services in India | 20fourr',
     description:
       'Compare PSARA-verified security guards, bouncers, armed security providers and personal security officers across India.',

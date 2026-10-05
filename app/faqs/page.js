@@ -2,7 +2,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
 import JumpNav from './JumpNav';
-import { ORG_ID, SITE_URL } from '../site';
+import { OG_BASE, ORG_ID, SITE_URL } from '../site';
 import { FAQ_GROUPS } from './content';
 
 export const metadata = {
@@ -11,6 +11,7 @@ export const metadata = {
     'Answers on PSARA verification, what a badge proves, GST-inclusive pricing, cancellations, what happens on duty, and how agencies get listed on 20fourr.',
   alternates: { canonical: '/faqs' },
   openGraph: {
+    ...OG_BASE,
     title: 'FAQs | 20fourr',
     description:
       'How verification works, what you pay, what happens on duty, and how agencies get listed.',
