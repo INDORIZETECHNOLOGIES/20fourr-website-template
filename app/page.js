@@ -499,7 +499,7 @@ export default function HomePage() {
               <Link className="btn btn--outline" href="/join">Join as a provider</Link>
               <Link className="text-link" href="/faqs#for-providers">Questions from agencies &rarr;</Link>
             </div>
-            <p className="eyebrow">Hindi &amp; English &middot; Help with your documents during onboarding</p>
+            <p className="eyebrow">Hindi &amp; English &middot; WhatsApp support during onboarding</p>
           </Reveal>
 
           <Reveal>

@@ -7,10 +7,10 @@
  * Hindi is written as Hindi, not translated English.
  */
 
-// Email until a real WhatsApp support number exists; the old wa.me link
-// pointed at a placeholder number.
-export const JOIN_EMAIL_URL =
-  'mailto:privacy@20fourr.com?subject=' + encodeURIComponent('I want to join 20fourr as a provider');
+import { WHATSAPP_URL } from '@/app/site';
+
+export const JOIN_WHATSAPP_URL =
+  WHATSAPP_URL + '?text=' + encodeURIComponent('I want to join 20fourr as a provider');
 
 /**
  * The roles shown in the hero.
@@ -71,7 +71,7 @@ const content = {
     eyebrow: 'For guards, bouncers, gunmen and agencies',
     title: 'Get paid in two days. Not in ninety.',
     sub: 'Set your own rate, choose your own days, and get paid on a schedule you can plan around. Joining is free. Clear KYC once, then start taking work.',
-    ctaJoin: 'Apply by email',
+    ctaJoin: 'Join on WhatsApp',
     ctaApp: 'Open the provider app in your browser',
     iphone: 'On iPhone?',
     fine: 'Support in Hindi and English throughout onboarding',
@@ -173,7 +173,7 @@ const content = {
     ],
 
     finalTitle: 'Start taking work this week.',
-    finalSub: 'Email us and we will walk you through the documents, or sign up directly in the provider app.',
+    finalSub: 'Message us on WhatsApp and we will walk you through the documents, or sign up directly in the provider app.',
   },
 
   hi: {
@@ -182,7 +182,7 @@ const content = {
     eyebrow: 'गार्ड, बाउंसर, गनमैन और एजेंसियों के लिए',
     title: 'दो दिन में पेमेंट। नब्बे दिन में नहीं।',
     sub: 'अपना रेट खुद तय करें, अपने दिन खुद चुनें, और तय समय पर पैसा पाएँ। जुड़ना बिल्कुल मुफ़्त है। KYC एक बार, उसके बाद काम शुरू।',
-    ctaJoin: 'ईमेल से आवेदन करें',
+    ctaJoin: 'व्हाट्सऐप पर जुड़ें',
     ctaApp: 'ब्राउज़र में प्रोवाइडर ऐप खोलें',
     iphone: 'iPhone पर हैं?',
     fine: 'शुरू से आख़िर तक हिंदी और अंग्रेज़ी में सहायता',
@@ -284,7 +284,7 @@ const content = {
     ],
 
     finalTitle: 'इसी हफ़्ते काम लेना शुरू करें।',
-    finalSub: 'हमें ईमेल करें, हम दस्तावेज़ों में आपकी मदद करेंगे। या सीधे प्रोवाइडर ऐप में साइन अप करें।',
+    finalSub: 'व्हाट्सऐप पर हमें मैसेज करें, हम दस्तावेज़ों में आपकी मदद करेंगे। या सीधे प्रोवाइडर ऐप में साइन अप करें।',
   },
 };
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, SITE_URL } from '../site';
+import { LEGAL_NAME, SITE_URL, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../site';
 
 /**
  * The Support URL on both App Store listings. App Review rejected /faqs for it
@@ -71,6 +71,14 @@ export default function SupportPage() {
                     <span className="row__k">Email</span>
                     <span className="row__v">
                       <a href="mailto:privacy@20fourr.com">privacy@20fourr.com</a>
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="row__k">WhatsApp</span>
+                    <span className="row__v">
+                      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                        {WHATSAPP_DISPLAY}
+                      </a>
                     </span>
                   </div>
                   <div className="row">

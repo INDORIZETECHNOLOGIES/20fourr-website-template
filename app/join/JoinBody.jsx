@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import RoleFrames from '@/components/RoleFrames';
-import content, { JOIN_EMAIL_URL } from './content';
+import content, { JOIN_WHATSAPP_URL } from './content';
 import { PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import PlayStoreButton from '@/components/PlayStoreButton';
 
@@ -21,11 +21,10 @@ import PlayStoreButton from '@/components/PlayStoreButton';
  */
 const PATH = { en: '/join', hi: '/join/hi' };
 
-function MailIcon() {
+function WhatsAppIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="1.5" />
-      <path d="m3.5 6 8.5 7 8.5-7" />
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.49-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.13.16 1.74 2.66 4.22 3.73.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.28Z" />
     </svg>
   );
 }
@@ -72,8 +71,8 @@ export default function JoinBody({ lang = 'en' }) {
             <h1>{t.title}</h1>
             <p className="jhero__sub">{t.sub}</p>
             <div className="jhero__ctas">
-              <a className="btn btn--lg btn--primary" href={JOIN_EMAIL_URL}>
-                <MailIcon />
+              <a className="btn btn--lg btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon />
                 {t.ctaJoin}
               </a>
               <PlayStoreButton href={PROVIDER_PLAY_URL} />
@@ -231,8 +230,8 @@ export default function JoinBody({ lang = 'en' }) {
             <h2 style={{ maxWidth: '20ch' }}>{t.finalTitle}</h2>
             <p className="lede">{t.finalSub}</p>
             <div className="final__ctas">
-              <a className="btn btn--lg btn--primary" href={JOIN_EMAIL_URL}>
-                <MailIcon />
+              <a className="btn btn--lg btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon />
                 {t.ctaJoin}
               </a>
               <PlayStoreButton href={PROVIDER_PLAY_URL} />
@@ -250,8 +249,8 @@ export default function JoinBody({ lang = 'en' }) {
       {/* ---------- sticky action bar, small screens only ---------- */}
       <div className="jbar-spacer" aria-hidden="true" />
       <div className="jbar">
-        <a className="btn btn--primary" href={JOIN_EMAIL_URL}>
-          <MailIcon />
+        <a className="btn btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+          <WhatsAppIcon />
           {t.ctaJoin}
         </a>
       </div>

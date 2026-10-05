@@ -29,3 +29,11 @@ export const PROVIDER_APP_URL = 'https://provider.20fourr.com';
 /** Android listings on Google Play. */
 export const CLIENT_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.twentyfourr.client';
 export const PROVIDER_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.secureconnect.provider';
+
+/**
+ * Company WhatsApp, used for provider onboarding on /join and listed on
+ * /support. WHATSAPP_URL is the bare wa.me link; callers append ?text= when
+ * they want to prefill a message.
+ */
+export const WHATSAPP_DISPLAY = '+91 92595 77593';
+export const WHATSAPP_URL = 'https://wa.me/919259577593';
