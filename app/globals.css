@@ -1050,6 +1050,7 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 /* /join carries one phone, not two, and its CTAs are `btn--lg` — the media
    column gives width back so both buttons stay on one line. */
 .final--chat { grid-template-columns: minmax(0, 1fr) minmax(0, 330px); }
+.final--solo { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 940px) { .final, .final--chat { grid-template-columns: 1fr; } }
 .final__copy { display: flex; flex-direction: column; gap: 26px; }
 .final__ctas { display: flex; flex-wrap: wrap; gap: 12px; }

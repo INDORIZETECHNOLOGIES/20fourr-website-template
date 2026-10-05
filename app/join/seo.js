@@ -21,10 +21,10 @@ const LANGUAGES = {
 
 const COPY = {
   en: {
-    title: 'Work as a security guard — get paid in two days',
+    title: 'Work as a security guard, get paid in two days',
     description:
       'Join 20fourr as a security guard, bouncer, gunman, PSO or agency. Set your own rate, get 30% the moment duty starts and the rest two days later. Free to join. Hindi and English support.',
-    ogTitle: 'Work as a security guard — get paid in two days | 20fourr',
+    ogTitle: 'Work as a security guard, get paid in two days | 20fourr',
     ogDescription:
       'Set your own rate. 30% released the moment duty starts, the remaining 70% two days after it ends. Free to join.',
     name: 'Work as a security guard, bouncer, gunman or agency',
@@ -35,10 +35,10 @@ const COPY = {
     inLanguage: 'en-IN',
   },
   hi: {
-    title: 'सिक्योरिटी गार्ड का काम — दो दिन में पेमेंट',
+    title: 'सिक्योरिटी गार्ड का काम, दो दिन में पेमेंट',
     description:
       '20fourr से गार्ड, बाउंसर, गनमैन, PSO या एजेंसी के तौर पर जुड़ें। अपना रेट खुद तय करें, ड्यूटी शुरू होते ही 30% और बाक़ी दो दिन में। जुड़ना मुफ़्त। हिंदी में सहायता।',
-    ogTitle: 'सिक्योरिटी गार्ड का काम — दो दिन में पेमेंट | 20fourr',
+    ogTitle: 'सिक्योरिटी गार्ड का काम, दो दिन में पेमेंट | 20fourr',
     ogDescription:
       'अपना रेट खुद तय करें। ड्यूटी शुरू होते ही 30%, बाक़ी 70% ख़त्म होने के दो दिन बाद। जुड़ना बिल्कुल मुफ़्त।',
     name: 'गार्ड, बाउंसर, गनमैन और एजेंसियों के लिए काम',

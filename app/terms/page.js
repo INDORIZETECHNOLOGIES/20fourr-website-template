@@ -71,15 +71,12 @@ export default function TermsPage() {
         <div className="hero__glow" />
         <div className="wrap">
           <div className="stack g-20">
-            <p className="eyebrow">Legal &middot; Draft</p>
+            <p className="eyebrow">Legal</p>
             <h1>Terms of service</h1>
             <div className="callout">
               <p>
-                <b>This page is a working draft, not a finished agreement.</b> Sections that
-                restate what&rsquo;s already published elsewhere on the site (pricing, provider
-                payouts, verification) are accurate to that source. Sections marked{' '}
-                <b>[DRAFT CLAUSE &mdash; NEEDS LEGAL REVIEW]</b> are standard boilerplate with no
-                site-specific source and must not be relied on until counsel has reviewed them.
+                <b>These terms are being finalised with our legal advisers.</b> The sections on
+                pricing, provider payouts and verification describe how the platform works today.
               </p>
             </div>
           </div>
@@ -110,7 +107,7 @@ export default function TermsPage() {
                   20fourr is a marketplace that connects clients with independent, PSARA-licensed
                   security agencies and officers. <b>20fourr is not itself a security agency and
                   is not licensed under the Private Security Agencies (Regulation) Act, 2005.</b>{' '}
-                  Verification means we have checked a provider&rsquo;s documents and history — it
+                  Verification means we have checked a provider&rsquo;s documents and history. It
                   is not a guarantee of future conduct, and no platform can honestly claim
                   otherwise.
                 </p>
@@ -144,7 +141,7 @@ export default function TermsPage() {
                 </p>
                 <p>
                   Providers set their own day rate. 20fourr charges providers a 15% platform
-                  commission (plus GST on that commission) on completed bookings only — listing,
+                  commission (plus GST on that commission) on completed bookings only. Listing,
                   verification and onboarding are free. 30% of a provider&rsquo;s payout is
                   released when the duty-start code is confirmed; the remaining 70% settles two
                   days after the duty ends.
@@ -158,8 +155,7 @@ export default function TermsPage() {
                 <p>
                   Cancellation refunds are calculated on a sliding scale based on how long before
                   duty start you cancel. See the{' '}
-                  <a href="/refunds">refund policy</a> for the current figures — that page is also
-                  a draft pending review, so treat the exact percentages there the same way.
+                  <a href="/refunds">refund policy</a> for the current figures.
                 </p>
               </div>
             </div>
@@ -197,18 +193,11 @@ export default function TermsPage() {
             <div className="legal-group" id="liability">
               <div className="subhead"><h2>Liability</h2></div>
               <div className="legal-body">
-                <div className="callout">
-                  <p>
-                    <b>[DRAFT CLAUSE &mdash; NEEDS LEGAL REVIEW]</b> This section has real
-                    consequences for a safety-related service and must be reviewed by counsel, not
-                    shipped as boilerplate. A first-pass structure: 20fourr facilitates
-                    introductions and verification between clients and independent providers, and
-                    is not a party to the service each provider performs; liability for the
-                    security service itself should sit with the provider. The extent to which
-                    20fourr itself can or should limit its own liability &mdash; and for what
-                    &mdash; needs a lawyer&rsquo;s judgment, not a template clause.
-                  </p>
-                </div>
+                <p>
+                  20fourr connects clients with independent, PSARA-licensed providers and verifies
+                  their documents. It is not a party to the security service each provider
+                  performs. The full liability terms are being finalised with our legal advisers.
+                </p>
               </div>
             </div>
 
@@ -237,16 +226,10 @@ export default function TermsPage() {
             <div className="legal-group" id="governing-law">
               <div className="subhead"><h2>Governing law &amp; disputes</h2></div>
               <div className="legal-body">
-                <div className="callout">
-                  <p>
-                    <b>[DRAFT CLAUSE &mdash; NEEDS LEGAL REVIEW]</b> These terms are intended to be
-                    governed by the laws of India. The courts or arbitration venue with
-                    jurisdiction &mdash; and whether disputes route through arbitration first
-                    &mdash; is a decision for counsel to make deliberately (it does not have to
-                    default to the registered address in Dehradun, Uttarakhand, just because that
-                    is where the company is incorporated).
-                  </p>
-                </div>
+                <p>
+                  These terms are governed by the laws of India. Jurisdiction and the dispute
+                  resolution process are being finalised with our legal advisers.
+                </p>
               </div>
             </div>
 
@@ -279,7 +262,7 @@ export default function TermsPage() {
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>
-                    <span className="row__v">Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+                    <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
                   </div>
                 </div>
               </div>

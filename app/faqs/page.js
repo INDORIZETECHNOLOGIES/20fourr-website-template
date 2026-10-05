@@ -6,7 +6,7 @@ import { ORG_ID, SITE_URL } from '../site';
 import { FAQ_GROUPS } from './content';
 
 export const metadata = {
-  title: 'FAQs — booking, verification, GST and cancellations',
+  title: 'FAQs: booking, verification, GST and cancellations',
   description:
     'Answers on PSARA verification, what a badge proves, GST-inclusive pricing, cancellations, what happens on duty, and how agencies get listed on 20fourr.',
   alternates: { canonical: '/faqs' },
@@ -120,8 +120,8 @@ export default function FaqsPage() {
               Ask it against a <em>booking</em>.
             </h2>
             <p className="lede">
-              Anything specific to a duty &mdash; a change of hours, an officer who has not reported,
-              a document you doubt &mdash; belongs on the booking itself, where our compliance team
+              Anything specific to a duty, such as a change of hours, an officer who has not reported
+              or a document you doubt, belongs on the booking itself, where our compliance team
               and the agency see it at the same time with the record attached.
             </p>
             <div className="hero__ctas">

@@ -62,7 +62,7 @@ export default function Footer() {
                 makes it findable without having to open that page first. */}
             <address className="foot__contact">
               <a href="mailto:privacy@20fourr.com">privacy@20fourr.com</a>
-              <span>Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+              <span>Miyawala, Dehradun, Uttarakhand 248001</span>
             </address>
           </div>
 

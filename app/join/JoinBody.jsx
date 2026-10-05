@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import RoleFrames from '@/components/RoleFrames';
-import ChatPreview from '@/components/ChatPreview';
-import content, { WHATSAPP_URL } from './content';
+import content, { JOIN_WHATSAPP_URL } from './content';
 import { PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import PlayStoreButton from '@/components/PlayStoreButton';
 
@@ -72,9 +71,9 @@ export default function JoinBody({ lang = 'en' }) {
             <h1>{t.title}</h1>
             <p className="jhero__sub">{t.sub}</p>
             <div className="jhero__ctas">
-              <a className="btn btn--lg btn--whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a className="btn btn--lg btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon />
-                {t.ctaWhatsapp}
+                {t.ctaJoin}
               </a>
               <PlayStoreButton href={PROVIDER_PLAY_URL} />
             </div>
@@ -226,14 +225,14 @@ export default function JoinBody({ lang = 'en' }) {
 
       {/* ---------- final ---------- */}
       <section className="band">
-        <Reveal className="wrap final final--chat">
+        <Reveal className="wrap final final--solo">
           <div className="final__copy">
             <h2 style={{ maxWidth: '20ch' }}>{t.finalTitle}</h2>
             <p className="lede">{t.finalSub}</p>
             <div className="final__ctas">
-              <a className="btn btn--lg btn--whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a className="btn btn--lg btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon />
-                {t.ctaWhatsapp}
+                {t.ctaJoin}
               </a>
               <PlayStoreButton href={PROVIDER_PLAY_URL} />
             </div>
@@ -244,17 +243,15 @@ export default function JoinBody({ lang = 'en' }) {
               </a>
             </p>
           </div>
-
-          <ChatPreview chat={t.chat} icon={<WhatsAppIcon />} />
         </Reveal>
       </section>
 
       {/* ---------- sticky action bar, small screens only ---------- */}
       <div className="jbar-spacer" aria-hidden="true" />
       <div className="jbar">
-        <a className="btn btn--whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+        <a className="btn btn--whatsapp" href={JOIN_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
           <WhatsAppIcon />
-          {t.ctaWhatsapp}
+          {t.ctaJoin}
         </a>
       </div>
     </div>

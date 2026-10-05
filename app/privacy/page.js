@@ -120,7 +120,7 @@ export default function PrivacyPage() {
                   <li>Full name, email address, phone number</li>
                   <li>Deployment address and service requirements</li>
                   <li>GST registration number (business clients)</li>
-                  <li>Payment information, processed via Razorpay &mdash; we do not store card details</li>
+                  <li>Payment information, processed via Razorpay (we do not store card details)</li>
                   <li>Booking history, shift OTPs, and service reviews</li>
                   <li>Device and usage data (IP address, browser type, pages visited)</li>
                 </ul>
@@ -162,15 +162,15 @@ export default function PrivacyPage() {
                 <p>We do not sell your personal data. We share it only in the following circumstances.</p>
                 <h3>With service providers</h3>
                 <ul className="legal-list">
-                  <li><b>Razorpay</b> &mdash; payment processing and payout settlement</li>
-                  <li><b>Cloud infrastructure</b> &mdash; secure data hosting</li>
-                  <li><b>SMS/OTP providers</b> &mdash; OTP and delivery notifications</li>
-                  <li><b>Analytics providers</b> &mdash; anonymised usage data only</li>
+                  <li><b>Razorpay</b>: payment processing and payout settlement</li>
+                  <li><b>Cloud infrastructure</b>: secure data hosting</li>
+                  <li><b>SMS/OTP providers</b>: OTP and delivery notifications</li>
+                  <li><b>Analytics providers</b>: anonymised usage data only</li>
                 </ul>
                 <h3>Between clients and providers</h3>
                 <p>
                   When a booking is confirmed, limited information is shared between the client and the
-                  provider &mdash; specifically the deployment address, shift timings, and contact details
+                  provider, specifically the deployment address, shift timings, and contact details
                   necessary to fulfil the service.
                 </p>
                 <h3>Legal and regulatory authorities</h3>
@@ -196,7 +196,7 @@ export default function PrivacyPage() {
                   services. After account closure:
                 </p>
                 <ul className="legal-list">
-                  <li>Transaction and invoice records: <b>7 years</b> &mdash; GST and accounting obligations</li>
+                  <li>Transaction and invoice records: <b>7 years</b>, for GST and accounting obligations</li>
                   <li>PSARA-related provider records: <b>5 years</b> from last engagement</li>
                   <li>Shift OTP and attendance logs: <b>2 years</b></li>
                   <li>Marketing consent records: <b>3 years</b> from last interaction</li>
@@ -215,7 +215,7 @@ export default function PrivacyPage() {
                   <li>Role-based access controls limiting internal data access to authorised personnel</li>
                   <li>Regular security reviews and vulnerability assessments</li>
                   <li>Secure OTP-based authentication for critical actions</li>
-                  <li>No storage of payment card data &mdash; handled exclusively by Razorpay&rsquo;s PCI-DSS-compliant infrastructure</li>
+                  <li>No storage of payment card data, which is handled exclusively by Razorpay&rsquo;s PCI-DSS-compliant infrastructure</li>
                 </ul>
                 <p>
                   In the event of a data breach likely to result in a risk to your rights or freedoms, we
@@ -229,12 +229,12 @@ export default function PrivacyPage() {
               <div className="legal-body">
                 <p>As a Data Principal under the DPDP Act, 2023, you have the right to:</p>
                 <ul className="legal-list">
-                  <li><b>Access</b> &mdash; request a summary of the personal data we hold about you</li>
-                  <li><b>Correction</b> &mdash; request correction of inaccurate or incomplete data</li>
-                  <li><b>Erasure</b> &mdash; request deletion of your personal data, subject to legal retention obligations</li>
-                  <li><b>Grievance redressal</b> &mdash; file a complaint with our Grievance Officer</li>
-                  <li><b>Withdraw consent</b> &mdash; withdraw consent for marketing communications at any time via your account settings or by emailing privacy@20fourr.com</li>
-                  <li><b>Nominate</b> &mdash; nominate an individual to exercise your rights in the event of your death or incapacity</li>
+                  <li><b>Access</b>: request a summary of the personal data we hold about you</li>
+                  <li><b>Correction</b>: request correction of inaccurate or incomplete data</li>
+                  <li><b>Erasure</b>: request deletion of your personal data, subject to legal retention obligations</li>
+                  <li><b>Grievance redressal</b>: file a complaint with our Grievance Officer</li>
+                  <li><b>Withdraw consent</b>: withdraw consent for marketing communications at any time via your account settings or by emailing privacy@20fourr.com</li>
+                  <li><b>Nominate</b>: nominate an individual to exercise your rights in the event of your death or incapacity</li>
                 </ul>
                 <p>
                   To exercise any right, write to <b>privacy@20fourr.com</b> from your registered email
@@ -248,9 +248,9 @@ export default function PrivacyPage() {
               <div className="legal-body">
                 <p>We use cookies and similar technologies to operate the platform and improve your experience.</p>
                 <ul className="legal-list">
-                  <li><b>Essential cookies</b> &mdash; required for login sessions and security, cannot be disabled</li>
-                  <li><b>Functional cookies</b> &mdash; remember your preferences, such as language and location filters</li>
-                  <li><b>Analytics cookies</b> &mdash; anonymised data on platform usage, can be opted out</li>
+                  <li><b>Essential cookies</b>: required for login sessions and security, cannot be disabled</li>
+                  <li><b>Functional cookies</b>: remember your preferences, such as language and location filters</li>
+                  <li><b>Analytics cookies</b>: anonymised data on platform usage, can be opted out</li>
                 </ul>
                 <p>
                   You can manage cookie preferences through your browser settings. Disabling essential
@@ -276,7 +276,7 @@ export default function PrivacyPage() {
               <div className="legal-body">
                 <p>In compliance with the Digital Personal Data Protection Act, 2023:</p>
                 <ul className="legal-list">
-                  <li>We collect only data necessary for the stated purposes &mdash; data minimisation</li>
+                  <li>We collect only data necessary for the stated purposes (data minimisation)</li>
                   <li>We obtain free, specific, and informed consent before processing personal data where required</li>
                   <li>We have appointed a Grievance Officer accessible to Data Principals</li>
                   <li>We maintain a record of consent and purpose for all personal data processed</li>
@@ -314,7 +314,7 @@ export default function PrivacyPage() {
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>
-                    <span className="row__v">Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+                    <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
                   </div>
                   <div className="row">
                     <span className="row__k">Response time</span>

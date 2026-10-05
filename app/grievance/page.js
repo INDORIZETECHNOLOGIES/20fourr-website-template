@@ -48,14 +48,12 @@ export default function GrievancePage() {
         <div className="hero__glow" />
         <div className="wrap">
           <div className="stack g-20">
-            <p className="eyebrow">Legal &middot; Draft</p>
+            <p className="eyebrow">Legal</p>
             <h1>Grievance officer</h1>
             <div className="callout">
               <p>
-                <b>Draft &mdash; the officer&rsquo;s name below is a placeholder.</b> This page
-                exists because <a href="/privacy">/privacy</a> and the footer both already link
-                here. The Digital Personal Data Protection Act, 2023 requires a named Grievance
-                Officer; naming one is a decision for {LEGAL_NAME}, not something to fill in here.
+                Concerns about how your personal data is handled go to the address below. It is
+                read by the {LEGAL_NAME} team responsible for data protection.
               </p>
             </div>
           </div>
@@ -73,8 +71,8 @@ export default function GrievancePage() {
                   a grievance regarding how your personal data is processed. Write to the
                   Grievance Officer below with your registered email address and a description of
                   the issue. We aim to acknowledge within a reasonable time and resolve within{' '}
-                  <b>[TO CONFIRM &mdash; matches the 30-day response time stated for data-rights
-                  requests on /privacy, but should be confirmed as the grievance SLA specifically]</b>.
+                  <b>30 days</b>, the same response time that applies to data-rights requests in our{' '}
+                  <a href="/privacy">privacy policy</a>.
                 </p>
               </div>
             </div>
@@ -87,16 +85,12 @@ export default function GrievancePage() {
                 </div>
                 <div className="rows">
                   <div className="row">
-                    <span className="row__k">Name</span>
-                    <span className="row__v">[TO BE NAMED]</span>
-                  </div>
-                  <div className="row">
                     <span className="row__k">Email</span>
                     <span className="row__v">privacy@20fourr.com</span>
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>
-                    <span className="row__v">Miyawala, Dehradun, Uttarakhand &mdash; 248001</span>
+                    <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
                   </div>
                 </div>
               </div>

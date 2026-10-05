@@ -50,7 +50,7 @@ const mono = IBM_Plex_Mono({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: '20fourr — Verified security, dispatched on demand',
+    default: '20fourr | Verified security, dispatched on demand',
     template: '%s | 20fourr',
   },
   description:
@@ -59,7 +59,7 @@ export const metadata = {
     type: 'website',
     locale: 'en_IN',
     siteName: '20fourr',
-    title: '20fourr — Verified security, dispatched on demand',
+    title: '20fourr | Verified security, dispatched on demand',
     description:
       'Licensed guards, bouncers, armed protection and PSOs. Duty proven with a code. Payment released against verified attendance.',
   },
