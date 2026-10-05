@@ -61,7 +61,7 @@ export default function GrievancePage() {
       </header>
 
       <section className="band band--ink-2">
-        <div className="wrap faqs">
+        <div className="wrap">
           <div>
             <div className="legal-group" id="overview">
               <div className="subhead"><h2>How to file a grievance</h2></div>
@@ -78,7 +78,7 @@ export default function GrievancePage() {
             </div>
             <div className="legal-group" id="officer">
               <div className="subhead"><h2>Grievance officer</h2></div>
-              <div className="invoice" style={{ maxWidth: 480, marginTop: 16 }}>
+              <div className="invoice invoice--profile" style={{ maxWidth: 480 }}>
                 <div className="invoice__hd">
                   <span className="invoice__ttl">Grievance officer</span>
                   <span className="invoice__ref">{LEGAL_NAME}</span>
