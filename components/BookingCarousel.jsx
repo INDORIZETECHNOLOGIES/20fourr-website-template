@@ -32,9 +32,14 @@ export default function BookingCarousel({ steps }) {
     return () => io.disconnect();
   }, [steps]);
 
+  // Scrolls the track only. scrollIntoView would also scroll the page to
+  // bring the plate into view, which jumps the viewport when a step is picked
+  // from the desktop index while the plate sits partly off-screen.
   function goTo(index) {
+    const track = trackRef.current;
     const el = itemRefs.current[index];
-    if (el) el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    if (!track || !el) return;
+    track.scrollTo({ left: el.offsetLeft - (track.clientWidth - el.clientWidth) / 2, behavior: 'smooth' });
   }
 
   function onKeyDown(e) {
@@ -93,6 +98,23 @@ export default function BookingCarousel({ steps }) {
           </div>
         ))}
       </div>
+
+      {/* Desktop only (see .carousel__index): the whole sequence as a ruled
+          list beside the plate, so the band's width carries the order of the
+          eight steps while the screenshots still arrive one at a time. */}
+      <ol className="carousel__index">
+        {steps.map((s, i) => (
+          <li key={s.n} className={i === active ? 'is-active' : undefined}>
+            <button type="button" onClick={() => goTo(i)} aria-current={i === active ? 'step' : undefined}>
+              <span className="carousel__index-n">{s.n}</span>
+              <span className="carousel__index-h">{s.h}</span>
+            </button>
+            <div className="carousel__index-body">
+              <p>{s.b}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
 
       <div className="carousel__dots">
         {steps.map((s, i) => (

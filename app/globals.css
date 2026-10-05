@@ -1638,6 +1638,69 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
     opacity: 0;
   }
 }
+/* Mobile and tablet carry each caption under its own plate; the index only
+   exists once there is a second column to put it in. */
+.carousel__index { display: none; }
+.carousel__track { position: relative; }
+
+/* ---------- desktop: plate left, the sequence right ----------
+   The 640px single column left ~40% of the band empty beside it, and its edge
+   fade clipped the caption's first letters. Here the plate takes one column
+   at full height, one step per view with no peek, and the eight steps sit
+   beside it as a ruled list: the active step opens to show its copy, the rest
+   stay one line each so the whole order reads at a glance. */
+@media (min-width: 1000px) {
+  .carousel {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    grid-template-areas: "track head" "track index";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(56px, 7vw, 112px);
+    align-items: start;
+  }
+  .carousel__head { grid-area: head; margin-bottom: 22px; }
+  .carousel__track { grid-area: track; gap: 0; mask-image: none; padding-bottom: 0; }
+  .carousel__item { flex-basis: 100%; }
+  .carousel__item .step__stage { margin-bottom: 0; --shot-h: clamp(480px, 40vw, 580px); --shot-pad: 32px; }
+  .carousel__item .step__n,
+  .carousel__item .step__h,
+  .carousel__item .step__b { display: none; }
+  .carousel .carousel__dots { display: none; }
+
+  .carousel__index { grid-area: index; display: block; list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
+  .carousel__index li { border-top: 1px solid var(--line); }
+  .carousel__index button {
+    display: flex; align-items: baseline; gap: 18px; width: 100%;
+    padding: 15px 0; background: none; border: 0; cursor: pointer; text-align: left;
+    color: var(--text-2); font: inherit;
+    transition: color .15s ease;
+  }
+  .carousel__index button:hover { color: var(--text); }
+  .carousel__index button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .carousel__index-n { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; color: var(--text-3); flex: 0 0 26px; }
+  .carousel__index-h { font-size: 1rem; line-height: 1.35; }
+  .carousel__index li.is-active button { color: var(--text); }
+  .carousel__index li.is-active .carousel__index-n { color: var(--accent); }
+  .carousel__index li.is-active .carousel__index-h {
+    font-family: var(--display); font-weight: 400; text-transform: uppercase;
+    font-size: 1.45rem; letter-spacing: .03em; line-height: 1.1;
+  }
+  /* opens with the grid-rows trick, so the height animates without a magic number */
+  .carousel__index-body {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows .35s cubic-bezier(.2, .8, .2, 1);
+  }
+  .carousel__index-body > p {
+    overflow: hidden; margin: 0; padding-left: 44px;
+    font-size: .94rem; line-height: 1.6; color: var(--text-2); max-width: 52ch;
+  }
+  .carousel__index li.is-active .carousel__index-body { grid-template-rows: 1fr; }
+  .carousel__index li.is-active .carousel__index-body > p { padding-bottom: 18px; }
+}
+@media (min-width: 1000px) and (prefers-reduced-motion: reduce) {
+  .carousel__index-body { transition: none; }
+}
 .carousel__dots { display: flex; gap: 6px; justify-content: center; margin-top: 18px; }
 .carousel__dot {
   width: 5px; height: 5px; border-radius: 5px; padding: 0; border: none;
