@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 import Filters from './Filters';
 import Pager from './Pager';
 import ProviderCard from './ProviderCard';
-import { CLIENT_APP_URL } from '@/app/site';
+import { CLIENT_APP_URL, OG_BASE } from '@/app/site';
 import { listingJsonLd } from './schema';
 import {
   CATEGORY_LABEL,
@@ -63,6 +63,7 @@ export async function generateMetadata({ searchParams }) {
       : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
     alternates: { canonical: canonicalFor(view) },
     openGraph: {
+      ...OG_BASE,
       title: `${serviceWhat} ${where}`,
       description: `PSARA-licensed, identity-checked providers. Compare day rates by service and city.`,
     },

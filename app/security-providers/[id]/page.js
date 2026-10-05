@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
-import { CLIENT_APP_URL } from '@/app/site';
+import { CLIENT_APP_URL, OG_BASE } from '@/app/site';
 import { providerJsonLd } from '../schema';
 import {
   badgeLabel,
@@ -38,6 +38,7 @@ export async function generateMetadata({ params }) {
     } from ${inr(p.dailyRate)} per day, with the verification checks every listing clears.`,
     alternates: { canonical: `/security-providers/${p.id}` },
     openGraph: {
+      ...OG_BASE,
       title: name,
       description: `PSARA-verified · ${p.city} · ${inr(p.dailyRate)} per day`,
     },
