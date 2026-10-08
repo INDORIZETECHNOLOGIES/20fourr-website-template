@@ -1,5 +1,6 @@
 import {
   CATEGORY_ORDER,
+  DIRECTORY_IS_SAMPLE,
   FILTER_CITIES,
   PROVIDERS,
   queryProviders,
@@ -68,10 +69,9 @@ export default function sitemap() {
 
   const entries = [
     { url: BASE, changeFrequency: 'monthly', priority: 1 },
-    { url: `${BASE}/join`, changeFrequency: 'monthly', priority: 0.8 },
-    // The Hindi provider page is its own URL, so it is its own sitemap entry.
-    // Same priority as the English one — it is the same page, not a lesser
-    // version of it, and for a large part of this audience it is the primary.
+    // English /join is noindex: provider.20fourr.com is the page that ranks for
+    // provider searches (see join/seo.js). The Hindi page stays — the provider
+    // site has no Hindi version, so for that audience this is still the page.
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/support`, changeFrequency: 'monthly', priority: 0.5 },
@@ -93,11 +93,15 @@ export default function sitemap() {
       FILTER_CITIES.flatMap((city) => listingEntry({ category, city }, 0.7))
     ),
 
-    ...PROVIDERS.map((p) => ({
-      url: `${BASE}/security-providers/${p.id}`,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    })),
+    // Sample profiles are noindex, and a noindex page in the sitemap sends a
+    // mixed signal. They return the moment the directory is real.
+    ...(DIRECTORY_IS_SAMPLE
+      ? []
+      : PROVIDERS.map((p) => ({
+          url: `${BASE}/security-providers/${p.id}`,
+          changeFrequency: 'monthly',
+          priority: 0.6,
+        }))),
   ];
 
   return entries.map((e) => ({ lastModified, ...e }));

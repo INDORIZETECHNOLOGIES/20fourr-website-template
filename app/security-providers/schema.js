@@ -3,24 +3,26 @@ import {
   BADGE_LABEL,
   CATEGORY_LABEL,
   CATEGORY_SERVICE_PHRASE,
+  DIRECTORY_IS_SAMPLE,
   displayName,
   shownCityFor,
 } from './data';
 
 /**
- * Ratings in structured data.
+ * Sample providers in structured data.
  *
- * Every rating on this site comes out of the hand-compiled array in data.js, not
- * from bookings that happened. Marking those up as `aggregateRating` would put
- * star ratings for named individuals into Google's results on the strength of
- * sample data — which is the definition of the review-spam policy, and the kind
- * of thing that costs a domain its rich results across the board rather than
- * just on the offending page.
+ * Every provider on this site comes out of the hand-compiled array in data.js, not
+ * from the booking platform. Describing those as a real Person or ProfessionalService
+ * with an Offer, a price and PSARA credentials — or marking their ratings up as
+ * `aggregateRating` — is misleading structured data under Google's policies, and the
+ * penalty for it is a manual action that can cost the whole domain its rich results,
+ * not just the offending page. So while DIRECTORY_IS_SAMPLE is true, profile pages
+ * emit only their breadcrumb and listing pages carry no ItemList of providers.
  *
- * Flip this to true once the directory is fed by the booking platform and each
- * rating traces to a paid, completed shift. Nothing else has to change.
+ * Ratings follow the same switch: once the directory is fed by the platform, each
+ * rating traces to a paid, completed shift and can be marked up.
  */
-const RATINGS_ARE_REAL = false;
+const RATINGS_ARE_REAL = !DIRECTORY_IS_SAMPLE;
 
 const CATEGORY_SERVICE_TYPE = {
   guard: 'Security guard service',
@@ -162,6 +164,10 @@ function breadcrumb(p) {
 
 /** Everything one profile page declares, as a single connected graph. */
 export function providerJsonLd(p) {
+  if (DIRECTORY_IS_SAMPLE) {
+    return { '@context': 'https://schema.org', '@graph': [breadcrumb(p)] };
+  }
+
   const node = providerNode(p);
 
   return {
@@ -202,20 +208,26 @@ export function listingJsonLd({ providers, category, city, page, pageSize, canon
         name: `${what} ${where}`,
         isPartOf: { '@id': `${SITE_URL}/#website` },
         about: { '@id': ORG_ID },
-        mainEntity: {
-          // No itemListOrder: the indexed order is "Most relevant", which is the
-          // array's own order, not an ascending or descending sort on any
-          // property. `position` already carries the ranking; claiming a
-          // direction on top of it would be claiming something untrue.
-          '@type': 'ItemList',
-          numberOfItems: providers.length,
-          itemListElement: providers.map((p, i) => ({
-            '@type': 'ListItem',
-            position: (page - 1) * pageSize + i + 1,
-            name: displayName(p, shownCityFor(p, city)),
-            url: providerUrl(p),
-          })),
-        },
+        // Sample providers are not listed: an ItemList would name them to Google
+        // as the real contents of this page. See DIRECTORY_IS_SAMPLE.
+        ...(DIRECTORY_IS_SAMPLE
+          ? {}
+          : {
+              mainEntity: {
+                // No itemListOrder: the indexed order is "Most relevant", which is the
+                // array's own order, not an ascending or descending sort on any
+                // property. `position` already carries the ranking; claiming a
+                // direction on top of it would be claiming something untrue.
+                '@type': 'ItemList',
+                numberOfItems: providers.length,
+                itemListElement: providers.map((p, i) => ({
+                  '@type': 'ListItem',
+                  position: (page - 1) * pageSize + i + 1,
+                  name: displayName(p, shownCityFor(p, city)),
+                  url: providerUrl(p),
+                })),
+              },
+            }),
       },
       {
         '@type': 'BreadcrumbList',
