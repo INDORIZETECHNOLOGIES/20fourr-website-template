@@ -70,6 +70,34 @@ const STATES = {
     licences: { issued: '8,365', active: '3,813', expired: '4,552' },
     cashRulesDate: null,
   },
+  Rajasthan: {
+    authority: 'Director General and Commandant General, the controlling authority the state has designated',
+    rulesDate: '26 August 2022',
+    rulesUrl: rulesPdf('Rajasthan_private_security_agencies_rules_2022_gazette_copy.pdf'),
+    licences: { issued: '4,505', active: '2,380', expired: '2,125' },
+    cashRulesDate: '24 December 2019',
+  },
+  Haryana: {
+    authority: 'Additional Director General of Police, Law & Order',
+    rulesDate: '6 May 2022',
+    rulesUrl: rulesPdf('HaryanaPSARARules06_05_2022.pdf'),
+    licences: { issued: '3,049', active: '1,612', expired: '1,437' },
+    cashRulesDate: '13 September 2019',
+  },
+  'Uttar Pradesh': {
+    authority: 'Additional Director General of Police, Law & Order',
+    rulesDate: '2 November 2023',
+    rulesUrl: rulesPdf('PSARA_Rules_of_Uttar_Pradesh.pdf'),
+    licences: { issued: '5,420', active: '3,640', expired: '1,780' },
+    cashRulesDate: '26 March 2020',
+  },
+  'West Bengal': {
+    authority: 'Additional Secretary the state has designated as controlling authority',
+    rulesDate: '28 February 2025',
+    rulesUrl: rulesPdf('WB_Rules_28april2025.pdf'),
+    licences: { issued: '741', active: '741', expired: '0' },
+    cashRulesDate: null,
+  },
 };
 
 /* ---------- building blocks shared by every city ---------- */
@@ -97,9 +125,13 @@ function expiredRule(state) {
 
 function licenceCheckFaq(city, state) {
   const { issued, active, expired } = STATES[state].licences;
+  const counts =
+    expired === '0'
+      ? `As of ${REVIEWED}, the national PSARA portal lists ${issued} licences in ${state}, all of them active, but a licence still lapses five years after it is granted unless renewed.`
+      : `Expired licences are common: as of ${REVIEWED}, the national PSARA portal lists ${issued} licences issued in ${state}, of which ${active} are active and ${expired} have expired.`;
   return {
     q: `How do I check a security agency's PSARA licence in ${city}?`,
-    a: `Ask the agency for its licence number, the state that issued it and its validity date, and check that the licence is in the agency's own name. Expired licences are common: as of ${REVIEWED}, the national PSARA portal lists ${issued} licences issued in ${state}, of which ${active} are active and ${expired} have expired. 20fourr verifies every provider's licence against the issuing state authority before listing them.`,
+    a: `Ask the agency for its licence number, the state that issued it and its validity date, and check that the licence is in the agency's own name. ${counts} 20fourr verifies every provider's licence against the issuing state authority before listing them.`,
   };
 }
 
@@ -327,6 +359,139 @@ export const CITY_GUIDES = {
       trainingFaq('Ahmedabad'),
     ],
     sources: [...stateSources('Gujarat'), TRAINING_SOURCE],
+  },
+
+  Surat: {
+    state: 'Gujarat',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Surat is booked for diamond and textile units, factories and warehouses, offices, housing societies, weddings and venues. ${ROLES_LINE}`,
+      'Gujarat has issued 8,365 PSARA licences, and more of them have expired than are still active, so a current licence is the first thing to confirm.',
+    ],
+    rules: [licenceRule('Surat', 'Gujarat'), expiredRule('Gujarat'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Surat', 'Gujarat'),
+      otherStateFaq('Surat', 'Gujarat'),
+      armedFaq('Surat', 'Gujarat'),
+      trainingFaq('Surat'),
+    ],
+    sources: [...stateSources('Gujarat'), TRAINING_SOURCE],
+  },
+
+  Jaipur: {
+    state: 'Rajasthan',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Jaipur is booked for hotels and heritage venues, destination weddings, offices, showrooms and jewellery businesses, residences, and close protection for visiting executives. ${ROLES_LINE}`,
+      'Rajasthan’s 2022 rules spell out what a client can check for themselves: how a guard is police-verified, and what the photo identity card every guard carries has to show.',
+    ],
+    rules: [
+      licenceRule('Jaipur', 'Rajasthan'),
+      {
+        title: 'Verified, and carrying a proper ID card',
+        body: 'Before employing a guard, an agency verifies their character and antecedents, through police databases such as CCTNS and ICJS or a police report applied for online or through E-Mitra; the report is due within 30 days and stays valid for five years. Every guard carries a photo identity card showing a full-face colour photo, their name, the agency’s name, an employee number, their position and the date the card is valid until.',
+      },
+      TRAINING_RULE,
+    ],
+    faqs: [
+      {
+        q: 'What should a security guard’s ID card show in Jaipur?',
+        a: 'Under the Rajasthan Private Security Agencies (Regulation) Rules, 2022, the photo identity card an agency issues must show a full-face colour photo, the guard’s full name, the agency’s name, the guard’s employee number and position, and the date the card is valid until. A card missing any of these, or past its date, is worth questioning.',
+      },
+      {
+        q: 'How many supervisors should a large deployment in Jaipur have?',
+        a: 'Rajasthan’s rules require one supervisor for every 15 guards at most. Where guards are spread across different premises and one supervisor cannot practically oversee them, the agency must post more, so that there is at least one supervisor for every six guards.',
+      },
+      licenceCheckFaq('Jaipur', 'Rajasthan'),
+      armedFaq('Jaipur', 'Rajasthan'),
+      trainingFaq('Jaipur'),
+    ],
+    sources: [...stateSources('Rajasthan'), TRAINING_SOURCE],
+  },
+
+  Gurugram: {
+    state: 'Haryana',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Gurugram is booked for corporate towers and offices, malls, warehouses along the expressways, gated communities, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
+      'Gurugram is in Haryana, not Delhi. An agency licensed only in Delhi or Uttar Pradesh cannot deploy here, even though the three cities share one metro area.',
+    ],
+    rules: [
+      licenceRule('Gurugram', 'Haryana'),
+      {
+        title: 'Verified and supervised',
+        body: 'Haryana’s 2022 rules require an agency to verify each guard’s character and antecedents before employment, through police databases such as CCTNS and ICJS; the report is due within 15 days and stays valid for five years. Every 15 guards need a supervisor, and guards spread across separate premises need one for every six.',
+      },
+      TRAINING_RULE,
+    ],
+    faqs: [
+      {
+        q: 'Can a Delhi or Noida agency send guards to Gurugram?',
+        a: 'Only with a Haryana licence. Gurugram is in Haryana, Delhi is its own state, and Noida is in Uttar Pradesh, and a PSARA licence covers the state that issued it. An agency working across NCR needs a licence from each of the three.',
+      },
+      {
+        q: 'How many supervisors should a large deployment in Gurugram have?',
+        a: 'Haryana’s rules require one supervisor for every 15 guards at most. Where guards are on duty at different premises and one supervisor cannot practically oversee them, the agency must post more, so that there is at least one supervisor for every six guards.',
+      },
+      licenceCheckFaq('Gurugram', 'Haryana'),
+      armedFaq('Gurugram', 'Haryana'),
+      trainingFaq('Gurugram'),
+    ],
+    sources: [...stateSources('Haryana'), TRAINING_SOURCE],
+  },
+
+  Noida: {
+    state: 'Uttar Pradesh',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Noida is booked for IT and media offices, factories and warehouses, high-rise societies, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
+      'Noida is in Uttar Pradesh, not Delhi. An agency licensed only in Delhi or Haryana cannot deploy here, even though the three cities share one metro area.',
+    ],
+    rules: [licenceRule('Noida', 'Uttar Pradesh'), expiredRule('Uttar Pradesh'), TRAINING_RULE],
+    faqs: [
+      {
+        q: 'Can a Delhi or Gurugram agency send guards to Noida?',
+        a: 'Only with an Uttar Pradesh licence. Noida is in Uttar Pradesh, Delhi is its own state, and Gurugram is in Haryana, and a PSARA licence covers the state that issued it. An agency working across NCR needs a licence from each of the three.',
+      },
+      licenceCheckFaq('Noida', 'Uttar Pradesh'),
+      armedFaq('Noida', 'Uttar Pradesh'),
+      trainingFaq('Noida'),
+    ],
+    sources: [...stateSources('Uttar Pradesh'), TRAINING_SOURCE],
+  },
+
+  Lucknow: {
+    state: 'Uttar Pradesh',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Lucknow is booked for offices and government contractors, hospitals and institutions, residences, weddings and venues, and close protection for executives and visitors. ${ROLES_LINE}`,
+      'Uttar Pradesh replaced its PSARA rules in November 2023, and a third of the licences ever issued in the state have since expired, so a current licence is the first thing to confirm.',
+    ],
+    rules: [licenceRule('Lucknow', 'Uttar Pradesh'), expiredRule('Uttar Pradesh'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Lucknow', 'Uttar Pradesh'),
+      otherStateFaq('Lucknow', 'Uttar Pradesh'),
+      armedFaq('Lucknow', 'Uttar Pradesh'),
+      trainingFaq('Lucknow'),
+    ],
+    sources: [...stateSources('Uttar Pradesh'), TRAINING_SOURCE],
+  },
+
+  Kolkata: {
+    state: 'West Bengal',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Kolkata is booked for offices, factories and port-side warehouses, housing complexes, weddings, pujo pandals and venues, and close protection for executives and visitors. ${ROLES_LINE}`,
+      'West Bengal replaced its 2007 PSARA rules in February 2025, so agencies here now work under rules rewritten that year.',
+    ],
+    rules: [licenceRule('Kolkata', 'West Bengal'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Kolkata', 'West Bengal'),
+      otherStateFaq('Kolkata', 'West Bengal'),
+      armedFaq('Kolkata', 'West Bengal'),
+      trainingFaq('Kolkata'),
+    ],
+    sources: [...stateSources('West Bengal'), TRAINING_SOURCE],
   },
 };
 
