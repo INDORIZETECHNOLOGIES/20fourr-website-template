@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
@@ -44,7 +45,11 @@ function canonicalFor({ category, city, page }) {
 
 export async function generateMetadata({ searchParams }) {
   const view = parseSearchParams(await searchParams);
-  const { category, city, page } = view;
+  if (view.unknownCity) notFound();
+  const { category, city } = view;
+  // The page actually shown: ?page=99 on a two-page filter renders page 2, so it
+  // canonicalises to page 2 rather than minting a duplicate URL for it.
+  const { total, page } = queryProviders(view);
 
   // The <title>/H1 use buyer-facing service phrasing (see CATEGORY_SERVICE_PHRASE):
   // the plain "{category} in {city}" form this replaced reads like a job
@@ -61,7 +66,10 @@ export async function generateMetadata({ searchParams }) {
     description: city
       ? `Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
       : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
-    alternates: { canonical: canonicalFor(view) },
+    alternates: { canonical: canonicalFor({ ...view, page }) },
+    // A filter with no providers still renders, with a
+    // "can't see your city" prompt, but an empty listing is not a page to index.
+    ...(total === 0 ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       ...OG_BASE,
       title: `${serviceWhat} ${where}`,
@@ -72,6 +80,7 @@ export async function generateMetadata({ searchParams }) {
 
 export default async function ProvidersPage({ searchParams }) {
   const view = parseSearchParams(await searchParams);
+  if (view.unknownCity) notFound();
   const { category, city, sortBy } = view;
   const { providers, total, page, pages } = queryProviders(view);
 
@@ -90,7 +99,7 @@ export default async function ProvidersPage({ searchParams }) {
           city,
           page,
           pageSize: PAGE_SIZE,
-          canonical: canonicalFor(view),
+          canonical: canonicalFor({ ...view, page }),
         })}
       />
 

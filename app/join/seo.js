@@ -3,21 +3,19 @@ import { OG_BASE, ORG_ID, SITE_URL } from '../site';
 /**
  * Metadata and structured data for both language versions of /join.
  *
- * Built from one table so the pair can never disagree: a canonical that points
- * at the wrong language, or an hreflang set that lists a URL the other page does
- * not list back, is worse than no hreflang at all — Google drops the whole
- * cluster rather than guessing which side is right.
+ * provider.20fourr.com is the page meant to rank for provider searches, and the
+ * English /join competed with it for the same queries — so English /join is
+ * noindex (still followed). The Hindi page stays indexed: the provider site has
+ * no Hindi version, so for Hindi searches this is the only page there is.
+ *
+ * No hreflang pair either. An hreflang set that includes a noindex page is
+ * broken, and Google drops the whole cluster rather than guessing; each page
+ * now just canonicalises to itself. Restore the pair if English /join is ever
+ * indexed again.
  */
 const PATH = { en: '/join', hi: '/join/hi' };
 
-/* Every page in the set lists every page in the set, itself included, plus one
-   x-default for a visitor whose language we have no version for. English is
-   x-default because it is what the rest of the site is written in. */
-const LANGUAGES = {
-  'en-IN': PATH.en,
-  'hi-IN': PATH.hi,
-  'x-default': PATH.en,
-};
+const INDEXED = { en: false, hi: true };
 
 const COPY = {
   en: {
@@ -56,7 +54,8 @@ export function joinMetadata(lang) {
   return {
     title: c.title,
     description: c.description,
-    alternates: { canonical: PATH[lang], languages: LANGUAGES },
+    alternates: { canonical: PATH[lang] },
+    robots: { index: INDEXED[lang], follow: true },
     openGraph: {
       ...OG_BASE,
       title: c.ogTitle,

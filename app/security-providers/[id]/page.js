@@ -7,11 +7,12 @@ import { providerJsonLd } from '../schema';
 import {
   badgeLabel,
   categoryList,
+  DIRECTORY_IS_SAMPLE,
   displayName,
   findProvider,
   inr,
   PROVIDERS,
-  ratingLabel,
+  providerRatingLabel,
 } from '../data';
 
 /* Every profile is prerendered at build time — the directory is static, so there is
@@ -37,6 +38,10 @@ export async function generateMetadata({ params }) {
       p.city
     } from ${inr(p.dailyRate)} per day, with the verification checks every listing clears.`,
     alternates: { canonical: `/security-providers/${p.id}` },
+    // A sample profile is a demo of the product, not a provider anyone can book, so
+    // it stays out of search results. `follow` keeps its links to the listing pages
+    // counting. See DIRECTORY_IS_SAMPLE in data.js.
+    robots: { index: !DIRECTORY_IS_SAMPLE, follow: true },
     openGraph: {
       ...OG_BASE,
       title: name,
@@ -76,10 +81,17 @@ export default async function ProviderPage({ params }) {
       <b>Government photo ID</b> matched to a live selfie taken at onboarding, not an
       uploaded photograph.
     </>,
-    <>
-      <b>Rating of {provider.rating.toFixed(1)}</b> earned across {provider.ratingCount} completed
-      bookings. Only a client who paid for a shift can rate it.
-    </>,
+    DIRECTORY_IS_SAMPLE ? (
+      <>
+        <b>Ratings</b> come only from clients who paid for a completed shift, so a provider
+        cannot buy or self-award them.
+      </>
+    ) : (
+      <>
+        <b>Rating of {provider.rating.toFixed(1)}</b> earned across {provider.ratingCount} completed
+        bookings. Only a client who paid for a shift can rate it.
+      </>
+    ),
     provider.badges.includes('firearms_authorized') ? (
       <>
         <b>Firearm licence</b> checked per booking, not once at signup. An expired licence takes
@@ -109,7 +121,7 @@ export default async function ProviderPage({ params }) {
             </p>
             <h1>{name}</h1>
             <p className="pdetail__meta num">
-              {provider.city} &middot; {ratingLabel(provider.rating, provider.ratingCount)} &middot;{' '}
+              {provider.city} &middot; {providerRatingLabel(provider)} &middot;{' '}
               {provider.experienceYears} years&rsquo; experience
             </p>
             <div className="chips">

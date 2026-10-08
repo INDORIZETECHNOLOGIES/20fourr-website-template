@@ -101,6 +101,21 @@ export const SORT_OPTIONS = [
 
 export const PAGE_SIZE = 12;
 
+/**
+ * Every entry below is a sample: invented names, ratings and rates that show how
+ * the directory works until the booking platform exports real listings. The pages
+ * say so to visitors; this flag says so to search engines. While it is true:
+ *
+ *   - profile pages are noindex (still followed) and left out of the sitemap,
+ *   - no structured data describes a sample provider as a real business, person,
+ *     price or credential, and listing pages carry no ItemList of them,
+ *   - cards and profiles show "Sample listing" instead of a star rating.
+ *
+ * Flip it to false only when this array is fed by the platform and every
+ * provider, rating and rate is real. Nothing else has to change.
+ */
+export const DIRECTORY_IS_SAMPLE = true;
+
 /* ------------------------------------------------------------
    The directory. Array order is the "Most relevant" sort.
    ------------------------------------------------------------ */
@@ -774,6 +789,11 @@ export function ratingLabel(avg, count) {
   return `★ ${avg.toFixed(1)} (${count})`;
 }
 
+/** A sample provider's stars and review count are invented, so they are not shown as if earned. */
+export function providerRatingLabel(p) {
+  return DIRECTORY_IS_SAMPLE ? 'Sample listing' : ratingLabel(p.rating, p.ratingCount);
+}
+
 export function categoryList(categories) {
   return categories.map((c) => CATEGORY_LABEL[c]).join(' · ');
 }
@@ -803,16 +823,32 @@ function first(v) {
 }
 
 /**
+ * Every city the directory knows: the filter list plus any city a provider covers.
+ * Keyed lower-case so ?city=pune and ?city=Pune resolve to one spelling — and so
+ * one canonical — instead of two indexable copies of the same page.
+ */
+const KNOWN_CITIES = new Map(
+  [...FILTER_CITIES, ...PROVIDERS.flatMap((p) => p.cities)].map((c) => [c.toLowerCase(), c])
+);
+
+/**
  * The validated view behind a query string. Shared by the page and its
  * generateMetadata so the heading, the title and the results can never
  * disagree about what is being shown.
+ *
+ * `unknownCity` is set when a city was asked for that the directory has never
+ * heard of. Rendering "Security services in Atlantis" for it would hand crawlers
+ * an unbounded supply of indexable empty pages, so the route 404s instead.
  */
 export function parseSearchParams(sp = {}) {
   const rawCategory = first(sp.category);
   const rawSort = first(sp.sortBy);
+  const rawCity = first(sp.city)?.trim() || undefined;
+  const city = rawCity ? KNOWN_CITIES.get(rawCity.toLowerCase()) : undefined;
   return {
     category: isCategory(rawCategory) ? rawCategory : undefined,
-    city: first(sp.city)?.trim() || undefined,
+    city,
+    unknownCity: Boolean(rawCity) && !city,
     sortBy: isSortBy(rawSort) ? rawSort : undefined,
     page: Math.max(1, Number(first(sp.page)) || 1),
   };

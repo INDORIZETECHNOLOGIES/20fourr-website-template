@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { badgeLabel, categoryList, displayName, inr, ratingLabel, shownCityFor } from './data';
+import { badgeLabel, categoryList, displayName, inr, providerRatingLabel, shownCityFor } from './data';
 
 export default function ProviderCard({ provider, selectedCity }) {
   // When a city filter is on and this provider covers it, lead with that city —
@@ -7,7 +7,7 @@ export default function ProviderCard({ provider, selectedCity }) {
   const shown = shownCityFor(provider, selectedCity);
   const others = provider.cities.filter((c) => c !== shown);
 
-  const meta = [shown, ratingLabel(provider.rating, provider.ratingCount)]
+  const meta = [shown, providerRatingLabel(provider)]
     .filter(Boolean)
     .join(' · ');
 
