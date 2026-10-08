@@ -194,17 +194,38 @@ export function providerJsonLd(p) {
  * ordered set rather than N unrelated pages that happen to share a template —
  * `position` is offset by the page number so page 3 does not claim to start at 1.
  */
-export function listingJsonLd({ providers, category, city, page, pageSize, canonical }) {
+export function listingJsonLd({ providers, category, city, page, pageSize, canonical, faqs }) {
   const what = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
   const where = city ? `in ${city}` : 'across India';
+  const url = `${SITE_URL}${canonical}`;
+
+  // A city guide's questions, as rendered (see CityGuide.jsx). One FAQPage per URL,
+  // and the answers are the same strings the page shows — the same rules as /faqs.
+  const faqNode = faqs?.length
+    ? [
+        {
+          '@type': 'FAQPage',
+          '@id': `${url}#faq`,
+          url,
+          inLanguage: 'en-IN',
+          isPartOf: { '@id': `${SITE_URL}/#website` },
+          publisher: { '@id': ORG_ID },
+          mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ]
+    : [];
 
   return {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'CollectionPage',
-        '@id': `${SITE_URL}${canonical}`,
-        url: `${SITE_URL}${canonical}`,
+        '@id': url,
+        url,
         name: `${what} ${where}`,
         isPartOf: { '@id': `${SITE_URL}/#website` },
         about: { '@id': ORG_ID },
@@ -229,6 +250,7 @@ export function listingJsonLd({ providers, category, city, page, pageSize, canon
               },
             }),
       },
+      ...faqNode,
       {
         '@type': 'BreadcrumbList',
         itemListElement: [

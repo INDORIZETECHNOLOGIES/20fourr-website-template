@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
+import CityGuide from './CityGuide';
+import { cityGuideFor } from './cityGuides';
 import Filters from './Filters';
 import Pager from './Pager';
 import ProviderCard from './ProviderCard';
@@ -88,6 +90,9 @@ export default async function ProvidersPage({ searchParams }) {
     category ? ` offering ${CATEGORY_LABEL[category]}` : ''
   }${city ? ` operating in ${city}` : ''}`;
 
+  // The guide belongs to the city, not to a filtered or paginated slice of it.
+  const guide = !category && page === 1 ? cityGuideFor(city) : undefined;
+
   return (
     <>
       {/* Built from the same canonicalFor() the metadata uses, so the graph's @id
@@ -100,6 +105,7 @@ export default async function ProvidersPage({ searchParams }) {
           page,
           pageSize: PAGE_SIZE,
           canonical: canonicalFor({ ...view, page }),
+          faqs: guide?.faqs,
         })}
       />
 
@@ -178,6 +184,8 @@ export default async function ProvidersPage({ searchParams }) {
           </p>
         </div>
       </section>
+
+      {guide && <CityGuide city={city} guide={guide} />}
 
       {/* ---------- cta ---------- */}
       <section className="band">
