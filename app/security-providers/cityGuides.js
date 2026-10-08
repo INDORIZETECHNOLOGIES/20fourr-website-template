@@ -98,6 +98,34 @@ const STATES = {
     licences: { issued: '741', active: '741', expired: '0' },
     cashRulesDate: null,
   },
+  Chandigarh: {
+    authority: 'controlling authority of the Chandigarh administration',
+    rulesDate: '20 May 2021',
+    rulesUrl: rulesPdf('ChandigarhNotificationRules.pdf'),
+    licences: { issued: '434', active: '187', expired: '247' },
+    cashRulesDate: '4 December 2020',
+  },
+  Uttarakhand: {
+    authority: 'Additional Secretary the state has designated as controlling authority',
+    rulesDate: '7 April 2022',
+    rulesUrl: rulesPdf('UttarakhandRules_7apr2022.pdf'),
+    licences: { issued: '819', active: '425', expired: '394' },
+    cashRulesDate: '18 July 2019',
+  },
+  'Madhya Pradesh': {
+    authority: 'Home Secretary of the state government',
+    rulesDate: '7 August 2024',
+    rulesUrl: rulesPdf('Psara_model_rules_madhya_pradesh.pdf'),
+    licences: { issued: '2,082', active: '1,779', expired: '303' },
+    cashRulesDate: '7 August 2024',
+  },
+  Kerala: {
+    authority: 'Special Secretary the state has designated as controlling authority',
+    rulesDate: '10 November 2022',
+    rulesUrl: rulesPdf('Annexure1_KeralaPrivate_Security_Agency_Rule2022.pdf'),
+    licences: { issued: '1,435', active: '552', expired: '883' },
+    cashRulesDate: '27 May 2020',
+  },
 };
 
 /* ---------- building blocks shared by every city ---------- */
@@ -106,7 +134,7 @@ function licenceRule(city, state) {
   const s = STATES[state];
   return {
     title: `A ${state} PSARA licence`,
-    body: `The Private Security Agencies (Regulation) Act, 2005 requires every agency to hold a licence from the state it deploys guards in. For ${city} that is a licence issued in ${state}, by the ${s.authority}, under rules notified on ${s.rulesDate}. A licence from another state does not cover work here.`,
+    body: `The Private Security Agencies (Regulation) Act, 2005 requires every agency to hold a licence from the state or union territory it deploys guards in. For ${city} that is a licence issued in ${state}, by the ${s.authority}, under rules notified on ${s.rulesDate}. A licence from another state does not cover work here.`,
   };
 }
 
@@ -492,6 +520,77 @@ export const CITY_GUIDES = {
       trainingFaq('Kolkata'),
     ],
     sources: [...stateSources('West Bengal'), TRAINING_SOURCE],
+  },
+
+  Chandigarh: {
+    state: 'Chandigarh',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Chandigarh is booked for offices and institutions, showrooms, residences, weddings and venues, and close protection for executives and visitors. ${ROLES_LINE}`,
+      'Chandigarh is a union territory with its own PSARA licensing. Mohali is in Punjab and Panchkula is in Haryana, so the tricity is three licensing areas, not one.',
+    ],
+    rules: [licenceRule('Chandigarh', 'Chandigarh'), expiredRule('Chandigarh'), TRAINING_RULE],
+    faqs: [
+      {
+        q: 'Can a Chandigarh agency send guards to Mohali or Panchkula?',
+        a: 'Only with separate licences. Chandigarh is a union territory, Mohali is in Punjab and Panchkula is in Haryana, and a PSARA licence covers the state or territory that issued it. An agency working across the tricity needs a licence from each.',
+      },
+      licenceCheckFaq('Chandigarh', 'Chandigarh'),
+      armedFaq('Chandigarh', 'Chandigarh'),
+      trainingFaq('Chandigarh'),
+    ],
+    sources: [...stateSources('Chandigarh'), TRAINING_SOURCE],
+  },
+
+  Dehradun: {
+    state: 'Uttarakhand',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Dehradun is booked for institutions and schools, offices, hotels and resorts, residences, weddings and venues, and close protection for visitors. ${ROLES_LINE}`,
+      'Uttarakhand replaced its PSARA rules in April 2022, and close to half of the licences ever issued in the state have since expired, so a current licence is the first thing to confirm.',
+    ],
+    rules: [licenceRule('Dehradun', 'Uttarakhand'), expiredRule('Uttarakhand'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Dehradun', 'Uttarakhand'),
+      otherStateFaq('Dehradun', 'Uttarakhand'),
+      armedFaq('Dehradun', 'Uttarakhand'),
+      trainingFaq('Dehradun'),
+    ],
+    sources: [...stateSources('Uttarakhand'), TRAINING_SOURCE],
+  },
+
+  Indore: {
+    state: 'Madhya Pradesh',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Indore is booked for offices, factories and warehouses, hospitals and institutions, residences, weddings and venues, and close protection for executives and visitors. ${ROLES_LINE}`,
+      'Madhya Pradesh rewrote its PSARA rules in August 2024 and notified separate rules for cash transportation the same day, replacing rules that dated from 2012.',
+    ],
+    rules: [licenceRule('Indore', 'Madhya Pradesh'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Indore', 'Madhya Pradesh'),
+      otherStateFaq('Indore', 'Madhya Pradesh'),
+      armedFaq('Indore', 'Madhya Pradesh'),
+      trainingFaq('Indore'),
+    ],
+    sources: [...stateSources('Madhya Pradesh'), TRAINING_SOURCE],
+  },
+
+  Kochi: {
+    state: 'Kerala',
+    reviewed: REVIEWED,
+    intro: [
+      `Security in Kochi is booked for port and logistics sites, IT parks and offices, hotels, residences, weddings and venues, and close protection for visiting executives. ${ROLES_LINE}`,
+      'Most PSARA licences ever issued in Kerala have expired: 883 of 1,435 on the national portal. A current licence is the first thing to confirm.',
+    ],
+    rules: [licenceRule('Kochi', 'Kerala'), expiredRule('Kerala'), TRAINING_RULE],
+    faqs: [
+      licenceCheckFaq('Kochi', 'Kerala'),
+      otherStateFaq('Kochi', 'Kerala'),
+      armedFaq('Kochi', 'Kerala'),
+      trainingFaq('Kochi'),
+    ],
+    sources: [...stateSources('Kerala'), TRAINING_SOURCE],
   },
 };
 
