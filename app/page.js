@@ -10,6 +10,7 @@ import ProviderReel from '@/components/ProviderReel';
 import HeroBooking from '@/components/HeroBooking';
 import StickyBookBar from '@/components/StickyBookBar';
 import HomeFaq from '@/components/HomeFaq';
+import { CITY_GUIDES } from '@/app/security-providers/cityGuides';
 import {
   LockIcon,
   BriefingIcon,
@@ -62,11 +63,10 @@ const MERGED_SERVICES = [
   },
 ];
 
-// Every city here has to clear app/sitemap.js's MIN_PROVIDERS_FOR_LISTING
-// gate — Jaipur used to be listed here but only has 2 primary-city providers,
-// so the homepage was linking to a page the sitemap deliberately excludes as
-// too thin to index. Kolkata has 3 and is already in the sitemap.
-const COVERAGE_CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Pune', 'Chennai', 'Kolkata', 'Ahmedabad'];
+// Every city with a guide (security-providers/cityGuides.js). A guided city
+// page is submitted in the sitemap whatever its listing count, so the homepage
+// links exactly the city pages the sitemap asks Google to index.
+const COVERAGE_CITIES = Object.keys(CITY_GUIDES);
 
 /* Trust chips shown inline under the hero CTA — same claims as the old
    credentials ticker but surfaced at point-of-action, not two scrolls below. */

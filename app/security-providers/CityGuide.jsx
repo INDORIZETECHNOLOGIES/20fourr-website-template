@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
+import { relatedCities } from './cityGuides';
 import { CATEGORY_ORDER, CATEGORY_SERVICE_PHRASE, queryProviders } from './data';
 
 /**
@@ -11,6 +12,7 @@ export default function CityGuide({ city, guide }) {
   // Only roles with at least one listing in this city get a link; a link to an empty,
   // noindex filter would send visitors and crawlers to a dead end.
   const roles = CATEGORY_ORDER.filter((category) => queryProviders({ category, city }).total > 0);
+  const related = relatedCities(city);
 
   return (
     <section className="band band--paper" id="hiring-in-city">
@@ -59,6 +61,21 @@ export default function CityGuide({ city, guide }) {
             </details>
           ))}
         </Reveal>
+
+        <p className="guide-roles">
+          <Link className="text-link" href="/faqs">
+            Booking, pricing and cancellation questions &rarr;
+          </Link>
+          {related.map((c) => (
+            <Link
+              key={c}
+              className="text-link"
+              href={`/security-providers?city=${encodeURIComponent(c)}`}
+            >
+              Security services in {c} &rarr;
+            </Link>
+          ))}
+        </p>
 
         <div className="guide-sources">
           <p>

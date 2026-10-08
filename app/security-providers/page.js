@@ -155,6 +155,9 @@ export default async function ProvidersPage({ searchParams }) {
       {/* ---------- listing ---------- */}
       <section className="band band--ink-2" id="providers-list">
         <div className="wrap">
+          {/* The cards are h3s; without an h2 above them the outline jumps from the
+              page's h1 straight to h3. The count line already says it visually. */}
+          <h2 className="visually-hidden">Listings{city ? ` in ${city}` : ''}</h2>
           <p className="count">{countLine}</p>
 
           {providers.length === 0 ? (

@@ -5,6 +5,7 @@ import {
   PROVIDERS,
   queryProviders,
 } from './security-providers/data';
+import { CITY_GUIDES } from './security-providers/cityGuides';
 import { SITE_URL } from './site';
 
 const BASE = SITE_URL;
@@ -51,7 +52,11 @@ const MIN_PROVIDERS_FOR_LISTING = 3;
  */
 function listingEntry(filter, priority) {
   const { total } = queryProviders({ ...filter, page: 1 });
-  if (total < MIN_PROVIDERS_FOR_LISTING) return [];
+  // A city page with a guide (cityGuides.js) is a page in its own right whatever
+  // its listing count — the guide is the content, not the cards — so it is
+  // submitted even below the threshold. Filtered views carry no guide.
+  const hasGuide = filter.city && !filter.category && Boolean(CITY_GUIDES[filter.city]);
+  if (total === 0 || (total < MIN_PROVIDERS_FOR_LISTING && !hasGuide)) return [];
 
   return [
     {

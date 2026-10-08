@@ -597,3 +597,16 @@ export const CITY_GUIDES = {
 export function cityGuideFor(city) {
   return city ? CITY_GUIDES[city] : undefined;
 }
+
+/* One metro area, separate states: each needs its own licence, which is exactly
+   why a reader on one of these pages wants the others. */
+const SAME_METRO = [['Delhi', 'Gurugram', 'Noida']];
+
+/** Other guided cities a reader of this one is likely to want: same metro, then same state. */
+export function relatedCities(city) {
+  const guide = CITY_GUIDES[city];
+  if (!guide) return [];
+  const metro = SAME_METRO.find((group) => group.includes(city)) ?? [];
+  const sameState = Object.keys(CITY_GUIDES).filter((c) => CITY_GUIDES[c].state === guide.state);
+  return [...new Set([...metro, ...sameState])].filter((c) => c !== city);
+}
