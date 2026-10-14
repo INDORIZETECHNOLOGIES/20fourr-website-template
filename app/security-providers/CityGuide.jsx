@@ -83,11 +83,16 @@ export default function CityGuide({ city, guide }) {
             controlling authority in {guide.state} has the final word.
           </p>
           <ul>
+            {/* A source without a url is cited but not linked — see stateSources(). */}
             {guide.sources.map((s) => (
-              <li key={s.url}>
-                <a href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.label}
-                </a>
+              <li key={s.label}>
+                {s.url ? (
+                  <a href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.label}
+                  </a>
+                ) : (
+                  s.label
+                )}
               </li>
             ))}
           </ul>

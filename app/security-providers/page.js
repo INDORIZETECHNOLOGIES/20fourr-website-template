@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
 import CityGuide from './CityGuide';
-import { cityGuideFor } from './cityGuides';
+import { CITY_GUIDES, cityGuideFor } from './cityGuides';
 import Filters from './Filters';
 import Pager from './Pager';
 import ProviderCard from './ProviderCard';
@@ -28,6 +28,8 @@ import {
  * cache immediately, so this never serves stale data past the next release.
  */
 export const revalidate = 3600;
+
+const GUIDED_CITIES = Object.keys(CITY_GUIDES);
 
 /**
  * Canonical for a filtered view. `sortBy` is excluded on purpose: it re-orders an
@@ -62,12 +64,15 @@ export async function generateMetadata({ searchParams }) {
   const hireWhat = category ? CATEGORY_PLURAL[category] : 'security providers';
   const where = city ? `in ${city}` : 'across India';
   const suffix = page > 1 ? `, page ${page}` : '';
+  // Page 2+ needs its own description too: Semrush flagged ?category=bouncer and
+  // its page 2 as duplicate meta descriptions when only the title changed.
+  const pagePrefix = page > 1 ? `Page ${page}. ` : '';
 
   return {
     title: `${serviceWhat} ${where}${suffix}`,
     description: city
-      ? `Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
-      : `Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
+      ? `${pagePrefix}Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
+      : `${pagePrefix}Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
     alternates: { canonical: canonicalFor({ ...view, page }) },
     // A filter with no providers still renders, with a
     // "can't see your city" prompt, but an empty listing is not a page to index.
@@ -207,6 +212,25 @@ export default async function ProvidersPage({ searchParams }) {
               </Link>
             </div>
           </Reveal>
+
+          {/* The filters are <select>s, which crawlers don't follow, so a city
+              outside a same-state pair (Bengaluru, Hyderabad, Chennai...) was
+              linked from the homepage and nowhere else. Every directory view now
+              links every guided city. */}
+          <div className="subhead">
+            <h3>{city ? 'Security services in other cities' : 'Security services by city'}</h3>
+          </div>
+          <div className="city-links">
+            {GUIDED_CITIES.filter((c) => c !== city).map((c) => (
+              <Link
+                className="city-link"
+                href={`/security-providers?city=${encodeURIComponent(c)}`}
+                key={c}
+              >
+                Security services in {c} <span aria-hidden="true">&rarr;</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </>

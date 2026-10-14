@@ -2,6 +2,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import JumpNav from './JumpNav';
 import { LEGAL_NAME, OG_BASE, SITE_URL } from '../site';
+import Email from '@/components/Email';
 
 export const metadata = {
   title: 'Privacy policy',
@@ -234,11 +235,11 @@ export default function PrivacyPage() {
                   <li><b>Correction</b>: request correction of inaccurate or incomplete data</li>
                   <li><b>Erasure</b>: request deletion of your personal data, subject to legal retention obligations</li>
                   <li><b>Grievance redressal</b>: file a complaint with our Grievance Officer</li>
-                  <li><b>Withdraw consent</b>: withdraw consent for marketing communications at any time via your account settings or by emailing privacy@20fourr.com</li>
+                  <li><b>Withdraw consent</b>: withdraw consent for marketing communications at any time via your account settings or by emailing <Email /></li>
                   <li><b>Nominate</b>: nominate an individual to exercise your rights in the event of your death or incapacity</li>
                 </ul>
                 <p>
-                  To exercise any right, write to <b>privacy@20fourr.com</b> from your registered email
+                  To exercise any right, write to <b><Email /></b> from your registered email
                   address. We will respond within 30 days.
                 </p>
               </div>
@@ -267,7 +268,7 @@ export default function PrivacyPage() {
                   The platform is not intended for individuals under 18 years of age. We do not knowingly
                   collect personal data from minors. If we become aware that a minor has registered an
                   account, we will delete the account and associated data promptly. If you believe a minor
-                  has provided us with personal information, contact us at <b>privacy@20fourr.com</b>.
+                  has provided us with personal information, contact us at <b><Email /></b>.
                 </p>
               </div>
             </div>
@@ -311,7 +312,7 @@ export default function PrivacyPage() {
                 <div className="rows">
                   <div className="row">
                     <span className="row__k">Email</span>
-                    <span className="row__v">privacy@20fourr.com</span>
+                    <span className="row__v"><Email /></span>
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>

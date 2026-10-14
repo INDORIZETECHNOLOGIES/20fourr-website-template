@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { LEGAL_NAME, SITE_URL, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../site';
+import Email from '@/components/Email';
 
 /**
  * The Support URL on both App Store listings. App Review rejected /faqs for it
@@ -70,7 +71,7 @@ export default function SupportPage() {
                   <div className="row">
                     <span className="row__k">Email</span>
                     <span className="row__v">
-                      <a href="mailto:privacy@20fourr.com">privacy@20fourr.com</a>
+                      <Email link />
                     </span>
                   </div>
                   <div className="row">
@@ -115,7 +116,7 @@ export default function SupportPage() {
                 <p>
                   You can delete your account from inside the client or provider app: open{' '}
                   <b>Profile</b>, tap <b>Delete Account</b>, and confirm. If you can no longer sign
-                  in, write to <b>privacy@20fourr.com</b> from your registered email address instead.
+                  in, write to <b><Email /></b> from your registered email address instead.
                 </p>
                 <ul className="legal-list">
                   <li>Bookings already in progress are completed before the account is removed</li>

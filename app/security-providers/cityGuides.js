@@ -190,7 +190,10 @@ const trainingFaq = (city) => ({
 function stateSources(state) {
   return [
     { label: `${state} PSARA rules, notified ${STATES[state].rulesDate} (official PDF)`, url: STATES[state].rulesUrl },
-    { label: 'Licence counts by state, PSARA portal (Ministry of Home Affairs)', url: `${PORTAL}/` },
+    // No link: the counts were on the portal's home page, which has returned 404
+    // since at least 14 October 2026 (its rules PDFs and officer list still load).
+    // Link it again if the home page comes back.
+    { label: 'Licence counts by state, PSARA portal home page (Ministry of Home Affairs), read 8 October 2026' },
     { label: 'State controlling authorities, PSARA portal', url: `${PORTAL}/Officer_listrpt.aspx` },
   ];
 }

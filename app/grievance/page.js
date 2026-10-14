@@ -1,5 +1,6 @@
 import JsonLd from '@/components/JsonLd';
 import { LEGAL_NAME, SITE_URL } from '../site';
+import Email from '@/components/Email';
 
 /**
  * DRAFT. /privacy already links here (Section 7, "Your rights") and so does
@@ -86,7 +87,7 @@ export default function GrievancePage() {
                 <div className="rows">
                   <div className="row">
                     <span className="row__k">Email</span>
-                    <span className="row__v">privacy@20fourr.com</span>
+                    <span className="row__v"><Email /></span>
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>

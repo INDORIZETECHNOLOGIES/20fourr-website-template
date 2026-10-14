@@ -3,6 +3,7 @@ import Logo from './Logo';
 import SocialLinks from './SocialLinks';
 import { LEGAL_NAME, CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import { PlayIcon } from './PlayStoreButton';
+import Email from './Email';
 
 // Three columns, not five: the old Compliance column was three labels for the
 // same /#trust anchor, and the app links now live in their own strip below.
@@ -61,7 +62,7 @@ export default function Footer() {
             {/* Same email/address already published on /privacy — this just
                 makes it findable without having to open that page first. */}
             <address className="foot__contact">
-              <a href="mailto:privacy@20fourr.com">privacy@20fourr.com</a>
+              <Email link />
               <span>Miyawala, Dehradun, Uttarakhand 248001</span>
             </address>
           </div>
