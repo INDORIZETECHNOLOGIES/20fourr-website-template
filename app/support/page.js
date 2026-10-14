@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, SITE_URL, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../site';
+import { LEGAL_NAME, SITE_URL, SUPPORT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../site';
 import Email from '@/components/Email';
 
 /**
@@ -71,7 +71,7 @@ export default function SupportPage() {
                   <div className="row">
                     <span className="row__k">Email</span>
                     <span className="row__v">
-                      <Email link />
+                      <Email address={SUPPORT_EMAIL} link />
                     </span>
                   </div>
                   <div className="row">

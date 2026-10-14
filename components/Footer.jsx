@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import SocialLinks from './SocialLinks';
-import { LEGAL_NAME, CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
+import { LEGAL_NAME, SUPPORT_EMAIL, CLIENT_APP_URL, CLIENT_PLAY_URL, PROVIDER_APP_URL, PROVIDER_PLAY_URL } from '@/app/site';
 import { PlayIcon } from './PlayStoreButton';
 import Email from './Email';
 
@@ -59,10 +59,10 @@ export default function Footer() {
               <span className="visually-hidden">20fourr home</span>
             </Link>
             <p>Licensed private security, booked and verified from your phone.</p>
-            {/* Same email/address already published on /privacy — this just
-                makes it findable without having to open that page first. */}
+            {/* The public contact email (SUPPORT_EMAIL) and the office address
+                already published on /privacy, findable without opening that page. */}
             <address className="foot__contact">
-              <Email link />
+              <Email address={SUPPORT_EMAIL} link />
               <span>Miyawala, Dehradun, Uttarakhand 248001</span>
             </address>
           </div>
