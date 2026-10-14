@@ -145,6 +145,8 @@ const content = {
     ],
 
     faqHead: 'Questions',
+    citiesHead: 'Security guard jobs by city',
+    cityLink: (city) => `Security guard jobs in ${city}`,
     faq: [
       {
         q: 'Is there any joining fee?',
@@ -256,6 +258,8 @@ const content = {
     ],
 
     faqHead: 'सवाल',
+    citiesHead: 'अपने शहर में गार्ड का काम',
+    cityLink: (city) => `${city} में गार्ड का काम`,
     faq: [
       {
         q: 'जुड़ने की कोई फ़ीस है?',

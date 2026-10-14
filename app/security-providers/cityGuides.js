@@ -138,7 +138,7 @@ function licenceRule(city, state) {
   };
 }
 
-const TRAINING_RULE = {
+export const TRAINING_RULE = {
   title: 'Trained before deployment',
   body: 'The central model rules under PSARA, issued by the Ministry of Home Affairs in December 2020, set the training baseline: at least 100 hours of classroom instruction and 60 hours of field training over at least 20 working days for a new guard. Ex-servicemen and former police take a shorter course of 40 hours in class and 16 in the field over at least seven working days.',
 };
@@ -182,7 +182,30 @@ function armedFaq(city, state) {
   };
 }
 
-const trainingFaq = (city) => ({
+/* For "best security agency in {city}": there is no official ranking to quote,
+   and the directory is still sample data, so the honest answer is the checks
+   that separate a good agency from a bad one, with this state's numbers. */
+function chooseFaq(city, state) {
+  const { issued, expired } = STATES[state].licences;
+  const lapsed = expired === '0' ? '' : ` (${expired} of the ${issued} licences issued in ${state} have expired)`;
+  const board =
+    state === 'Maharashtra'
+      ? ' For an office, shop, warehouse or factory, also check whether the Security Guards Board applies to your premises.'
+      : '';
+  return {
+    q: `How do I choose the best security agency in ${city}?`,
+    a: `There is no official ranking of security agencies in ${city}, so hold each one to the same checks. It should hold a PSARA licence issued in ${state} that is still in date${lapsed}. Its guards should have finished the training the PSARA rules require, armed guards need a valid firearm licence for the assignment, and the price should be agreed in writing with GST shown on the invoice.${board} On 20fourr, every provider's licence is verified before they are listed, the price is shown before you book, and every booking comes with an itemised GST invoice.`,
+  };
+}
+
+/* For "security guard charges/price in {city}". Day rates are deliberately not
+   quoted (see the header note); this answers what moves the price instead. */
+const priceFaq = (city) => ({
+  q: `How much does a security guard cost in ${city}?`,
+  a: `It depends on the role and the hours. Armed gunmen and personal security officers cost more than unarmed guards, because of the extra licences and checks behind them, and longer shifts and longer bookings cost more in total. On 20fourr you choose the role and dates for ${city} and see the full price, with GST shown separately, before you book, with no account, phone number or sales call.`,
+});
+
+export const trainingFaq = (city) => ({
   q: `What training should a security guard in ${city} have?`,
   a: 'Under the central model rules for PSARA, a new guard needs at least 100 hours of classroom instruction and 60 hours of field training, spread over at least 20 working days. Ex-servicemen and former police personnel take a condensed course of 40 classroom hours and 16 field hours over at least seven working days.',
 });
@@ -600,6 +623,24 @@ export const CITY_GUIDES = {
     sources: [...stateSources('Kerala'), TRAINING_SOURCE],
   },
 };
+
+// Two questions every city gets, last so each guide's own first question stays
+// the one open by default.
+for (const [city, guide] of Object.entries(CITY_GUIDES)) {
+  guide.faqs.push(chooseFaq(city, guide.state), priceFaq(city));
+}
+
+/** What work in a city is booked for: the guide's first sentence, without the
+ *  client-facing roles line. Shared with the security-guard-jobs pages. */
+export function demandLine(city) {
+  return CITY_GUIDES[city].intro[0].replace(ROLES_LINE, '').trim();
+}
+
+/** The licensing facts for a state, for pages outside the guides. */
+export function stateFacts(state) {
+  const { authority, rulesDate, rulesUrl } = STATES[state];
+  return { authority, rulesDate, rulesUrl };
+}
 
 export function cityGuideFor(city) {
   return city ? CITY_GUIDES[city] : undefined;
