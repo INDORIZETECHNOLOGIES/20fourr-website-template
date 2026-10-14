@@ -3,7 +3,15 @@ import { Big_Shoulders, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, OG_BASE, ORG_ID, SITE_URL, SUPPORT_EMAIL, WHATSAPP_TELEPHONE } from './site';
+import {
+  GOOGLE_MAPS_URL,
+  LEGAL_NAME,
+  OG_BASE,
+  ORG_ID,
+  SITE_URL,
+  SUPPORT_EMAIL,
+  WHATSAPP_TELEPHONE,
+} from './site';
 
 /* Self-hosted at build time by next/font — no third-party request at runtime,
    and no layout shift, which a <link> to fonts.googleapis.com cannot promise.
@@ -103,8 +111,11 @@ const ORGANIZATION_LD = {
   },
   // The brand's own profiles, the same ones linked in the footer, written as
   // their canonical URLs (no share or tracking parameters). The footer's Reddit
-  // link is a personal account, not the company's, so it is left out.
+  // link is a personal account, not the company's, so it is left out. The
+  // Google Business Profile is listed too, so Google ties the Maps listing to
+  // this site rather than to the client app it first linked to.
   sameAs: [
+    GOOGLE_MAPS_URL,
     'https://x.com/20_fourr',
     'https://www.instagram.com/20_fourr',
     'https://www.facebook.com/profile.php?id=61592917686310',

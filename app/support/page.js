@@ -1,6 +1,14 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, SITE_URL, SUPPORT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_URL } from '../site';
+import {
+  GOOGLE_MAPS_URL,
+  GOOGLE_REVIEW_URL,
+  LEGAL_NAME,
+  SITE_URL,
+  SUPPORT_EMAIL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+} from '../site';
 import Email from '@/components/Email';
 
 /**
@@ -85,6 +93,18 @@ export default function SupportPage() {
                   <div className="row">
                     <span className="row__k">Address</span>
                     <span className="row__v">Miyawala, Dehradun, Uttarakhand 248001</span>
+                  </div>
+                  <div className="row">
+                    <span className="row__k">Google</span>
+                    <span className="row__v">
+                      <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                        View on Google Maps
+                      </a>
+                      {' · '}
+                      <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer">
+                        Leave a review
+                      </a>
+                    </span>
                   </div>
                   <div className="row">
                     <span className="row__k">Languages</span>
