@@ -74,7 +74,9 @@ export default function sitemap() {
   const lastModified = new Date();
 
   const entries = [
-    { url: BASE, changeFrequency: 'monthly', priority: 1 },
+    // With the trailing slash: every internal link to the home page resolves to
+    // https://20fourr.com/, and Semrush reported the bare form as an orphan.
+    { url: `${BASE}/`, changeFrequency: 'monthly', priority: 1 },
     // English /join is noindex: provider.20fourr.com is the page that ranks for
     // provider searches (see join/seo.js). The Hindi page stays — the provider
     // site has no Hindi version, so for that audience this is still the page.

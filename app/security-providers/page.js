@@ -13,6 +13,7 @@ import { listingJsonLd } from './schema';
 import {
   CATEGORY_LABEL,
   CATEGORY_PLURAL,
+  CATEGORY_SERVICE_PHRASE,
   PAGE_SIZE,
   cityLabel,
   listingHeading,
@@ -91,6 +92,14 @@ export default async function ProvidersPage({ searchParams }) {
   const { category, city, sortBy } = view;
   const { providers, total, page, pages } = queryProviders(view);
   const heading = listingHeading(view);
+  const otherCities = GUIDED_CITIES.filter(
+    (c) => c !== city && (!category || queryProviders({ category, city: c }).total > 0),
+  );
+  const otherCitiesHeading = category
+    ? `${CATEGORY_SERVICE_PHRASE[category]} in ${city ? 'other cities' : 'each city'}`
+    : city
+      ? 'Security services in other cities'
+      : 'Security services by city';
 
   const countLine = `${total} example listing${total === 1 ? '' : 's'}${
     category ? ` offering ${CATEGORY_LABEL[category]}` : ''
@@ -215,18 +224,23 @@ export default async function ProvidersPage({ searchParams }) {
           {/* The filters are <select>s, which crawlers don't follow, so a city
               outside a same-state pair (Bengaluru, Hyderabad, Chennai...) was
               linked from the homepage and nowhere else. Every directory view now
-              links every guided city. */}
+              links every guided city. A service view links the same service in
+              the other cities instead: those pages ("gunmen in Hyderabad") earn
+              most of the site's clicks, and the city guide alone gave each one
+              link (Semrush, 14 Oct 2026). Only cities with listings, so no link
+              lands on an empty, noindex filter. */}
           <div className="subhead">
-            <h3>{city ? 'Security services in other cities' : 'Security services by city'}</h3>
+            <h3>{otherCitiesHeading}</h3>
           </div>
           <div className="city-links">
-            {GUIDED_CITIES.filter((c) => c !== city).map((c) => (
+            {otherCities.map((c) => (
               <Link
                 className="city-link"
-                href={`/security-providers?city=${encodeURIComponent(c)}`}
+                href={`/security-providers?${category ? `category=${category}&` : ''}city=${encodeURIComponent(c)}`}
                 key={c}
               >
-                Security services in {c} <span aria-hidden="true">&rarr;</span>
+                {category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services'} in {c}{' '}
+                <span aria-hidden="true">&rarr;</span>
               </Link>
             ))}
           </div>
