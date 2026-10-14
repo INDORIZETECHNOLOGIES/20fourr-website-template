@@ -209,7 +209,7 @@ const GUARDS_BOARD_SOURCES = [
 ];
 
 const ROLES_LINE =
-  'All four roles on 20fourr can be booked here: security guards, bouncers, armed gunmen and personal security officers.';
+  'All four roles on 20fourr can be booked here, from licensed security agencies and companies: security guard services, bouncers, armed gunmen, and bodyguards (personal security officers).';
 
 /* ---------- the guides ---------- */
 
@@ -218,7 +218,7 @@ export const CITY_GUIDES = {
     state: 'Maharashtra',
     reviewed: REVIEWED,
     intro: [
-      `Security in Mumbai is booked for offices and corporate towers, warehouses and docks, housing societies, film shoots, weddings and venues, and close protection for executives and public figures. ${ROLES_LINE}`,
+      `Security in Mumbai, Navi Mumbai and Thane is booked for offices and corporate towers, warehouses and docks, housing societies, film shoots, weddings and venues, and close protection for executives and public figures. ${ROLES_LINE}`,
       'Mumbai is where Maharashtra’s Security Guards Act began. Businesses that employ guards here fall under the Security Guards Board for Greater Mumbai and Thane, on top of the national PSARA licence.',
     ],
     rules: [
@@ -233,6 +233,10 @@ export const CITY_GUIDES = {
       {
         q: 'Does my office in Mumbai have to go through the Security Guards Board?',
         a: 'If your premises is a factory or an establishment such as an office, shop or warehouse in Greater Mumbai or Thane, the Maharashtra Private Security Guards Act, 1981 applies: you register with the Security Guards Board as a principal employer and use guards supplied by the board or by an agency the state has exempted. Check your case with the board before arranging long-term cover.',
+      },
+      {
+        q: 'Does the Security Guards Board cover Navi Mumbai?',
+        a: 'Yes. Navi Mumbai lies in Thane and Raigad districts. The Maharashtra Private Security Guards Act, 1981 first applied to Greater Mumbai and Thane district, and a government notification of 5 December 2002 extended it to Raigad, along with Pune, Nashik, Aurangabad and Nagpur districts. Offices, shops, warehouses and factories in either part of Navi Mumbai that employ guards through an agency fall under it.',
       },
       licenceCheckFaq('Mumbai', 'Maharashtra'),
       armedFaq('Mumbai', 'Maharashtra'),

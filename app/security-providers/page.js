@@ -62,7 +62,7 @@ export async function generateMetadata({ searchParams }) {
   // "hire {category-plural} in {city}" verb-phrase form — that one already
   // matches buyer intent.
   const { what: serviceWhat, where } = listingHeading(view);
-  const hireWhat = category ? CATEGORY_PLURAL[category] : 'security agencies and guards';
+  const hireWhat = category ? CATEGORY_PLURAL[category] : 'security agencies, companies and guards';
   const suffix = page > 1 ? `, page ${page}` : '';
   // Page 2+ needs its own description too: Semrush flagged ?category=bouncer and
   // its page 2 as duplicate meta descriptions when only the title changed.

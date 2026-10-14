@@ -37,7 +37,7 @@ export const CATEGORY_PLURAL = {
   guard: 'security guards',
   bouncer: 'bouncers',
   gunman: 'armed gunmen',
-  pso: 'personal security officers',
+  pso: 'bodyguards and personal security officers (PSOs)',
 };
 
 /* Buyer-facing service phrasing for the listing page's <title> and <h1>.
@@ -48,12 +48,19 @@ export const CATEGORY_PLURAL = {
  * (SERVICE_INTENTS in app/page.js), which matches the query intent that
  * actually returns comparable service pages ("security agency/services in
  * [city]").
+ *
+ * Reworded Oct 2026 from Semrush's India keyword data: "security guard services
+ * in {city}" is a buyer search (Kolkata 480, Mumbai, Pune and Delhi 260 a
+ * month) where "private security agency services" drew none, and the "services"
+ * suffix keeps it off the job-board results the bare noun lands in. Nobody
+ * searches "executive protection"; buyers search bodyguard, PSO and VIP security
+ * ("hire personal bodyguard india", "pso security").
  */
 export const CATEGORY_SERVICE_PHRASE = {
-  guard: 'Private security agency services',
+  guard: 'Security guard services',
   bouncer: 'Event security services',
   gunman: 'Armed security and gunman services',
-  pso: 'Executive protection',
+  pso: 'Bodyguard & PSO services',
 };
 
 /* The older city names people still search by. In Semrush's India data (Oct
