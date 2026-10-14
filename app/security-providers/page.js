@@ -13,8 +13,9 @@ import { listingJsonLd } from './schema';
 import {
   CATEGORY_LABEL,
   CATEGORY_PLURAL,
-  CATEGORY_SERVICE_PHRASE,
   PAGE_SIZE,
+  cityLabel,
+  listingHeading,
   parseSearchParams,
   queryProviders,
 } from './data';
@@ -55,14 +56,13 @@ export async function generateMetadata({ searchParams }) {
   // canonicalises to page 2 rather than minting a duplicate URL for it.
   const { total, page } = queryProviders(view);
 
-  // The <title>/H1 use buyer-facing service phrasing (see CATEGORY_SERVICE_PHRASE):
+  // The <title>/H1 use buyer-facing service phrasing (see listingHeading in data.js):
   // the plain "{category} in {city}" form this replaced reads like a job
   // posting to both searchers and Google. The meta description keeps the
   // "hire {category-plural} in {city}" verb-phrase form — that one already
   // matches buyer intent.
-  const serviceWhat = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
-  const hireWhat = category ? CATEGORY_PLURAL[category] : 'security providers';
-  const where = city ? `in ${city}` : 'across India';
+  const { what: serviceWhat, where } = listingHeading(view);
+  const hireWhat = category ? CATEGORY_PLURAL[category] : 'security agencies and guards';
   const suffix = page > 1 ? `, page ${page}` : '';
   // Page 2+ needs its own description too: Semrush flagged ?category=bouncer and
   // its page 2 as duplicate meta descriptions when only the title changed.
@@ -71,7 +71,7 @@ export async function generateMetadata({ searchParams }) {
   return {
     title: `${serviceWhat} ${where}${suffix}`,
     description: city
-      ? `${pagePrefix}Hire PSARA-verified ${hireWhat} in ${city}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
+      ? `${pagePrefix}Hire PSARA-verified ${hireWhat} in ${cityLabel(city)}. Compare day rates, check verification badges and price a specific date range with no account, phone number or sales call.`
       : `${pagePrefix}Browse PSARA-verified ${hireWhat} by service and city across India. Compare day rates and price a specific date range with no account, phone number or sales call.`,
     alternates: { canonical: canonicalFor({ ...view, page }) },
     // A filter with no providers still renders, with a
@@ -90,6 +90,7 @@ export default async function ProvidersPage({ searchParams }) {
   if (view.unknownCity) notFound();
   const { category, city, sortBy } = view;
   const { providers, total, page, pages } = queryProviders(view);
+  const heading = listingHeading(view);
 
   const countLine = `${total} example listing${total === 1 ? '' : 's'}${
     category ? ` offering ${CATEGORY_LABEL[category]}` : ''
@@ -123,11 +124,9 @@ export default async function ProvidersPage({ searchParams }) {
             {/* The H1 tracks the filters for the same reason the <title> does: on
                 ?city=Dehradun the page really is about Dehradun, and a generic
                 "across India" heading contradicts both the title and the results.
-                Uses the same buyer-facing service phrasing as the <title> — see
-                CATEGORY_SERVICE_PHRASE in data.js for why. */}
+                Worded by listingHeading() in data.js, the same as the <title>. */}
             <h1>
-              <em>{category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services'}</em>{' '}
-              {city ? `in ${city}` : 'across India'}
+              <em>{heading.what}</em> {heading.where}
             </h1>
             <p className="lede">
               Every provider on 20fourr has had their identity and PSARA licence checked by our

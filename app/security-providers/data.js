@@ -56,6 +56,29 @@ export const CATEGORY_SERVICE_PHRASE = {
   pso: 'Executive protection',
 };
 
+/* The older city names people still search by. In Semrush's India data (Oct
+ * 2026) "security agency in bangalore" draws 2.4K searches a month and the
+ * Bengaluru form barely registers; "gurgaon" outsearches "gurugram" the same
+ * way. The official name leads, the searched one follows in brackets. */
+const CITY_ALSO_KNOWN_AS = { Bengaluru: 'Bangalore', Gurugram: 'Gurgaon' };
+
+export function cityLabel(city) {
+  const aka = CITY_ALSO_KNOWN_AS[city];
+  return aka ? `${city} (${aka})` : city;
+}
+
+/* The one place a listing view's heading is worded: the <title>, <h1> and the
+ * CollectionPage name all read it, so they cannot drift apart. The unfiltered
+ * views say "services & agencies" because buyers search both ways — "security
+ * agency in {city}" outsearches "security services in {city}" in Bengaluru,
+ * Ahmedabad, Gurugram and Noida. */
+export function listingHeading({ category, city }) {
+  return {
+    what: category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services & agencies',
+    where: city ? `in ${cityLabel(city)}` : 'across India',
+  };
+}
+
 export const CATEGORY_ORDER = ['guard', 'bouncer', 'gunman', 'pso'];
 
 /** Badges are earned from verified documents, never self-declared. */

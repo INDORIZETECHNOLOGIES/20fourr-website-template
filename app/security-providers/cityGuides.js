@@ -274,7 +274,7 @@ export const CITY_GUIDES = {
     reviewed: REVIEWED,
     intro: [
       `Security in Delhi is booked for offices, embassies and corporate events, weddings and venues, residences, and close protection for executives and visiting delegations. ${ROLES_LINE}`,
-      'Delhi is one state in a three-state region. Noida is in Uttar Pradesh and Gurugram is in Haryana, and that matters for which agency can work where.',
+      'Delhi is one state in Delhi NCR, a three-state region. Noida is in Uttar Pradesh and Gurugram is in Haryana, and that matters for which agency can work where.',
     ],
     rules: [
       licenceRule('Delhi', 'Delhi'),
@@ -345,7 +345,7 @@ export const CITY_GUIDES = {
     state: 'Karnataka',
     reviewed: REVIEWED,
     intro: [
-      `Security in Bengaluru is booked for tech parks and offices, warehouses and data centres, apartment complexes, pubs, weddings and venues, and close protection for founders and visiting executives. ${ROLES_LINE}`,
+      `Security in Bengaluru (Bangalore) is booked for tech parks and offices, warehouses and data centres, apartment complexes, pubs, weddings and venues, and close protection for founders and visiting executives. ${ROLES_LINE}`,
       'The figure to know in Karnataka is how many licences have lapsed. Most PSARA licences ever issued in the state are no longer valid, so an agency’s licence is worth checking rather than assuming.',
     ],
     rules: [licenceRule('Bengaluru', 'Karnataka'), expiredRule('Karnataka'), TRAINING_RULE],
@@ -444,7 +444,7 @@ export const CITY_GUIDES = {
     state: 'Haryana',
     reviewed: REVIEWED,
     intro: [
-      `Security in Gurugram is booked for corporate towers and offices, malls, warehouses along the expressways, gated communities, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
+      `Security in Gurugram (Gurgaon) is booked for corporate towers and offices, malls, warehouses along the expressways, gated communities, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
       'Gurugram is in Haryana, not Delhi. An agency licensed only in Delhi or Uttar Pradesh cannot deploy here, even though the three cities share one metro area.',
     ],
     rules: [
