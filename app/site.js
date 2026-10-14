@@ -30,6 +30,13 @@ export const PROVIDER_APP_URL = 'https://provider.20fourr.com';
 export const CLIENT_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.twentyfourr.client';
 export const PROVIDER_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.secureconnect.provider';
 
+/* The public contact address: the same one on both Play Store listings and on
+   every directory listing (Google, Justdial, Sulekha, IndiaMART). Name, phone
+   and email have to match everywhere they appear, or directories and Google
+   treat the listings as different businesses. privacy@ stays on the privacy
+   and legal pages, where it is the address for data requests. */
+export const SUPPORT_EMAIL = 'support@20fourr.com';
+
 /**
  * Company WhatsApp, used for provider onboarding on /join and listed on
  * /support. WHATSAPP_URL is the bare wa.me link; callers append ?text= when

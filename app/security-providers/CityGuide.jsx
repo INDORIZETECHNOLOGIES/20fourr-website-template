@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
+import { jobsPath } from '@/app/security-guard-jobs/content';
 import { relatedCities } from './cityGuides';
 import { CATEGORY_ORDER, CATEGORY_SERVICE_PHRASE, queryProviders } from './data';
 
@@ -19,7 +20,12 @@ export default function CityGuide({ city, guide }) {
       <div className="wrap">
         <Reveal className="head">
           <p className="eyebrow">Hiring in {city}</p>
-          <h2>What applies when you hire security in {city}.</h2>
+          {/* The state is named because buyers search by it too ("security services
+              in gujarat"); Delhi and Chandigarh are their own state or UT. */}
+          <h2>
+            What applies when you hire security in {city}
+            {guide.state !== city ? `, ${guide.state}` : ''}.
+          </h2>
           {guide.intro.map((p) => (
             <p className="lede" key={p}>
               {p}
@@ -66,6 +72,10 @@ export default function CityGuide({ city, guide }) {
           <Link className="text-link" href="/faqs">
             Booking, pricing and cancellation questions &rarr;
           </Link>
+          {/* The job seekers who land on a city page have their own page. */}
+          <Link className="text-link" href={jobsPath(city)}>
+            Security guard jobs in {city} &rarr;
+          </Link>
           {related.map((c) => (
             <Link
               key={c}
@@ -83,11 +93,16 @@ export default function CityGuide({ city, guide }) {
             controlling authority in {guide.state} has the final word.
           </p>
           <ul>
+            {/* A source without a url is cited but not linked — see stateSources(). */}
             {guide.sources.map((s) => (
-              <li key={s.url}>
-                <a href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.label}
-                </a>
+              <li key={s.label}>
+                {s.url ? (
+                  <a href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.label}
+                  </a>
+                ) : (
+                  s.label
+                )}
               </li>
             ))}
           </ul>

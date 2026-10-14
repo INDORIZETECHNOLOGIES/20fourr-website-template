@@ -27,7 +27,7 @@ import {
 const MERGED_SERVICES = [
   {
     code: 'GRD',
-    title: 'Private security agency services',
+    title: 'Security guard services',
     name: 'Security guard',
     body: 'Static post and gate duty for buildings, sites, warehouses and offices. Compare PSARA-verified agencies for manned guarding, gate security and warehouse protection.',
     req: 'PSARA licence · Govt ID · Live selfie',
@@ -54,7 +54,7 @@ const MERGED_SERVICES = [
   },
   {
     code: 'PSO',
-    title: 'Executive protection',
+    title: 'Bodyguard & PSO services',
     name: 'Personal security officer',
     body: 'Dedicated close protection and travel escort for individuals facing a named or credible threat.',
     req: 'Highest tier · PSARA re-checked per booking',
@@ -191,7 +191,7 @@ const ACCOUNTABILITY = [
 export const metadata = {
   title: 'Private Security Services in India: Verified Guards | 20fourr',
   description:
-    'Book PSARA-verified private security in India: manned guarding, event security, armed guards and executive protection. Compare providers and book online.',
+    'Book PSARA-verified private security in India: manned guarding, event security, armed guards and bodyguards (PSOs). Compare providers and book online.',
   alternates: { canonical: '/' },
   openGraph: {
     ...OG_BASE,

@@ -3,7 +3,7 @@ import { Big_Shoulders, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
-import { LEGAL_NAME, OG_BASE, ORG_ID, SITE_URL, WHATSAPP_TELEPHONE } from './site';
+import { LEGAL_NAME, OG_BASE, ORG_ID, SITE_URL, SUPPORT_EMAIL, WHATSAPP_TELEPHONE } from './site';
 
 /* Self-hosted at build time by next/font — no third-party request at runtime,
    and no layout shift, which a <link> to fonts.googleapis.com cannot promise.
@@ -94,7 +94,7 @@ const ORGANIZATION_LD = {
   areaServed: { '@type': 'Country', name: 'India' },
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'privacy@20fourr.com',
+    email: SUPPORT_EMAIL,
     // The company WhatsApp, published on /support and /join.
     telephone: WHATSAPP_TELEPHONE,
     contactType: 'customer support',

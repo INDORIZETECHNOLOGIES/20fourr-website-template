@@ -2,9 +2,9 @@ import { ORG_ID, SITE_URL } from '@/app/site';
 import {
   BADGE_LABEL,
   CATEGORY_LABEL,
-  CATEGORY_SERVICE_PHRASE,
   DIRECTORY_IS_SAMPLE,
   displayName,
+  listingHeading,
   shownCityFor,
 } from './data';
 
@@ -195,8 +195,7 @@ export function providerJsonLd(p) {
  * `position` is offset by the page number so page 3 does not claim to start at 1.
  */
 export function listingJsonLd({ providers, category, city, page, pageSize, canonical, faqs }) {
-  const what = category ? CATEGORY_SERVICE_PHRASE[category] : 'Security services';
-  const where = city ? `in ${city}` : 'across India';
+  const { what, where } = listingHeading({ category, city });
   const url = `${SITE_URL}${canonical}`;
 
   // A city guide's questions, as rendered (see CityGuide.jsx). One FAQPage per URL,

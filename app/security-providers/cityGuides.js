@@ -138,7 +138,7 @@ function licenceRule(city, state) {
   };
 }
 
-const TRAINING_RULE = {
+export const TRAINING_RULE = {
   title: 'Trained before deployment',
   body: 'The central model rules under PSARA, issued by the Ministry of Home Affairs in December 2020, set the training baseline: at least 100 hours of classroom instruction and 60 hours of field training over at least 20 working days for a new guard. Ex-servicemen and former police take a shorter course of 40 hours in class and 16 in the field over at least seven working days.',
 };
@@ -182,7 +182,30 @@ function armedFaq(city, state) {
   };
 }
 
-const trainingFaq = (city) => ({
+/* For "best security agency in {city}": there is no official ranking to quote,
+   and the directory is still sample data, so the honest answer is the checks
+   that separate a good agency from a bad one, with this state's numbers. */
+function chooseFaq(city, state) {
+  const { issued, expired } = STATES[state].licences;
+  const lapsed = expired === '0' ? '' : ` (${expired} of the ${issued} licences issued in ${state} have expired)`;
+  const board =
+    state === 'Maharashtra'
+      ? ' For an office, shop, warehouse or factory, also check whether the Security Guards Board applies to your premises.'
+      : '';
+  return {
+    q: `How do I choose the best security agency in ${city}?`,
+    a: `There is no official ranking of security agencies in ${city}, so hold each one to the same checks. It should hold a PSARA licence issued in ${state} that is still in date${lapsed}. Its guards should have finished the training the PSARA rules require, armed guards need a valid firearm licence for the assignment, and the price should be agreed in writing with GST shown on the invoice.${board} On 20fourr, every provider's licence is verified before they are listed, the price is shown before you book, and every booking comes with an itemised GST invoice.`,
+  };
+}
+
+/* For "security guard charges/price in {city}". Day rates are deliberately not
+   quoted (see the header note); this answers what moves the price instead. */
+const priceFaq = (city) => ({
+  q: `How much does a security guard cost in ${city}?`,
+  a: `It depends on the role and the hours. Armed gunmen and personal security officers cost more than unarmed guards, because of the extra licences and checks behind them, and longer shifts and longer bookings cost more in total. On 20fourr you choose the role and dates for ${city} and see the full price, with GST shown separately, before you book, with no account, phone number or sales call.`,
+});
+
+export const trainingFaq = (city) => ({
   q: `What training should a security guard in ${city} have?`,
   a: 'Under the central model rules for PSARA, a new guard needs at least 100 hours of classroom instruction and 60 hours of field training, spread over at least 20 working days. Ex-servicemen and former police personnel take a condensed course of 40 classroom hours and 16 field hours over at least seven working days.',
 });
@@ -190,7 +213,10 @@ const trainingFaq = (city) => ({
 function stateSources(state) {
   return [
     { label: `${state} PSARA rules, notified ${STATES[state].rulesDate} (official PDF)`, url: STATES[state].rulesUrl },
-    { label: 'Licence counts by state, PSARA portal (Ministry of Home Affairs)', url: `${PORTAL}/` },
+    // No link: the counts were on the portal's home page, which has returned 404
+    // since at least 14 October 2026 (its rules PDFs and officer list still load).
+    // Link it again if the home page comes back.
+    { label: 'Licence counts by state, PSARA portal home page (Ministry of Home Affairs), read 8 October 2026' },
     { label: 'State controlling authorities, PSARA portal', url: `${PORTAL}/Officer_listrpt.aspx` },
   ];
 }
@@ -206,7 +232,7 @@ const GUARDS_BOARD_SOURCES = [
 ];
 
 const ROLES_LINE =
-  'All four roles on 20fourr can be booked here: security guards, bouncers, armed gunmen and personal security officers.';
+  'All four roles on 20fourr can be booked here, from licensed security agencies and companies: security guard services, bouncers, armed gunmen, and bodyguards (personal security officers).';
 
 /* ---------- the guides ---------- */
 
@@ -215,7 +241,7 @@ export const CITY_GUIDES = {
     state: 'Maharashtra',
     reviewed: REVIEWED,
     intro: [
-      `Security in Mumbai is booked for offices and corporate towers, warehouses and docks, housing societies, film shoots, weddings and venues, and close protection for executives and public figures. ${ROLES_LINE}`,
+      `Security in Mumbai, Navi Mumbai and Thane is booked for offices and corporate towers, warehouses and docks, housing societies, film shoots, weddings and venues, and close protection for executives and public figures. ${ROLES_LINE}`,
       'Mumbai is where Maharashtra’s Security Guards Act began. Businesses that employ guards here fall under the Security Guards Board for Greater Mumbai and Thane, on top of the national PSARA licence.',
     ],
     rules: [
@@ -230,6 +256,10 @@ export const CITY_GUIDES = {
       {
         q: 'Does my office in Mumbai have to go through the Security Guards Board?',
         a: 'If your premises is a factory or an establishment such as an office, shop or warehouse in Greater Mumbai or Thane, the Maharashtra Private Security Guards Act, 1981 applies: you register with the Security Guards Board as a principal employer and use guards supplied by the board or by an agency the state has exempted. Check your case with the board before arranging long-term cover.',
+      },
+      {
+        q: 'Does the Security Guards Board cover Navi Mumbai?',
+        a: 'Yes. Navi Mumbai lies in Thane and Raigad districts. The Maharashtra Private Security Guards Act, 1981 first applied to Greater Mumbai and Thane district, and a government notification of 5 December 2002 extended it to Raigad, along with Pune, Nashik, Aurangabad and Nagpur districts. Offices, shops, warehouses and factories in either part of Navi Mumbai that employ guards through an agency fall under it.',
       },
       licenceCheckFaq('Mumbai', 'Maharashtra'),
       armedFaq('Mumbai', 'Maharashtra'),
@@ -271,7 +301,7 @@ export const CITY_GUIDES = {
     reviewed: REVIEWED,
     intro: [
       `Security in Delhi is booked for offices, embassies and corporate events, weddings and venues, residences, and close protection for executives and visiting delegations. ${ROLES_LINE}`,
-      'Delhi is one state in a three-state region. Noida is in Uttar Pradesh and Gurugram is in Haryana, and that matters for which agency can work where.',
+      'Delhi is one state in Delhi NCR, a three-state region. Noida is in Uttar Pradesh and Gurugram is in Haryana, and that matters for which agency can work where.',
     ],
     rules: [
       licenceRule('Delhi', 'Delhi'),
@@ -342,7 +372,7 @@ export const CITY_GUIDES = {
     state: 'Karnataka',
     reviewed: REVIEWED,
     intro: [
-      `Security in Bengaluru is booked for tech parks and offices, warehouses and data centres, apartment complexes, pubs, weddings and venues, and close protection for founders and visiting executives. ${ROLES_LINE}`,
+      `Security in Bengaluru (Bangalore) is booked for tech parks and offices, warehouses and data centres, apartment complexes, pubs, weddings and venues, and close protection for founders and visiting executives. ${ROLES_LINE}`,
       'The figure to know in Karnataka is how many licences have lapsed. Most PSARA licences ever issued in the state are no longer valid, so an agency’s licence is worth checking rather than assuming.',
     ],
     rules: [licenceRule('Bengaluru', 'Karnataka'), expiredRule('Karnataka'), TRAINING_RULE],
@@ -441,7 +471,7 @@ export const CITY_GUIDES = {
     state: 'Haryana',
     reviewed: REVIEWED,
     intro: [
-      `Security in Gurugram is booked for corporate towers and offices, malls, warehouses along the expressways, gated communities, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
+      `Security in Gurugram (Gurgaon) is booked for corporate towers and offices, malls, warehouses along the expressways, gated communities, weddings and venues, and close protection for executives. ${ROLES_LINE}`,
       'Gurugram is in Haryana, not Delhi. An agency licensed only in Delhi or Uttar Pradesh cannot deploy here, even though the three cities share one metro area.',
     ],
     rules: [
@@ -593,6 +623,24 @@ export const CITY_GUIDES = {
     sources: [...stateSources('Kerala'), TRAINING_SOURCE],
   },
 };
+
+// Two questions every city gets, last so each guide's own first question stays
+// the one open by default.
+for (const [city, guide] of Object.entries(CITY_GUIDES)) {
+  guide.faqs.push(chooseFaq(city, guide.state), priceFaq(city));
+}
+
+/** What work in a city is booked for: the guide's first sentence, without the
+ *  client-facing roles line. Shared with the security-guard-jobs pages. */
+export function demandLine(city) {
+  return CITY_GUIDES[city].intro[0].replace(ROLES_LINE, '').trim();
+}
+
+/** The licensing facts for a state, for pages outside the guides. */
+export function stateFacts(state) {
+  const { authority, rulesDate, rulesUrl } = STATES[state];
+  return { authority, rulesDate, rulesUrl };
+}
 
 export function cityGuideFor(city) {
   return city ? CITY_GUIDES[city] : undefined;

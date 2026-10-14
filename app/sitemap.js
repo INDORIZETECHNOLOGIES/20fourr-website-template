@@ -6,6 +6,7 @@ import {
   queryProviders,
 } from './security-providers/data';
 import { CITY_GUIDES } from './security-providers/cityGuides';
+import { JOB_CITIES, jobsPath } from './security-guard-jobs/content';
 import { SITE_URL } from './site';
 
 const BASE = SITE_URL;
@@ -85,6 +86,13 @@ export default function sitemap() {
     // sitemap sends a mixed signal. Add them once each is reviewed and its
     // robots.index flips to true.
     { url: `${BASE}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
+
+    // City pages for people looking for security work (security-guard-jobs/content.js).
+    ...JOB_CITIES.map((city) => ({
+      url: `${BASE}${jobsPath(city)}`,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    })),
 
     ...listingEntry({}, 0.9),
     ...CATEGORY_ORDER.flatMap((category) => listingEntry({ category }, 0.8)),

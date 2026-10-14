@@ -1,6 +1,7 @@
 import JsonLd from '@/components/JsonLd';
 import JumpNav from './JumpNav';
 import { LEGAL_NAME, OG_BASE, SITE_URL } from '../site';
+import Email from '@/components/Email';
 
 /**
  * DRAFT — see the callout at the top of the page. Every figure below is
@@ -160,7 +161,7 @@ export default function RefundsPage() {
                 <div className="rows">
                   <div className="row">
                     <span className="row__k">Email</span>
-                    <span className="row__v">privacy@20fourr.com</span>
+                    <span className="row__v"><Email /></span>
                   </div>
                   <div className="row">
                     <span className="row__k">Address</span>

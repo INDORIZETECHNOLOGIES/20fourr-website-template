@@ -225,8 +225,14 @@ export default async function ProviderPage({ params }) {
               >
                 Book this provider
               </a>
-              <Link className="btn btn--ghost" href="/security-providers">
-                Back to all providers
+              {/* The city page, not the whole directory: the "Providers" crumb
+                  already covers that, and this is the link that gives city pages
+                  an internal link from every profile in them. */}
+              <Link
+                className="btn btn--ghost"
+                href={`/security-providers?city=${encodeURIComponent(provider.city)}`}
+              >
+                More providers in {provider.city}
               </Link>
             </div>
           </Reveal>
