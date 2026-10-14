@@ -37,6 +37,24 @@ export const PROVIDER_PLAY_URL = 'https://play.google.com/store/apps/details?id=
    and legal pages, where it is the address for data requests. */
 export const SUPPORT_EMAIL = 'support@20fourr.com';
 
+/* The Google Business Profile (live 14 Oct 2026), by its Maps CID and place ID
+   so the links survive a rename. GOOGLE_REVIEW_URL opens the review form
+   directly (Google asks the reviewer to sign in first). */
+export const GOOGLE_MAPS_URL = 'https://maps.google.com/?cid=3423478342846877344';
+export const GOOGLE_REVIEW_URL =
+  'https://search.google.com/local/writereview?placeid=ChIJW1eRZRgpCTkRoI6hGWqjgi8';
+
+/* The brand's own profiles, as clean URLs: no share, session or tracking
+   parameters (the share links the platforms hand out carry them). The footer
+   icons and the schema's sameAs both read these. LinkedIn is a showcase page,
+   not a company page. Reddit is a personal account, so it gets a footer icon
+   but stays out of the schema. */
+export const X_URL = 'https://x.com/20_fourr';
+export const INSTAGRAM_URL = 'https://www.instagram.com/20_fourr';
+export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61592917686310';
+export const LINKEDIN_URL = 'https://www.linkedin.com/showcase/20-fourr/';
+export const REDDIT_URL = 'https://www.reddit.com/user/ArpitRautela01/';
+
 /**
  * Company WhatsApp, used for provider onboarding on /join and listed on
  * /support. WHATSAPP_URL is the bare wa.me link; callers append ?text= when

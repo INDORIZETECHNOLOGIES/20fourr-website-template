@@ -1428,8 +1428,14 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
 }
 .foot__credit { margin: 0; display: flex; flex-wrap: wrap; column-gap: 10px; row-gap: 6px; }
 .foot__credit span + span::before { content: "·"; margin-right: 10px; }
-.social { display: flex; gap: 4px; margin-right: -9px; }
-.social a { display: grid; place-items: center; width: 36px; height: 36px; }
+.social { display: flex; gap: 8px; }
+.social a {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  color: var(--paper); border: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
+  transition: color .15s, border-color .15s, background-color .15s;
+}
+.social a:hover { color: var(--amber); border-color: var(--amber); background: color-mix(in srgb, var(--paper) 5%, transparent); }
+.social a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 
 @media (max-width: 1000px) {
   .foot__top { grid-template-columns: 1fr; }
@@ -1446,7 +1452,6 @@ abbr[title] { text-decoration: underline dotted; text-decoration-color: var(--te
   .foot__credit { flex-direction: column; }
   .foot__credit span + span::before { content: none; }
   .foot__legal { flex-direction: column-reverse; align-items: flex-start; }
-  .social { margin-left: -9px; margin-right: 0; }
 }
 
 /* ============================================================
