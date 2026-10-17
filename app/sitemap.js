@@ -82,6 +82,8 @@ export default function sitemap() {
     // site has no Hindi version, so for that audience this is still the page.
     { url: `${BASE}/join/hi`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/faqs`, changeFrequency: 'monthly', priority: 0.7 },
+    // "psara license" out-searches every city query the site targets combined.
+    { url: `${BASE}/psara-license`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/support`, changeFrequency: 'monthly', priority: 0.5 },
     // /terms, /refunds and /grievance are deliberately excluded here — they're
     // still noindex drafts (see their own metadata), and a noindex page in the

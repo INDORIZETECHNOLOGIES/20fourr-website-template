@@ -23,6 +23,7 @@ const COLUMNS = [
     links: [
       ['How it works', '/#how'],
       ['PSARA & verification', '/#trust'],
+      ['Check a PSARA licence', '/psara-license'],
       ['Become a provider', '/join'],
       ['Help centre', '/faqs'],
       ['Support', '/support'],
