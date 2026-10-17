@@ -72,6 +72,9 @@ export default function CityGuide({ city, guide }) {
           <Link className="text-link" href="/faqs">
             Booking, pricing and cancellation questions &rarr;
           </Link>
+          <Link className="text-link" href="/psara-license">
+            How to check a PSARA licence &rarr;
+          </Link>
           {/* The job seekers who land on a city page have their own page. */}
           <Link className="text-link" href={jobsPath(city)}>
             Security guard jobs in {city} &rarr;

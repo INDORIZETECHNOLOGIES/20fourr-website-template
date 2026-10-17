@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import JsonLd from '@/components/JsonLd';
 import Reveal from '@/components/Reveal';
+import CategoryGuide from './CategoryGuide';
+import { categoryGuideFor } from './categoryGuides';
 import CityGuide from './CityGuide';
 import { CITY_GUIDES, cityGuideFor } from './cityGuides';
 import Filters from './Filters';
@@ -107,6 +109,8 @@ export default async function ProvidersPage({ searchParams }) {
 
   // The guide belongs to the city, not to a filtered or paginated slice of it.
   const guide = !category && page === 1 ? cityGuideFor(city) : undefined;
+  // And the service's guide belongs to the service across India (categoryGuides.js).
+  const serviceGuide = categoryGuideFor({ category, city, page });
 
   return (
     <>
@@ -120,7 +124,7 @@ export default async function ProvidersPage({ searchParams }) {
           page,
           pageSize: PAGE_SIZE,
           canonical: canonicalFor({ ...view, page }),
-          faqs: guide?.faqs,
+          faqs: guide?.faqs ?? serviceGuide?.faqs,
         })}
       />
 
@@ -202,6 +206,7 @@ export default async function ProvidersPage({ searchParams }) {
       </section>
 
       {guide && <CityGuide city={city} guide={guide} />}
+      {serviceGuide && <CategoryGuide category={category} guide={serviceGuide} />}
 
       {/* ---------- cta ---------- */}
       <section className="band">

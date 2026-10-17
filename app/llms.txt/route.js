@@ -28,6 +28,7 @@ export function GET() {
 
 - [Home](${SITE_URL}/): how booking, verification and duty codes work
 - [Security providers](${SITE_URL}/security-providers): the directory, filterable by service (guards, bouncers, gunmen, PSOs) and city
+- [PSARA licence](${SITE_URL}/psara-license): how to check a security agency's PSARA licence on psara.gov.in, fees, validity, renewal, and licences issued, active and expired by state
 - [FAQs](${SITE_URL}/faqs): PSARA verification, what a badge proves, GST-inclusive pricing, cancellations, what happens on duty
 - [Support](${SITE_URL}/support): contact, booking issues, account deletion
 
